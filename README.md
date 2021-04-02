@@ -1,4 +1,13 @@
-This is the starter template for CS312 projects based on Next.js](https://nextjs.org/). _You should replace this portion with a description of your project._
+[![Build Status](https://travis-ci.com/csci312-s21/project-banana-bandicoot.svg?branch=main)](https://travis-ci.com/csci312-s21/project-banana-bandicoot)
+
+This is the starter template for CS312 projects based on Next.js](https://nextjs.org/).
+
+
+https://project-banana-bandicoot.herokuapp.com/
+
+ _HobbyBuddy is a network based sharing platform that aims to connect students with similar hobbies or interests. Users are able to create groups, join existing ones, and leave them when necessary. Additioanlly, they can communicate with members of their groups to set a time and location to meet, or converse about common interests._
+
+
 
 The project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), and includes a number of additional libraries, including the Rest Testing Library, Jest, and ESLint, among others. It also includes the basic configuration for using Travis CI.
 
