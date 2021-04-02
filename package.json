@@ -1,10 +1,16 @@
 {
-  "name": "project-template",
+  "name": "Hobby-Buddy",
   "version": "0.1.0",
   "private": true,
   "contributors": [
-    "Your names here"
+    "Leili Manafi",
+    "Samantha Enriquez",
+    "Katelyn Pease",
+    "Daniel Brey",
+    "Corey Scheinfeld"
   ],
+  "repository": "https://github.com/csci312-s21/project-banana-bandicoot",
+  "description": "Network based sharing platform that aims to connect students with similar hobbies or interests. Users are able to create groups, join existing ones, and leave them when necessary. Additioanlly, they can communicate with members of their groups to set a time and location to meet, or converse about common interests.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,7 +22,8 @@
     "next": "10.0.8",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "travis-badge": "^1.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
