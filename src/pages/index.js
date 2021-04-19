@@ -39,9 +39,12 @@ export default function Home() {
       <main>
         
         <h1 className="title">{hobby} events</h1>
+
+        <ul>
         {collection.filter(event => event.hobby == hobby).map(event =>(
             <Event title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
         ))}
+        </ul>
         <br></br>
         <input type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
