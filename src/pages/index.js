@@ -42,7 +42,7 @@ export default function Home() {
             <Event title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
         ))}</ul>
         <br></br>
-        <input className={styles.button} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
+        <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
 
       <footer>A CS 312 Project</footer>

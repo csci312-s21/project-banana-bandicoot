@@ -5,7 +5,6 @@
         height: auto; 
         overflow: hidden;  
         margin: auto;  
-         
         padding: 80px;  
         background: #BAB2B5;  
         border-radius: 10px ;  
@@ -16,6 +15,7 @@
 .text{
   margin-left: 150px;
 }
+
 .p{
 
   font-family: "Times New Roman", Times, serif;
