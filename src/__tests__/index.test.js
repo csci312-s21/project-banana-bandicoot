@@ -2,9 +2,7 @@
  Tests of our top-level component.
  */
 
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import fetchMock from "fetch-mock-jest";
-import { act } from "react-dom/test-utils";
+import { render,  } from "@testing-library/react";
 
 import Home from "../pages/index";
 
@@ -17,8 +15,4 @@ test("Smoke test", async () => {
 });
 
 });
-
-
-})
-
 

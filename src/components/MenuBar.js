@@ -13,7 +13,7 @@ return (
     <div className={styles.container}>
 
     {icon}
-    <br></br>
+    <br />
     <button className = {styles.button1} >+ add hobby</button>
 
       <ul className={styles.ul}>
