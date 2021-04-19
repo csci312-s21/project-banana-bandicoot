@@ -1,3 +1,6 @@
+import styles from "../styles/AddEvent.module.css";
+
+
 import { useState, useEffect } from "react";
 
 export default function AddEvent({complete, currHobby}){
@@ -15,21 +18,50 @@ export default function AddEvent({complete, currHobby}){
   const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, time: timeInput,location: locationInput, number_joined: 1, max_number: capacityInput};
 
   return(
+    <div className={styles.add}>
+
+    <div className={styles.text}>
     <form>
+      <p className={styles.p}> Add Event </p>
+      
+      <br></br>
+      <label>
+      <b>Event:     
+        </b>    
+      </label>
+      <br></br> 
+
       <input type="text" id="text_hobby" name="hobby" placeholder = "Hobby must be set" value = {hobbyInput} onChange = {() => setHobby(event.target.value)}/>
+      <br></br>
+      <label>
+      <b>Title:     
+        </b>    
+      </label>  
 
       <br></br>
       
       <input type="text" id="text_title" name="title" placeholder = "title must be set" value = {titleInput} onChange = {() => setTitle(event.target.value)}/>
-
+      <br></br>
+      <label>
+      <b>Time:     
+        </b>    
+      </label>  
       <br></br>
 
       <input type="text" id="text_time" name="time" placeholder = "set time of event" value = {timeInput} onChange = {() => setTime(event.target.value)}/>
-
+      <br></br>
+      <label>
+      <b>Location:     
+        </b>    
+      </label>  
       <br></br>
 
       <input type="location" id="text_location" name="location" placeholder = "set  location of event" value = {locationInput} onChange = {() => setLocation(event.target.value)}/>
-
+      <br></br>
+      <label>
+      <b>Capacity:     
+        </b>    
+      </label>  
       <br></br>
 
       <input type="text" id="text_capacity" name="capacity" placeholder = "set capacity of event" value = {capacityInput} onChange = {() => setCapacity(event.target.value)}/>
@@ -41,5 +73,7 @@ export default function AddEvent({complete, currHobby}){
       <input type = "button" id = "cancelButton" name = "cancelButton" onClick = {() => complete()} value = "Cancel"/>
       
       </form>
+      </div>
+      </div>
   );
 }

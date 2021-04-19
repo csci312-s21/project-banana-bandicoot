@@ -26,8 +26,6 @@ export default function Home() {
     setPage("main");
   }
 
-
-
   if(currentPage === "main"){
     return (
     <div className={styles.container}>
@@ -38,12 +36,13 @@ export default function Home() {
 
       <main>
         
-        <h1 className="title">{hobby} events</h1>
+        <h1 className={styles.title}>{hobby} events</h1> 
+        <ul>
         {collection.filter(event => event.hobby == hobby).map(event =>(
             <Event title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
-        ))}
+        ))}</ul>
         <br></br>
-        <input type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
+        <input className={styles.button} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
 
       <footer>A CS 312 Project</footer>
@@ -52,7 +51,6 @@ export default function Home() {
   } else if(currentPage === "add"){
     return(
       <div>
-        <h2>Add Event</h2>
         <AddEvent complete = {complete} currHobby = {hobby}/>
       </div>
       );

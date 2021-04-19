@@ -5,5 +5,50 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #EEE2DC ;
 }
 
+.list{
+  text-decoration: none;
+  color: #2F4454;
+}
+
+.list:hover {
+  font-weight: 900;
+}
+
+.title{
+  color: #2C3531;
+  
+}
+.title:hover{
+  font-weight: 900;
+}
+
+.button {
+  
+  background-color: #123C69;
+  border: none;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 110px;
+  
+}
+.botton:hover {
+  background-color: white;
+}
+
+
+
+
+///background-image:
+  /* linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 90px, transparent 81px),
+  linear-gradient(rgb(255, 255, 255) .1em, transparent .1em);
+  background-size: 100% 1.2em; */
