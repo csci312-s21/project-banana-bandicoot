@@ -2,7 +2,7 @@
  Tests of our top-level component.
  */
 
-import { render } from "@testing-library/react";
+import { render,  } from "@testing-library/react";
 
 import Home from "../pages/index";
 
@@ -15,3 +15,4 @@ test("Smoke test", async () => {
 });
 
 });
+

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 import Head from "next/head";
@@ -10,13 +11,32 @@ import Event from "../components/Event.js";
 
 import AddEvent from "../components/AddEvent.js";
 
+import MenuBar from "../components/MenuBar";
+
+
 export default function Home() {
-
+  const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
-
-  const [hobby, setHobby] = useState("chess");
-  
+  const [hobby, setHobby] = useState("");
   const [currentPage, setPage] = useState("main");
+
+  const icon = (
+    <span  onClick={() => {toggleMenu(!visible)}}>
+    {visible ? null : "☰"}</span>
+    );
+
+  const hobbies = [];
+  collection.forEach((event)=> //determine sections
+  {if(hobbies.includes(event.hobby)){
+    return null;
+  }
+  else{
+    hobbies.push(event.hobby);
+  }
+  }
+  );
+  hobbies.sort(); 
+
 
   function complete (newEvent){
       if(newEvent != null){
@@ -25,10 +45,18 @@ export default function Home() {
       }
     setPage("main");
   }
+  
 
   if(currentPage === "main"){
-    return (
+  return (
+    <div className={styles.mainContainer}>
     <div className={styles.container}>
+    <div>
+    {icon}
+    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
+    </div>
+    {hobby?  
+    <div>
       <Head>
         <title>{hobby} events</title>
         <link rel="icon" href="/favicon.ico" />
@@ -41,10 +69,11 @@ export default function Home() {
         {collection.filter(event => event.hobby == hobby).map(event =>(
             <Event title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
         ))}</ul>
-        <br></br>
+        <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
-
+      </div>: <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Let's Go! - DaBaby</h5> </div>}
+      </div>
       <footer>A CS 312 Project</footer>
     </div>  
     );

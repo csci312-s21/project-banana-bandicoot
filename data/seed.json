@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "hobby": "chess",
+    "hobby": "Chess",
     "title": "Chess Tournament!",
     "time": "2016-12-07 T23:22:33.357Z",
     "location": "DANA Auditorium",
@@ -10,7 +10,7 @@
   },
   {
     "id": "2",
-    "hobby": "chess",
+    "hobby": "Chess",
     "title": "Chess Club Practice, bring friends",
     "time": "2016-12-09 T23:20:35.357Z",
     "location": "Wilson Cafe",
@@ -19,7 +19,7 @@
   },
   {
     "id": "3",
-    "hobby": "chess",
+    "hobby": "Chess",
     "title": "Chess Opening Overview",
     "time": "2016-12-15 T21:22:32.357Z",
     "location": "Mccolough Lawn",
