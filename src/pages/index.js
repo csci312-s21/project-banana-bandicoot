@@ -53,10 +53,10 @@ export default function Home() {
     <div className={styles.container}>
     <div>
     {icon}
-
     {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
     </div>
     {hobby? 
+
     <div>
       <Head>
         <title>{hobby} events</title>

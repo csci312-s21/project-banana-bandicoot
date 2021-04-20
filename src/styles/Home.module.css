@@ -5,6 +5,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   background-color: #EEE2DC ;
+
 }
 
 .Header{
@@ -20,7 +21,6 @@
   text-align: center;
   margin-left: 110px;
 }
-
 
 .container {
   min-height: 50vh;
