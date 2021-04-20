@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 export default function Event({ title, time, location , numJoined , maxNumber }) {
 
@@ -6,9 +6,8 @@ export default function Event({ title, time, location , numJoined , maxNumber })
 
   const [numPeople, setNumPeople ] = useState(numJoined);
 
- useEffect(() =>{
-    console.log(numPeople);
-  }, [numPeople]);
+//  useEffect(() =>{
+//   }, [numPeople]);
 
 return (
         <div className={styles.list}>

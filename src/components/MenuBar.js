@@ -16,8 +16,9 @@ export default function MenuBar({visible, toggleMenu, select, allHobbies}){
 return (
    
     <div className={styles.container}>
-
+    <div>
     {icon}
+    </div>
     <br />
     <button className = {styles.button1} >+ add hobby</button>
 

@@ -21,7 +21,7 @@ export default function Home() {
   const [currentPage, setPage] = useState("main");
 
   const icon = (
-    <span  onClick={() => {toggleMenu(!visible)}}>
+    <span onClick={() => {toggleMenu(!visible)}}>
     {visible ? null : "☰"}</span>
     );
 
@@ -66,13 +66,13 @@ export default function Home() {
         
         <h1 className={styles.title}>{hobby} events</h1> 
         <ul>
-        {collection.filter(event => event.hobby == hobby).map(event =>(
-            <Event title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
+        {collection.filter(event => event.hobby === hobby).map(event =>(
+            <Event key={event} title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
         ))}</ul>
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
-      </div>: <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Let's Go! - DaBaby</h5> </div>}
+      </div>: <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5></div>}
       </div>
       <footer>A CS 312 Project</footer>
     </div>  

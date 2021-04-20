@@ -50,14 +50,13 @@
 
 .title{
   color: #2C3531;
-  
 }
+
 .title:hover{
   font-weight: 900;
 }
 
 .button {
-  
   background-color: #123C69;
   border: none;
   color: white;
@@ -92,3 +91,6 @@
 }
 
 
+.icon{
+  margin-left: 5px;
+}
