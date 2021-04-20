@@ -16,10 +16,12 @@
 
 }
 
+
 .welcome{
   text-align: center;
   margin-left: 110px;
 }
+
 
 .container {
   min-height: 50vh;
@@ -93,4 +95,6 @@
 
 .icon{
   margin-left: 5px;
+  justify-content: flex-start;
+  align-items: flex-start; 
 }

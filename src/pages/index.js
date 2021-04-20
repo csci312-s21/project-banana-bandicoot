@@ -38,6 +38,7 @@ export default function Home() {
   hobbies.sort(); 
 
 
+
   function complete (newEvent){
       if(newEvent != null){
         const coll_copy = [...collection, newEvent];
@@ -53,6 +54,7 @@ export default function Home() {
     <div className={styles.container}>
     <div>
     {icon}
+
     {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
     </div>
     {hobby?  
@@ -72,7 +74,9 @@ export default function Home() {
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
-      </div>: <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5></div>}
+
+      </div>: 
+      <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5></div>}
       </div>
       <footer>A CS 312 Project</footer>
     </div>  
