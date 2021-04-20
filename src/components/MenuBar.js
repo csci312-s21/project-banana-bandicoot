@@ -1,8 +1,8 @@
 
 import styles from "../styles/MenuBar.module.css";
 
-
 export default function MenuBar({visible, toggleMenu, select, allHobbies}){
+
   const icon = (
     <span  onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
     {visible ? "☰": null} &emsp;Hobby Buddy</span>
@@ -25,6 +25,7 @@ return (
 
       </ul>
    </div>
+
   );
 
 }

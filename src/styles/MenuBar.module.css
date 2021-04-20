@@ -28,15 +28,13 @@
 .li curr:hover{
   background-color: #a9d5ce;
   color: white;
+
 }
 
 .menuHeader{
   margin: 10px;
   height: 100%;
   width: 100%; 
-  margin-top: 20px;
-  padding-top: 10px;
-
 
 }
 
@@ -60,4 +58,3 @@
   color: white;
 
 }
-
