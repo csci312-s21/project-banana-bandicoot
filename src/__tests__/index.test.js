@@ -2,11 +2,9 @@
  Tests of our top-level component.
  */
 
-import { render } from "@testing-library/react";
+import { render,  } from "@testing-library/react";
 
 import Home from "../pages/index";
-
-
 
 describe("MainSection Component", ()=> {
 test("Smoke test", async () => {
@@ -14,8 +12,10 @@ test("Smoke test", async () => {
 
 });
 
+
 });
 
+<<<<<<< HEAD
 
 /*
  Tests of our top-level component.
@@ -120,3 +120,5 @@ describe("Top level integration tests", () => {
 });
 
 */
+=======
+>>>>>>> a868bae1bbc8717798e687e78c4de2a0704bd91c
