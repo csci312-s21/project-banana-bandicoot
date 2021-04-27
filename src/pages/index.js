@@ -64,7 +64,7 @@ export default function Home() {
       </Head>
 
       <main>
-        
+
         <h1 className={styles.title}>{hobby} events</h1> 
         <ul>
         {collection.filter(event => event.hobby === hobby).map(event =>(
