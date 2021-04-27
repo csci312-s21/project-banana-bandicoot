@@ -15,8 +15,6 @@ test("Smoke test", async () => {
 
 });
 
-<<<<<<< HEAD
-
 /*
  Tests of our top-level component.
 
@@ -120,5 +118,3 @@ describe("Top level integration tests", () => {
 });
 
 */
-=======
->>>>>>> a868bae1bbc8717798e687e78c4de2a0704bd91c
