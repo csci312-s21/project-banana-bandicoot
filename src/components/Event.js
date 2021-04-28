@@ -9,18 +9,23 @@ export default function Event({ title, time, location , numJoined , maxNumber })
 //  useEffect(() =>{
 //   }, [numPeople]);
 
-return (
-        <div className={styles.list}>
-          <ul >
-            <li> <div>
-            <h4> {title} </h4>
-            <h5> {location} || {time} </h5>
-            <h5> Spots: {numPeople} / {maxNumber} </h5>
-            <input className={styles.button} type = "button" id = "joinButton" name = "joinButton" value = "Join" onClick = {() => setNumPeople(numPeople + 1)}/>
-            
-            </div> </li>
-          </ul>
-        </div>
-);
-}
+  return (
+          <div className={styles.list}>
+            <ul>
+              <li> 
+                <div>
+                  <h4> {title} </h4>
+                  <h5> {location} || {new Date(time).toLocaleString()} </h5>
+                  <h5> Spots: {numPeople} / {maxNumber} </h5>
 
+                  <input className={styles.button} type = "button" id = "joinButton" name = "joinButton" value = "Join" onClick = {() => setNumPeople(numPeople + 1)} hidden = {numPeople === maxNumber} disabled = {numPeople === maxNumber}/>
+
+                  <input className = {styles.button} type = "button" id = "leavebutton" value = "Leave" onClick = {() => setNumPeople(numPeople - 1)} hidden = {numPeople === 0} disabled = {numPeople === 0}/>
+
+                  <h3 hidden = {numPeople < maxNumber}> Sorry, {title} is full! </h3>
+                </div> 
+              </li>
+            </ul>
+          </div>
+  );
+}
