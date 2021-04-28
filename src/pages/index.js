@@ -7,11 +7,14 @@ import styles from "../styles/Home.module.css";
 
 import data from "../../data/seed.json";
 
+
 import Event from "../components/Event.js";
 
 import AddEvent from "../components/AddEvent.js";
 
 import MenuBar from "../components/MenuBar";
+
+import ProfilePage from "../components/ProfilePage.js"
 
 
 export default function Home() {
@@ -53,7 +56,7 @@ export default function Home() {
     <div className={styles.container}>
     <div>
     {icon}
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
+    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage} />: null }
     </div>
     {hobby? 
 
@@ -87,6 +90,12 @@ export default function Home() {
         <AddEvent complete = {complete} currHobby = {hobby}/>
       </div>
       );
+  } else if(currentPage === "profile"){
+    return (
+      <div>
+    <ProfilePage setPage = {setPage} />
+    </div>
+    );
   }
   
 }

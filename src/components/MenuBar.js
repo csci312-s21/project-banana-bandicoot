@@ -1,7 +1,7 @@
 
 import styles from "../styles/MenuBar.module.css";
 
-export default function MenuBar({visible, toggleMenu, select, allHobbies}){
+export default function MenuBar({visible, toggleMenu, select, allHobbies, setPage}){
   const icon = (
     <span  onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
     {visible ? "☰": null} &emsp;Hobby Buddy</span>
@@ -20,7 +20,7 @@ return (
     <button className = {styles.button1} >+ add hobby</button>
 
       <ul className={styles.ul}>
-
+      <p onClick={() => { setPage("profile"); }}> Profile Page </p>
        {hobbiesList}
 
       </ul>
