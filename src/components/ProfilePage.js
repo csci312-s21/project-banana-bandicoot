@@ -8,7 +8,7 @@ export default function ProfilePage({setPage}){
 //var img = new Image(); 
 //var div = document.getElementById('x');
 
-
+//var x = document.getElementById("skiing");
  
  
 // img.onload = function() { 

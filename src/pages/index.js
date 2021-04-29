@@ -16,12 +16,15 @@ import MenuBar from "../components/MenuBar";
 
 import ProfilePage from "../components/ProfilePage.js"
 
+import LoginPage from "../components/LoginPage.js"
+
 
 export default function Home() {
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
   const [hobby, setHobby] = useState("");
-  const [currentPage, setPage] = useState("main");
+  const [currentPage, setPage] = useState("login");
+  const [person, setPerson] = useState("");
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}}>
@@ -47,6 +50,14 @@ export default function Home() {
         setCollection(coll_copy);
       }
     setPage("main");
+  }
+
+  if(currentPage === "login") {
+   return (
+      <div>
+      <LoginPage setPage = {setPage} />
+      </div>
+    );
   }
   
 
