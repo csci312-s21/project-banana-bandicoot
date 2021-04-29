@@ -5,25 +5,8 @@ import styles from "../styles/ProfilePage.module.css";
 
 export default function ProfilePage({setPage}){
 
-//var img = new Image(); 
-//var div = document.getElementById('x');
+//img
 
-//var x = document.getElementById("skiing");
- 
- 
-// img.onload = function() { 
- 
-//   div.innerHTML += '<img src="'+img.src+'" />';  
- 
-// }; 
- 
- 
-// img.src = 'skiing.jpg'; 
-
-// <h2>HTML Image</h2>
-//         <div>
-//         <img src={image.src} alt="Trulli" width="500"height="333"> </img>
-//          </div>
 return (
   <div>
   <div className={styles.left}>

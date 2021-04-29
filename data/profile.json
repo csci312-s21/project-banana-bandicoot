@@ -18,5 +18,16 @@
     "hobby": "Basketball and Hiking",
     "bio": "AHHHHHHH IM STRESSED",
     "username": "ESamantha7",
-    "password": "codingiscool!"}
+    "password": "codingiscool!"
+    },
+    {"name": "Samantha Enriquez",
+    "hometown": "Alhambra",
+    "birthday": "2000-05-05",
+    "major": "Computer Science and Spanish",
+    "year": "2022",
+    "hobby": "Basketball and Hiking",
+    "bio": "AHHHHHHH IM STRESSED",
+    "username": "why",
+    "password": "donyouwork!"
+    }
 ]

@@ -9,15 +9,16 @@ const [password, setPassword] = useState("");
 const [username, setUsername] = useState("");
 
  function toggle(username, password){
-  //const findPerson=profileData.map((person)=>{
-    if (profileData[0].password === password && profileData[0].username === username){
-      setPage("main")
-      //returnPerson(person)
-    }else{
-      setPage("login")
+  for (let i = 0; i < profileData.length; i++) {
+    console.log(i)
+  if (profileData[i].password === password && profileData[i].username === username){
+      return (
+        setPage("main")
+      );
     }
-  //})
- }
+  }
+}
+
   return (
     <div className = {styles.center}>
     <h1>Welcome!</h1>
