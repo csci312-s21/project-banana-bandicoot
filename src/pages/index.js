@@ -13,7 +13,6 @@ import AddEvent from "../components/AddEvent.js";
 
 import MenuBar from "../components/MenuBar";
 
-
 export default function Home() {
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
@@ -21,8 +20,8 @@ export default function Home() {
   const [currentPage, setPage] = useState("main");
 
   const icon = (
-    <span onClick={() => {toggleMenu(!visible)}}>
-    {visible ? null : "☰"}</span>
+    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
+    {visible ? null : "☰"}</div>
     );
 
   const hobbies = [];
@@ -50,10 +49,20 @@ export default function Home() {
   if(currentPage === "main"){
   return (
     <div className={styles.mainContainer}>
-    <div className={styles.container}>
     <div>
+    <div className = {styles.sideBar}>
+    <MenuBar  visible = {true} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>
+
+    </div>
+    <div className = {styles.icon}>
     {icon}
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
+    </div>
+
+    <div>
+
+     
+     {visible? <MenuBar  visible = {true} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>: null}
+
     </div>
     {hobby? 
 
@@ -61,6 +70,7 @@ export default function Home() {
       <Head>
         <title>{hobby} events</title>
         <link rel="icon" href="/favicon.ico" />
+        
       </Head>
 
       <main>
@@ -75,10 +85,11 @@ export default function Home() {
       </main>
 
       </div>: 
-      <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5></div>}
-
+      <div className={styles.welcome}>
+      <h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5></div>}
       </div>
-      <footer>A CS 312 Project</footer>
+      <footer className = {styles.footer}>A CS 312 Project</footer>
+      
     </div>  
     );
   } else if(currentPage === "add"){
@@ -88,5 +99,4 @@ export default function Home() {
       </div>
       );
   }
-  
 }
