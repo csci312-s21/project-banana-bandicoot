@@ -9,16 +9,31 @@ import data from "../../data/seed.json";
 
 import Event from "../components/Event.js";
 
+import MyEvents from "../components/MyEvents.js";
+
 import AddEvent from "../components/AddEvent.js";
 
 import MenuBar from "../components/MenuBar";
 
+import userData from "../../data/users.json";
 
 export default function Home() {
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
   const [hobby, setHobby] = useState("");
   const [currentPage, setPage] = useState("main");
+
+  const sampleUsername = "ChrisRocks123";
+
+  const initialUser = userData.find(user => (user.username === sampleUsername));
+
+  const [myUsersData, setMyUsersData] = useState(initialUser);
+   
+  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
+
+  const [myJoinedEvents, setMyJoinedEvents] = useState(
+    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
+  );
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}}>
@@ -38,7 +53,7 @@ export default function Home() {
   hobbies.sort(); 
 
 
-  function complete (newEvent){
+  function addNewEvent (newEvent){
       if(newEvent != null){
         const coll_copy = [...collection, newEvent];
         setCollection(coll_copy);
@@ -46,6 +61,14 @@ export default function Home() {
     setPage("main");
   }
   
+  function joinEvent(joinedEvent){
+    const joinedEventsCopy =  [...myJoinedEvents, joinedEvent];
+    setMyJoinedEvents(joinedEventsCopy);
+    const listJoinedEvents = [...listJoinedEvents, joinedEvent.id];
+    setJoinedEventIDs(listJoinedEvents);
+  }
+
+
 
   if(currentPage === "main"){
   return (
@@ -68,25 +91,41 @@ export default function Home() {
         <h1 className={styles.title}>{hobby} events</h1> 
         <ul>
         {collection.filter(event => event.hobby === hobby).map(event =>(
-            <Event key={event} title = {event.title} time = {event.time} location = {event.location} numJoined = {event.number_joined} maxNumber = {event.max_number}/>
+            <Event key={event} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent}/>
         ))}</ul>
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </main>
 
       </div>: 
-      <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5></div>}
-
+      <div className={styles.welcome}><h2>Welcome to Hobby Buddy!</h2><h5> Lets Go! - DaBaby</h5><h5> The FaceBook of the 21st Century - Mark Zuckerberg</h5><h5> Hobby Buddy to the moon - Elon Musk</h5><h5>Banana Bandicoot is the future of american democracy - Joe Biden</h5>
+      <br></br>
+      <ul>
+          <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent}/>
+      </ul>
+      
+      </div>
+    }
       </div>
       <footer>A CS 312 Project</footer>
-    </div>  
+    </div> 
     );
   } else if(currentPage === "add"){
     return(
       <div>
-        <AddEvent complete = {complete} currHobby = {hobby}/>
+        <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
       </div>
       );
   }
   
 }
+
+
+
+
+
+/*
+For the use state for joined events (takes ids but puts them all together)
+
+users.filter(user => user.username === "ChrisRocks123").map(user => (user.joinedEvents))
+*/
