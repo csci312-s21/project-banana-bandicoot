@@ -17,11 +17,14 @@ import MenuBar from "../components/MenuBar";
 
 import userData from "../../data/users.json";
 
+import ProfilePage from "../components/ProfilePage.js"
+
+import LoginPage from "../components/LoginPage.js"
+
 export default function Home() {
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
   const [hobby, setHobby] = useState("");
-  const [currentPage, setPage] = useState("main");
   const [currId, setId] = useState(5)
 
   const sampleUsername = "ChrisRocks123";
@@ -37,6 +40,9 @@ export default function Home() {
   const [myJoinedEvents, setMyJoinedEvents] = useState(
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
+  const [currentPage, setPage] = useState("login");
+  const [person, setPerson] = useState(0);
+
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}}>
@@ -62,6 +68,14 @@ export default function Home() {
         setCollection(coll_copy);
       }
     setPage("main");
+  }
+
+  if(currentPage === "login") {
+   return (
+      <div>
+      <LoginPage setPage = {setPage} getPerson = {setPerson} />
+      </div>
+    );
   }
   
   function joinEvent(joinedEvent){
@@ -97,7 +111,7 @@ export default function Home() {
     <div className={styles.container}>
     <div>
     {icon}
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
+    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage} />: null }
     </div>
     {hobby? 
 
@@ -137,6 +151,12 @@ export default function Home() {
         <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
       </div>
       );
+  } else if(currentPage === "profile"){
+    return (
+      <div>
+    <ProfilePage setPage = {setPage} person= {person} />
+    </div>
+    );
   }
   
 }
