@@ -9,13 +9,17 @@ export default function AddEvent({complete, currHobby}){
 
   const [titleInput, setTitle] = useState("");
 
+  const [dateInput, setDate] = useState("");
+
   const [timeInput, setTime] = useState("");
 
   const [locationInput, setLocation] = useState("");
 
   const [capacityInput, setCapacity] = useState("");
-  
-  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, time: timeInput,location: locationInput, number_joined: 1, max_number: capacityInput};
+
+  setId(currId + 1);
+
+  const newEvent = {id: currId, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 1, max_number: capacityInput};
 
   return(
     <div className={styles.add}>
@@ -41,6 +45,14 @@ export default function AddEvent({complete, currHobby}){
       <br />
       
       <input type="text" id="text_title" name="title" placeholder = "title must be set" value = {titleInput} onChange = {(event) => setTitle(event.target.value)}/>
+      <br />
+      <label>
+      <b>Date:     
+        </b>    
+      </label>  
+      <br />
+
+      <input type="text" id="text_date" name="date" placeholder = "set date of event" value = {dateInput} onChange = {(event) => setDate(event.target.value)}/>
       <br />
       <label>
       <b>Time:     
