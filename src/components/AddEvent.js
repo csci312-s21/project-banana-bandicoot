@@ -17,9 +17,9 @@ export default function AddEvent({complete, currHobby}){
 
   const [capacityInput, setCapacity] = useState("");
 
-  setId(currId + 1);
+  //setId(currId + 1);
 
-  const newEvent = {id: currId, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 1, max_number: capacityInput};
+  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
 
   return(
     <div className={styles.add}>
