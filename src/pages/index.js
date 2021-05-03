@@ -24,7 +24,7 @@ export default function Home() {
   const [collection, setCollection] = useState(data);
   const [hobby, setHobby] = useState("");
   const [currentPage, setPage] = useState("login");
-  const [person, setPerson] = useState("");
+  const [person, setPerson] = useState(0);
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}}>
@@ -55,7 +55,7 @@ export default function Home() {
   if(currentPage === "login") {
    return (
       <div>
-      <LoginPage setPage = {setPage} />
+      <LoginPage setPage = {setPage} getPerson = {setPerson} />
       </div>
     );
   }
@@ -104,7 +104,7 @@ export default function Home() {
   } else if(currentPage === "profile"){
     return (
       <div>
-    <ProfilePage setPage = {setPage} />
+    <ProfilePage setPage = {setPage} person= {person} />
     </div>
     );
   }

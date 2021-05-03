@@ -3,19 +3,20 @@ import { useState } from "react";
 import profileData from "../../data/profile.json"
 import styles from "../styles/LoginPage.module.css";
 
-export default function LoginPage({setPage, setPerson}){
+export default function LoginPage({setPage, getPerson}){
 
 const [password, setPassword] = useState("");
 const [username, setUsername] = useState("");
 
- function toggle(username, password){
+ function toggle(name, pswd){
   for (let i = 0; i < profileData.length; i++) {
-    console.log(i)
-  if (profileData[i].password === password && profileData[i].username === username){
+  if (profileData[i].password === pswd && profileData[i].username === name){
+    const foundPerson=i
+    getPerson(foundPerson)
       return (
         setPage("main")
       );
-    }
+  }
   }
 }
 
@@ -28,7 +29,9 @@ const [username, setUsername] = useState("");
     <input type="text" onChange= {(event) => setPassword(event.target.value)} placeholder="Password must be set"
     />
     <br />
-    <button onClick={() => { toggle(username, password) }}> Login </button>
+    
+    <button onClick={() => { toggle(username, password)}}> Login </button>
+    <p>* username and passwords are case sensitive</p>
     </div>
   );
 }
