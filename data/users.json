@@ -1,0 +1,10 @@
+[
+  {
+    "id": "1",
+    "name": "Chris",
+    "username": "ChrisRocks123",
+    "password": "qwerty12345",
+    "description": "Hi, my name is Chris!",
+    "joinedEvents": [3,4]
+  }
+]
