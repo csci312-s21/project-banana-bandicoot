@@ -1,49 +1,42 @@
+
 .mainContainer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #EEE2DC ;
-
-}
-
-.Header{
-  margin: 10px;
-  margin-top: 20px;
-  padding-top: 10px;
+  position: fixed;
   height: 100%;
-  width: 100%;  
-
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0px;
+  background-color: #EEE2DC;
+  display: block;
+  flex-direction: column;
 }
 
 .welcome{
   text-align: center;
-  margin-left: 110px;
+  display: fixed;
+  padding-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 150px;
 }
 
-.container {
-  min-height: 50vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+   
+.menuHeaderI{
+  margin-left: 10px;
+  padding-top: 5px;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
 }
+
 
 .sideBar{
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #EEE2DC ;
+  width: 220px;
+  float: left;
+
 }
 
-.list{
-  text-decoration: none;
-  color: #2F4454;
-}
+
 
 .list:hover {
   font-weight: 900;
@@ -93,9 +86,32 @@
 
 
 .icon{
-  margin-left: 5px;
-  justify-content: flex-start;
-  align-items: flex-start; 
+  display: none;
+}
+
+
+.footer{
+  position: absolute;
+  bottom: 10px;
+  z-index: -1;
+}
+
+@media only screen and (max-width: 800px) {
+  .sideBar{
+    display: none;
+  }
+  .icon{
+    display: block;
+  }
+  .content {
+    margin-right: 0;
+  }
+}
+
+.eventGrid{
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+
 }
 
 

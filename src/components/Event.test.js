@@ -2,21 +2,26 @@ import { render } from "@testing-library/react";
 import Event from "./Event";
 
 
+
 describe("Event tests", () => {
   let event;
+const handler = jest.fn();
 
   beforeEach(() => {
     event = {
+      id: 1,
       title: "Title of sample event",
       location: "Location of the sample event",
+      date: "date of sample event",
       time: "Time of sample event",
-      numJoined: "Number of people who have joined this event",
-      maxNum: "Max number of people at this event"
+      number_joined: 6,
+      max_number: 8
     };
+    handler.mockReset();
   });
 
   test("title is displayed", () => {
-    const { getByText } = render(<Event title={event.title} location = {event.location} time = {event.time} numJoined = {event.numJoined} maxNumber = {event.maxNum} />);
+    const { getByText } = render(<Event event = {event} joined="true" joinEvent = {handler} leaveEvent = {handler} />);
     expect(getByText(event.title)).toBeInTheDocument();
     expect(getByText(event.title)).toBeVisible();
   });
