@@ -4,6 +4,7 @@
         width: auto; 
         height: auto; 
         overflow: hidden;  
+        text-align: center;
         margin: auto;  
         padding: 80px;  
         background: #BAB2B5;  
@@ -26,3 +27,5 @@
     color: ;  
     font-size: 17px;  
 }  
+
+

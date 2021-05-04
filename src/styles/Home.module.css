@@ -11,14 +11,6 @@
   flex-direction: column;
 }
 
-/* .Header{
-  margin: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
-  height: 100%;
-  width: 100%;  
-} */
-
 .welcome{
   text-align: center;
   display: fixed;
@@ -28,19 +20,6 @@
   margin-bottom: 150px;
 }
 
-
-/* display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  position: fixed;
-  
-  display: flex;
-  z-index: 0;
-  align-items: flex-start;
-  flex-direction: row;
-  justify-content: flex-start;
-   */
    
 .menuHeaderI{
   margin-left: 10px;
@@ -57,10 +36,7 @@
 
 }
 
-.list{
-  text-decoration: none;
-  color: #2F4454;
-}
+
 
 .list:hover {
   font-weight: 900;
@@ -132,6 +108,11 @@
   }
 }
 
+.eventGrid{
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+
+}
 
 
 
