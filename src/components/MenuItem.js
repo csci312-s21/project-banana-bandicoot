@@ -6,16 +6,16 @@ export default function menuItem({title, items, select, icon}){
   const [extended, toggleDrop] = useState(false);
 
 
-  const dropArrow = extended? <span><i class="fa fa-chevron-up"></i></span>: <span><i class="fa fa-chevron-down"></i></span>;
+  const dropArrow = extended? <span><i className="fa fa-chevron-up" /></span>: <span><i className="fa fa-chevron-down" /></span>;
 
-  const itemIcon = <i class={icon}></i>;
+  const itemIcon = <i className={icon} />;
 
   
   const menuItemsHeader = <li key = {title} data-testid = "hobby" onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{items? dropArrow: null}</curr></li>;
 
 
 
-  let itemsList = <div></div>;
+  let itemsList = <div />;
   if(items){
     itemsList = items.map((item)=> { //list of sections
     return <li className = {styles.navitem} key = {item} data-testid = "item" onClick={() => select(item)}><g>{item}</g></li>;
