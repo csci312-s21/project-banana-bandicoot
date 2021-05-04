@@ -51,7 +51,7 @@ export default function Home() {
     <div className={styles.mainContainer}>
     <div>
     <div className = {styles.sideBar}>
-    <MenuBar  visible = {true} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>
+    <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>
 
     </div>
     <div className = {styles.icon}>
@@ -61,7 +61,7 @@ export default function Home() {
     <div>
 
      
-     {visible? <MenuBar  visible = {true} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>: null}
+     {visible? <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>: null}
 
     </div>
     {hobby? 
