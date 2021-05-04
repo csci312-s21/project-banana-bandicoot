@@ -38,7 +38,7 @@ const [username, setUsername] = useState("");
         </b>    
       </label>
       <br /> 
-    <input type="text" onChange= {(event) => setPassword(event.target.value)} placeholder="Password must be set"
+    <input type="password" onChange= {(event) => setPassword(event.target.value)} placeholder="Password must be set"
     />
     <br />
     <br />

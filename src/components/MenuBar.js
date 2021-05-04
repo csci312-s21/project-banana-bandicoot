@@ -1,27 +1,40 @@
 
 import styles from "../styles/MenuBar.module.css";
 
-export default function MenuBar({visible, toggleMenu, select, allHobbies, setPage}){
-  const icon = (
-    <span  onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
-    {visible ? "☰": null} &emsp;Hobby Buddy</span>
-  );
-  const hobbiesList = allHobbies.map((hobby)=> { //list of sections
-    return <li className={styles.li } key = {hobby} data-testid = "hobby" onClick={() => select(hobby)}><curr>{hobby}</curr></li>;
-   }); //initiate helper to perform callbacks on click
 
+import MenuItem from "../components/MenuItem";
+
+
+
+export default function MenuBar({visible, toggleMenu, allHobbies, select, setPage}){
+
+  const icon = (
+    <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
+    {"☰"}</span> 
+  );
+
+   function groupEvent(currHobby){
+     setPage("Groups");
+     select(currHobby);
+   }
 
 return (
    
     <div className={styles.container}>
-
-    {icon}
-  <br/ >
-    <button className = {styles.button1} >+ add hobby</button>
-
+  
+    {icon}&emsp;Hobby Buddy
+  <br/>
+    <button className = {styles.button1}onClick={() => {setPage("add")}}>+Add Event</button>
       <ul className={styles.ul}>
-      <p onClick={() => { setPage("profile"); }}> Profile Page </p>
-       {hobbiesList}
+
+
+      <MenuItem title = {"Profile"} select = {setPage} icon = {"fa fa-user-circle"}/> 
+
+      <MenuItem title = {"Notifications"} select = {setPage} icon = {"fa fa-bell"}/>
+
+      <MenuItem title = {"Groups"} select = {groupEvent} items = {allHobbies} icon = {"fa fa-users"}/> 
+    
+      <MenuItem title = {"MyEvents"} select = {setPage} icon = {"fa fa-calendar"}/>
 
       </ul>
    </div>

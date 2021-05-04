@@ -1,5 +1,5 @@
 .body{
-  
+
   background-color: #EEE2DC ;
   height: 1000px;
 }
@@ -7,7 +7,7 @@
 .center {
   background-color: white;
   width: 50%;
-  border: 3px solid black;
+  border: 3px solid #a9d5ce;
   padding: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 40%;
@@ -16,6 +16,7 @@
   max-height: 50%;
   border-radius: 10px ; 
   font-family: "Times New Roman", Times, serif; 
+  margin-top: 8.5%;
 }
 
 .name{

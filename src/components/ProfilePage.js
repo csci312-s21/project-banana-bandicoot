@@ -3,15 +3,14 @@ import profileData from "../../data/profile.json"
 import styles from "../styles/ProfilePage.module.css";
 //import skiing from "../components/skiing.jpg"
 
-export default function ProfilePage({setPage, person}){
+export default function ProfilePage({person}){
 
 //img
 
 return (
-  <div className={styles.body}>
-  <div className={styles.b2mp}>
-        <p onClick={() => { setPage("main"); }}> Back </p>
-    </div>
+
+  <div>
+  <div className={styles.left} />
     <div className={styles.center}>
         <h1 className={styles.name}>{profileData[person].name}</h1>
         <div className={styles.info}>
