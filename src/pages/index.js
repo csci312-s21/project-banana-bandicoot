@@ -1,8 +1,6 @@
 
 import { useState } from "react";
 
-import Head from "next/head";
-
 import styles from "../styles/Home.module.css";
 
 import data from "../../data/seed.json";
@@ -140,7 +138,7 @@ export default function Home() {
       </div>
       ):((currentPage === "add")? (<div >
         <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
-      </div>):((currentPage === "Profile")? <ProfilePage setPage = {setPage} person= {person} />:((currentPage === "Notifications")?<div className={styles.welcome}>
+      </div>):((currentPage === "Profile")? <ProfilePage person= {person} />:((currentPage === "Notifications")?<div className={styles.welcome}>
 
         <h1 className={styles.title}>{hobby} Notifications</h1> </div>:(
 

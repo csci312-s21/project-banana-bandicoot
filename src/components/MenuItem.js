@@ -13,7 +13,7 @@ export default function menuItem({title, items, select, icon}){
   
   const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</curr></li>;
 
-  const menuItem = <li key = {title} data-testid = {title} onClick={() => select(title)}><curr>{itemIcon}&emsp;&emsp;{title}</curr></li>;
+  const menuItems = <li key = {title} data-testid = {title} onClick={() => select(title)}><curr>{itemIcon}&emsp;&emsp;{title}</curr></li>;
 
   let itemsList = <div />;
   if(items){
@@ -25,7 +25,7 @@ export default function menuItem({title, items, select, icon}){
   return (
     <div>
     
-    <li className={styles.li}><span>{items? menuItemsHeader: menuItem}
+    <li className={styles.li}><span>{items? menuItemsHeader: menuItems}
     
     {extended?(<div className = {styles.navDropDown}> {itemsList}</div>): null}
     </span></li>

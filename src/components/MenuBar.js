@@ -18,11 +18,6 @@ export default function MenuBar({visible, toggleMenu, allHobbies, select, setPag
      select(currHobby);
    }
 
-   function myEvent(currHobby){
-     setPage("main");
-     select();
-   }
-
 return (
    
     <div className={styles.container}>
@@ -39,7 +34,7 @@ return (
 
       <MenuItem title = {"Groups"} select = {groupEvent} items = {allHobbies} icon = {"fa fa-users"}/> 
     
-      <MenuItem title = {"MyEvents"} select = {myEvent} icon = {"fa fa-calendar"}/>
+      <MenuItem title = {"MyEvents"} select = {setPage} icon = {"fa fa-calendar"}/>
 
       </ul>
    </div>
