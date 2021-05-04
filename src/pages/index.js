@@ -14,6 +14,7 @@ import AddEvent from "../components/AddEvent.js";
 import MenuBar from "../components/MenuBar";
 
 export default function Home() {
+  
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
   const [hobby, setHobby] = useState("");
