@@ -8,7 +8,8 @@
     "hobby": "Running and Skiing",
     "bio": "hello!",
     "username": "katelyn-pease",
-    "password": "thisismypassword!"
+    "password": "thisismypassword!",
+    "joinedEvents": [3,4]
   },
   {"name": "Samantha Enriquez",
     "hometown": "Alhambra",
@@ -18,7 +19,8 @@
     "hobby": "Basketball and Hiking",
     "bio": "AHHHHHHH IM STRESSED",
     "username": "ESamantha7",
-    "password": "codingiscool!"
+    "password": "codingiscool!",
+    "joinedEvents": [3,4]
     },
     {"name": "Leili Manafi",
     "hometown": "Alhambra",
@@ -28,6 +30,7 @@
     "hobby": "Basketball and Hiking",
     "bio": "AHHHHHHH IM STRESSED",
     "username": "why",
-    "password": "dontyouwork!"
+    "password": "dontyouwork!",
+    "joinedEvents": [3,4]
     }
 ]

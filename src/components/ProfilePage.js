@@ -1,5 +1,5 @@
 
-import profileData from "../../data/profile.json"
+import profileData from "../../data/profile.json";
 import styles from "../styles/ProfilePage.module.css";
 //import skiing from "../components/skiing.jpg"
 
