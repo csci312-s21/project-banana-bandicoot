@@ -13,17 +13,16 @@ import AddEvent from "../components/AddEvent.js";
 
 import MenuBar from "../components/MenuBar";
 
-import userData from "../../data/users.json";
+import ProfilePage from "../components/ProfilePage.js";
 
-import ProfilePage from "../components/ProfilePage.js"
+import LoginPage from "../components/LoginPage.js";
 
-import LoginPage from "../components/LoginPage.js"
-
+import profileData from "../../data/profile.json";
 
 export default function Home() {
-  const sampleUsername = "ChrisRocks123";
+  const sampleUsername = "a";
 
-  const initialUser = userData.find(user => (user.username === sampleUsername));
+  const initialUser = profileData.find(user => (user.username === sampleUsername));
 
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
