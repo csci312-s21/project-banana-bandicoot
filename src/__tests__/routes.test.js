@@ -8,9 +8,10 @@ import {
 } from "../test-utils/next-test-utils";
 
 
+
 import { readData, resetData } from "../lib/backend-utils";
 
-jest.setTimeout(1000 * 10);
+jest.setTimeout(1000 * 35);
 
 describe("Hobby Buddy API", () => {
   let server;
@@ -27,7 +28,7 @@ describe("Hobby Buddy API", () => {
       quiet: true,
     });
 
-    server = await startApp(app);
+      server = await startApp(app);
   });
 
   beforeEach(async () => {
@@ -35,6 +36,8 @@ describe("Hobby Buddy API", () => {
 
     events = readData();
     sampleEvent = events[Math.floor(events.length / 2)];
+
+    
   });
 
   /**
@@ -51,15 +54,14 @@ describe("Hobby Buddy API", () => {
   test("GET /api/events should return all events (mostly Jest)", async () => {
     // Here we use the built-in Jest matchers, like we used with React, et al.
 
-    const response = await request(server)
-      .get("/api/films");
+    const response = await request(server).get("/api/events");
 
     expect(response.statusCode).toBe(200);
     expect(response.headers["content-type"]).toEqual(
       expect.stringContaining("json")
     );
 
-    expect(response.body).toEqual(films);
+    expect(response.body).toEqual(events);
 
     return response;
   });
@@ -69,39 +71,67 @@ describe("Hobby Buddy API", () => {
   // jest supports an optional argument to the test function that is a function to 
   // be called when the test is complete (to cope with asynchronous code)
   // supertest allows us to pass it in to the last expect to stop the test
-  test("GET /api/films should return all films (mostly SuperTest)", (done) => {
+  test("GET /api/events should return all events (mostly SuperTest)", (done) => {
 
     request(server)
-      .get("/api/films")
+      .get("/api/events")
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect(films, done);
+      .expect(events, done);
   });
 
-  test("PUT /api/films/:id should update the film (mostly SuperTest)", async () => {
+  test("PUT /api/events/:id should update the event (mostly SuperTest)", async () => {
 
-    const newFilm = { ...sampleFilm, rating: 4 };
+    const newEvent = { ...sampleEvent, location: "KDR" };
     await request(server)
-      .put(`/api/films/${newFilm.id}`)
-      .send(newFilm)
+      .put(`/api/events/${newEvent.id}`)
+      .send(newEvent)
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect(newFilm);
+      .expect(newEvent);
 
 
-    const updatedFilms = readData();
-    const testFilm = updatedFilms.find((f) => f.id === newFilm.id);
-    expect(testFilm).toEqual(newFilm);
+    const updatedEvents = readData();
+    const testEvent = updatedEvents.find((e) => e.id === newEvent.id);
+    expect(testEvent).toEqual(newEvent);
   });
 
-  // TODO: Add a test for GET /api/films/:id
-  test("GET /api/films/:id should return single film", (done) => {
+
+  test("GET /api/events/:id should return single event", (done) => {
     request(server)
-      .get(`/api/films/${sampleFilm.id}`)
+      .get(`/api/events/${sampleEvent.id}`)
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect(sampleFilm, done);
+      .expect(sampleEvent, done);
 
 
   });
+
+test("POST /api/events/:id should add new event (mostly SuperTest)", async () => {
+
+    const sampleNewEvent = {
+    "id": 46,
+    "hobby": "Chess",
+    "title": "2v2 Chess",
+    "date": "5/4",
+    "time": "2:45 PM",
+    "location": "Axinn",
+    "number_joined": 0,
+    "max_number": 4
+    };
+
+    
+    await request(server)
+      .post(`/api/events/${sampleNewEvent.id}`)
+      .send(sampleNewEvent)
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .expect(sampleNewEvent);
+
+
+    const updatedEvents = readData();
+    const testEvent = updatedEvents.find((e) => e.id === sampleNewEvent.id);
+    expect(testEvent).toEqual(sampleNewEvent);
+  });
+
 });

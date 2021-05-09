@@ -5,7 +5,7 @@ import { saveData } from "../../../lib/backend-utils";
 const handler = nc().get((req, res) => {
 const { id } = req.query;
 const events = readData();
-const event = event.find((e)=> e["id"] === +id);
+const event = events.find((e)=> e["id"] === +id);
 res.status(200).json(event);
 
 }).put((req, res) => {
@@ -26,9 +26,21 @@ res.status(200).json(event);
  
   res.status(200).json(updatedEvent);
 
-  saveData(alteredEvent);
+  saveData(alteredEvents);
 
  
+}).post((req, res)=>{
+  const { id } = req.query;
+  const newEvent = req.body;
+  const origEvents = readData();
+  const alteredEvents = [...origEvents, newEvent];
+
+  
+  res.status(200).json(newEvent);
+
+  saveData(alteredEvents);
+
+
 });
 
 export default handler;
