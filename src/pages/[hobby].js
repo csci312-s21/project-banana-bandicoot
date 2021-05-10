@@ -7,61 +7,51 @@ import data from "../../data/seed.json";
 
 import Event from "../components/Event.js";
 
-import MyEvents from "../components/MyEvents.js";
-
 import AddEvent from "../components/AddEvent.js";
 
 import MenuBar from "../components/MenuBar";
 
-import ProfilePage from "../components/ProfilePage.js";
-
-import LoginPage from "../components/LoginPage.js";
+import { useRouter } from "next/router";
 
 import profileData from "../../data/profile.json";
 
-export default function Home() {
+
+export default function Hobby() {
+  const router = useRouter();
+  const { hobby } = router.query;
+
   const sampleUsername = "a";
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
-
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
-  const [hobby, setHobby] = useState("");
-  //const [currId, setId] = useState(5)
-
-
+  const [page, setPage] = useState();
   const [myUsersData] = useState(initialUser);
-   
-   //used for join/leave buttons
+  //used for join/leave buttons
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
 
   // used for myEvents list
   const [myJoinedEvents, setMyJoinedEvents] = useState(
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
-  
-  const [currentPage, setPage] = useState("login");
-  const [person, setPerson] = useState(0);
-
-
-
+  console.log(router.query);
 
   const icon = (
     <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
     {visible ? null : "☰"}</div>
     );
 
-  const hobbies = [];
-  collection.forEach((event)=> //determine sections
-  {if(hobbies.includes(event.hobby)){
+    const hobbies = [];
+    collection.forEach((event)=> //determine sections
+    {if(hobbies.includes(event.hobby)){
     return null;
-  }
-  else{
+    }
+    else{
     hobbies.push(event.hobby);
-  }
-  }
-  );
-  hobbies.sort(); 
+    }
+    }
+    );
+    hobbies.sort(); 
 
 
   function addNewEvent (newEvent){
@@ -70,14 +60,6 @@ export default function Home() {
         setCollection(coll_copy);
       }
     setPage("main");
-  }
-
-  if(currentPage === "login") {
-   return (
-      <div>
-      <LoginPage setPage = {setPage} getPerson = {setPerson} />
-      </div>
-    );
   }
   
   function joinEvent(joinedEvent){
@@ -111,7 +93,7 @@ export default function Home() {
     <div className={styles.mainContainer}>
     <div>
     <div className = {styles.sideBar}>
-    <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage}/>
+    <MenuBar  visible toggleMenu = {toggleMenu}  allHobbies = {hobbies} />
 
     </div>
     <div className = {styles.icon}>
@@ -119,18 +101,25 @@ export default function Home() {
 
     </div>
 
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage} />: null }
+    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} allHobbies = {hobbies} />: null }
 
     </div>
-    {((currentPage === "Profile")? <ProfilePage person= {person} />:((currentPage === "Notifications")?<div className={styles.welcome}>
+    {(!page)?(
 
-        <h1 className={styles.title}>{hobby} Notifications</h1> </div>:(
 
-      <div className={styles.welcome}>
-      <h1 className={styles.title}>My Events</h1> 
+       <div className={styles.welcome}>
 
-      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>  
-      </div>)))}
+        <h1 className={styles.title}>{hobby} Events</h1> 
+        <ul className ={styles.eventGrid}>
+        {collection.filter(event => event.hobby === hobby).map(event =>(
+            <Event key={event} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
+        ))}</ul>
+        <br/>
+        <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
+      </div>
+      ):(<div >
+        <AddEvent complete = {addNewEvent} hobby = {hobby}/>
+      </div>)}
     
       <footer className = {styles.footer}> A CS 312 Project </footer>
     </div>

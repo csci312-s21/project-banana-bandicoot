@@ -6,7 +6,7 @@ import MenuItem from "../components/MenuItem";
 
 
 
-export default function MenuBar({visible, toggleMenu, allHobbies, select, setPage}){
+export default function MenuBar({visible, toggleMenu, allHobbies, setPage, title, children}){
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
@@ -15,11 +15,11 @@ export default function MenuBar({visible, toggleMenu, allHobbies, select, setPag
 
    function groupEvent(currHobby){
      setPage("Groups");
-     select(currHobby);
    }
 
 return (
-   
+
+  <div className={styles.mainContainer}>
     <div className={styles.container}>
   
     {icon}&emsp;Hobby Buddy
@@ -37,6 +37,8 @@ return (
       <MenuItem title = {"MyEvents"} select = {setPage} icon = {"fa fa-calendar"}/>
 
       </ul>
+   </div>
+   {children}
    </div>
 
   );

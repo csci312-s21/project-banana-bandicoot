@@ -1,6 +1,7 @@
 import styles from "../styles/MenuBar.module.css";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function menuItem({title, items, select, icon}){
   const [extended, toggleDrop] = useState(false);
@@ -10,15 +11,15 @@ export default function menuItem({title, items, select, icon}){
 
   const itemIcon = <i className={icon} />;
 
-  
+
   const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</curr></li>;
 
-  const menuItems = <li key = {title} data-testid = {title} onClick={() => select(title)}><curr>{itemIcon}&emsp;&emsp;{title}</curr></li>;
+  const menuItems = <li key = {title} data-testid = {title}><curr>{itemIcon}&emsp;&emsp;<Link href={"/"+title}><a>{title}</a></Link></curr></li>;
 
   let itemsList = <div />;
   if(items){
     itemsList = items.map((item)=> { //list of sections
-    return <li className = {styles.navitem} key = {item} data-testid = "item" onClick={() => select(item)}><g>{item}</g></li>;
+    return <li className = {styles.navitem} key = {item} data-testid = "item" onClick={() => select(item)}><g><Link href={`/${item}`}><a>{item}</a></Link></g></li>;
    }); //initiate helper to perform callbacks on click
   }
 
