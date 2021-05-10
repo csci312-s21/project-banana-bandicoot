@@ -6,7 +6,7 @@ import MenuItem from "../components/MenuItem";
 
 
 
-export default function MenuBar({visible, toggleMenu, allHobbies, setPage, title, children}){
+export default function MenuBar({visible, toggleMenu, allHobbies, title, children}){
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
@@ -28,13 +28,13 @@ return (
       <ul className={styles.ul}>
 
 
-      <MenuItem title = {"Profile"} select = {setPage} icon = {"fa fa-user-circle"}/> 
+      <MenuItem title = {"Profile"} icon = {"fa fa-user-circle"}/> 
 
-      <MenuItem title = {"Notifications"} select = {setPage} icon = {"fa fa-bell"}/>
+      <MenuItem title = {"Notifications"} icon = {"fa fa-bell"}/>
 
-      <MenuItem title = {"Groups"} select = {groupEvent} items = {allHobbies} icon = {"fa fa-users"}/> 
+      <MenuItem title = {"Groups"} items = {allHobbies} icon = {"fa fa-users"}/> 
     
-      <MenuItem title = {"MyEvents"} select = {setPage} icon = {"fa fa-calendar"}/>
+      <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
 
       </ul>
    </div>
