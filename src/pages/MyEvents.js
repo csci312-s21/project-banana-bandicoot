@@ -1,33 +1,27 @@
+import styles from "../styles/Home.module.css";
+
 
 import { useState } from "react";
 
-import styles from "../styles/Home.module.css";
+import MyEvents from "../components/MyEvents.js";
 
 import data from "../../data/seed.json";
 
-import Event from "../components/Event.js";
-
-import AddEvent from "../components/AddEvent.js";
-
 import MenuBar from "../components/MenuBar";
-
-import { useRouter } from "next/router";
 
 import profileData from "../../data/profile.json";
 
+import { useRouter } from "next/router";
 
-export default function Hobby() {
-  const router = useRouter();
-  const { hobby } = router.query;
-
+export default function myEvents({}) {
+  
   const sampleUsername = "a";
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
+  const [myUsersData] = useState(initialUser);
+    const [hobby, setHobby] = useState("");
   const [visible, toggleMenu] = useState(false);
   const [collection, setCollection] = useState(data);
-  const [page, setPage] = useState();
-  const [myUsersData] = useState(initialUser);
-  //used for join/leave buttons
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
 
   // used for myEvents list
@@ -35,12 +29,8 @@ export default function Hobby() {
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
 
-  const icon = (
-    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
-    {visible ? null : "☰"}</div>
-    );
 
-    const hobbies = [];
+const hobbies = [];
     collection.forEach((event)=> //determine sections
     {if(hobbies.includes(event.hobby)){
     return null;
@@ -53,14 +43,13 @@ export default function Hobby() {
     hobbies.sort(); 
 
 
-  function addNewEvent (newEvent){
-      if(newEvent != null){
-        const coll_copy = [...collection, newEvent];
-        setCollection(coll_copy);
-      }
-    setPage("main");
-  }
-  
+
+    const icon = (
+    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
+    {visible ? null : "☰"}</div>
+    );
+
+
   function joinEvent(joinedEvent){
     const joinedEventsCopy =  [...myJoinedEvents, joinedEvent];
     setMyJoinedEvents(joinedEventsCopy);
@@ -87,12 +76,11 @@ export default function Hobby() {
     }
     setJoinedEventIDs(listJoinedEvents);
   }
-
+  
   return (
-    <div className={styles.mainContainer}>
-    <div>
-    <div className = {styles.sideBar}>
-    <MenuBar  visible toggleMenu = {toggleMenu}  allHobbies = {hobbies} />
+     <div className={styles.mainContainer}>
+      <div className = {styles.sideBar}>
+    <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>
 
     </div>
     <div className = {styles.icon}>
@@ -100,27 +88,16 @@ export default function Hobby() {
 
     </div>
 
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} allHobbies = {hobbies} />: null }
+    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
+
+<div className={styles.welcome}>
+
+      <h1 className={styles.title}>My Events</h1> 
+
+      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>  
+<footer className = {styles.footer}> A CS 312 Project </footer>
 
     </div>
-    {(!page)?(
-
-
-       <div className={styles.welcome}>
-
-        <h1 className={styles.title}>{hobby} Events</h1> 
-        <ul className ={styles.eventGrid}>
-        {collection.filter(event => event.hobby === hobby).map(event =>(
-            <Event key={event} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
-        ))}</ul>
-        <br/>
-        <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
-      </div>
-      ):(<div >
-        <AddEvent complete = {addNewEvent} hobby = {hobby}/>
-      </div>)}
-    
-      <footer className = {styles.footer}> A CS 312 Project </footer>
     </div>
-  );
-  } 
+    );
+}

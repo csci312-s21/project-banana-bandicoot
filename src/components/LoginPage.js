@@ -2,20 +2,18 @@
 import { useState } from "react";
 import profileData from "../../data/profile.json"
 import styles from "../styles/LoginPage.module.css";
+import Link from "next/link";
 
-export default function LoginPage({setPage, getPerson}){
+export default function LoginPage({}){
 
 const [password, setPassword] = useState("");
 const [username, setUsername] = useState("");
+const [person, setPerson] = useState("");
 
  function toggle(name, pswd){
   for (let i = 0; i < profileData.length; i++) {
   if (profileData[i].password === pswd && profileData[i].username === name){
-    const foundPerson=i
-    getPerson(foundPerson)
-      return (
-        setPage("main")
-      );
+    setPerson(i)
   }
   }
 }
@@ -42,7 +40,7 @@ const [username, setUsername] = useState("");
     />
     <br />
     <br />
-    <button className={styles.button} onClick={() => { toggle(username, password)}}> Login </button>
+    <button className={styles.button} onClick={() => { toggle(username, password)}}><Link href={`/Profile`}><a>Login</a></Link></button>
     
     <p>* username and passwords are case sensitive</p>
     </div>
