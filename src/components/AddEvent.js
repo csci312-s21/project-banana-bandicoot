@@ -24,7 +24,7 @@ export default function AddEvent({complete, currHobby}){
   return(
     <div className={styles.add}>
 
-    <div className={styles.text}>
+    <div>
     <form>
       <p className={styles.p}> Add Event </p>
       

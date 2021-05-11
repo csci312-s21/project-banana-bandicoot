@@ -20,23 +20,6 @@
   margin-bottom: 150px;
 }
 
-   
-.menuHeaderI{
-  margin-left: 10px;
-  padding-top: 5px;
-  position: absolute;
-  z-index: 1;
-  cursor: pointer;
-}
-
-
-.sideBar{
-  width: 220px;
-  float: left;
-
-}
-
-
 
 .list:hover {
   font-weight: 900;
@@ -85,30 +68,9 @@
 }
 
 
-.icon{
-  display: none;
-}
-
-
-.footer{
-  position: absolute;
-  bottom: 10px;
-  z-index: -1;
-}
-
-@media only screen and (max-width: 800px) {
-  .sideBar{
-    display: none;
-  }
-  .icon{
-    display: block;
-  }
-  .content {
-    margin-right: 0;
-  }
-}
 
 .eventGrid{
+  position: static;
   display: inline-grid;
   grid-template-columns: auto auto auto;
 

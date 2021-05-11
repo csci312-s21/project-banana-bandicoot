@@ -11,17 +11,15 @@ import MenuBar from "../components/MenuBar";
 
 import profileData from "../../data/profile.json";
 
-import { useRouter } from "next/router";
 
-export default function myEvents({}) {
+
+export default function myEvents() {
   
   const sampleUsername = "a";
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
   const [myUsersData] = useState(initialUser);
-    const [hobby, setHobby] = useState("");
-  const [visible, toggleMenu] = useState(false);
-  const [collection, setCollection] = useState(data);
+  const [collection] = useState(data);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
 
   // used for myEvents list
@@ -43,11 +41,6 @@ const hobbies = [];
     hobbies.sort(); 
 
 
-
-    const icon = (
-    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
-    {visible ? null : "☰"}</div>
-    );
 
 
   function joinEvent(joinedEvent){
@@ -78,26 +71,15 @@ const hobbies = [];
   }
   
   return (
-     <div className={styles.mainContainer}>
-      <div className = {styles.sideBar}>
-    <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies}/>
+ <MenuBar allHobbies = {hobbies} >
 
-    </div>
-    <div className = {styles.icon}>
-    {icon}
-
-    </div>
-
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} />: null }
-
-<div className={styles.welcome}>
+    <div className={styles.welcome}>
 
       <h1 className={styles.title}>My Events</h1> 
 
-      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>  
-<footer className = {styles.footer}> A CS 312 Project </footer>
+      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
 
     </div>
-    </div>
+  </MenuBar>
     );
 }

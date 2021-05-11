@@ -23,7 +23,7 @@ export default function Hobby() {
   const sampleUsername = "a";
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
-  const [visible, toggleMenu] = useState(false);
+
   const [collection, setCollection] = useState(data);
   const [page, setPage] = useState();
   const [myUsersData] = useState(initialUser);
@@ -35,10 +35,6 @@ export default function Hobby() {
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
 
-  const icon = (
-    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
-    {visible ? null : "☰"}</div>
-    );
 
     const hobbies = [];
     collection.forEach((event)=> //determine sections
@@ -58,7 +54,7 @@ export default function Hobby() {
         const coll_copy = [...collection, newEvent];
         setCollection(coll_copy);
       }
-    setPage("main");
+    setPage("");
   }
   
   function joinEvent(joinedEvent){
@@ -89,20 +85,8 @@ export default function Hobby() {
   }
 
   return (
-    <div className={styles.mainContainer}>
-    <div>
-    <div className = {styles.sideBar}>
-    <MenuBar  visible toggleMenu = {toggleMenu}  allHobbies = {hobbies} />
+    <MenuBar allHobbies = {hobbies} >
 
-    </div>
-    <div className = {styles.icon}>
-    {icon}
-
-    </div>
-
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} allHobbies = {hobbies} />: null }
-
-    </div>
     {(!page)?(
 
 
@@ -116,11 +100,12 @@ export default function Hobby() {
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </div>
-      ):(<div >
+      ):( <div className={styles.mainContainer}>
         <AddEvent complete = {addNewEvent} hobby = {hobby}/>
       </div>)}
+
     
-      <footer className = {styles.footer}> A CS 312 Project </footer>
-    </div>
+      
+    </MenuBar>
   );
   } 
