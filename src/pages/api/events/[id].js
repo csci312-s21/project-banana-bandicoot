@@ -30,7 +30,6 @@ res.status(200).json(event);
 
  
 }).post((req, res)=>{
-  const { id } = req.query;
   const newEvent = req.body;
   const origEvents = readData();
   const alteredEvents = [...origEvents, newEvent];

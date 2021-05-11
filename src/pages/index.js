@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import styles from "../styles/Home.module.css";
 
@@ -8,7 +8,6 @@ import data from "../../data/seed.json";
 import Event from "../components/Event.js";
 
 import MyEvents from "../components/MyEvents.js";
-
 
 import AddEvent from "../components/AddEvent.js";
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import path from "path";
 import request from "supertest";
 import {
@@ -11,7 +12,7 @@ import {
 
 import { readData, resetData } from "../lib/backend-utils";
 
-jest.setTimeout(1000 * 35);
+jest.setTimeout(1000 * 60);
 
 describe("Hobby Buddy API", () => {
   let server;
@@ -20,7 +21,7 @@ describe("Hobby Buddy API", () => {
 
   beforeAll(async () => {
     const appDir = path.join(__dirname, "../../");
-    await nextBuild(appDir);
+    const result = await nextBuild(appDir);
 
     const app = nextServer({
       dir: appDir,
@@ -29,6 +30,7 @@ describe("Hobby Buddy API", () => {
     });
 
       server = await startApp(app);
+
   });
 
   beforeEach(async () => {
@@ -46,6 +48,10 @@ describe("Hobby Buddy API", () => {
   afterAll(async () => {
     await stopApp(server)
   });
+
+
+ 
+
 
   // The SuperTest request().method() chain returns a Promise. If the body of
   // a Jest test returns a Promise, the test will fail if the Promise rejects.
