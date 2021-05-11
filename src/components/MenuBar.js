@@ -1,4 +1,6 @@
 
+
+
 import styles from "../styles/MenuBar.module.css";
 
 
@@ -7,6 +9,8 @@ import MenuItem from "../components/MenuItem";
 
 
 export default function MenuBar({visible, toggleMenu, allHobbies, select, setPage}){
+
+
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>

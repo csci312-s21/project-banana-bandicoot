@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Katelyn Pease",
+    "hometown": "Boston",
+    "birthday": "2000-02-12",
+    "major": "Computer Science and Psychology",
+    "year": "2022",
+    "hobby": "Running and Skiing",
+    "bio": "hello!",
+    "username": "katelyn-pease",
+    "password": "thisismypassword!",
+    "joinedEvents": [3,4]
+  },
+  {"name": "Samantha Enriquez",
+    "hometown": "Alhambra",
+    "birthday": "2000-05-05",
+    "major": "Computer Science and Spanish",
+    "year": "2022",
+    "hobby": "Basketball and Hiking",
+    "bio": "AHHHHHHH IM STRESSED",
+    "username": "ESamantha7",
+    "password": "codingiscool!",
+    "joinedEvents": [3,4]
+    },
+    {"name": "Leili Manafi",
+    "hometown": "Alhambra",
+    "birthday": "2000-05-05",
+    "major": "Computer Science and Spanish",
+    "year": "2022",
+    "hobby": "Basketball and Hiking",
+    "bio": "AHHHHHHH IM STRESSED",
+    "username": "a",
+    "password": "b",
+    "joinedEvents": [3,4]
+    }
+]
