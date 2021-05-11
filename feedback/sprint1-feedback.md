@@ -1,4 +1,4 @@
-# Feedback for alabaster-armadillo
+# Feedback for banana-bandicoot
 
 (X) tagged commit on main for sprint1
 (-) set of closed user stories

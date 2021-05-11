@@ -1,0 +1,39 @@
+
+.list{
+  text-decoration: none;
+  color: #2F4454;
+}
+
+.event{
+  color: black;
+  display: block;
+  width: 90%;
+  height: 90%;
+  margin: 10px;
+  padding: 8px;
+  background-color: rgba(18, 60, 105, 0.336);  
+  cursor: pointer; 
+  border-radius: 5px;
+}
+
+.ul{
+  list-style-type: none;
+  margin-top: 10px;
+  padding: 0px;
+}
+
+.full {
+  background-color: rgba(255, 255, 255, 0.664);
+  border: none;
+  color: #123C69;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 110px;
+  
+}
