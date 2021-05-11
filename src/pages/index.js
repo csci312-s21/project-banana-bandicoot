@@ -25,7 +25,7 @@ export default function Home() {
   const initialUser = profileData.find(user => (user.username === sampleUsername));
 
   const [visible, toggleMenu] = useState(false);
-  const [collection, setCollection] = useState(data);
+  const [groups, setGroups] = useState(data);
   const [hobby, setHobby] = useState("");
   //const [currId, setId] = useState(5)
 
@@ -37,7 +37,7 @@ export default function Home() {
 
   // used for myEvents list
   const [myJoinedEvents, setMyJoinedEvents] = useState(
-    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
+    groups.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
   
   const [currentPage, setPage] = useState("login");
@@ -45,6 +45,7 @@ export default function Home() {
 
 
 
+ 
 
   const icon = (
     <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
@@ -52,7 +53,7 @@ export default function Home() {
     );
 
   const hobbies = [];
-  collection.forEach((event)=> //determine sections
+  groups.forEach((event)=> //determine sections
   {if(hobbies.includes(event.hobby)){
     return null;
   }
@@ -66,8 +67,8 @@ export default function Home() {
 
   function addNewEvent (newEvent){
       if(newEvent != null){
-        const coll_copy = [...collection, newEvent];
-        setCollection(coll_copy);
+        const coll_copy = [...groups, newEvent];
+        setGroups(coll_copy);
       }
     setPage("main");
   }
@@ -129,7 +130,7 @@ export default function Home() {
 
         <h1 className={styles.title}>{hobby} Events</h1> 
         <ul className ={styles.eventGrid}>
-        {collection.filter(event => event.hobby === hobby).map(event =>(
+        {groups.filter(event => event.hobby === hobby).map(event =>(
             <Event key={event} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
         ))}</ul>
         <br/>
