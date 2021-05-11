@@ -15,7 +15,7 @@ export default function menuItem({title, items, icon}){
   const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</curr></li>;
 
 
-  const menuItems = <li key = {title} data-testid = {title}><curr>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/Profile"):`/${title}`}><a>{title}</a></Link></curr></li>;
+  const menuItems = <li key = {title} data-testid = {title}><curr>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/"):`/${title}`}><a>{title}</a></Link></curr></li>;
 
 
   let itemsList = <div />;
