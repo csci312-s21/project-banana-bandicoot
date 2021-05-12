@@ -1,19 +1,24 @@
 
 .list{
   text-decoration: none;
-  color: #2F4454;
+  color: black;
 }
 
 .event{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
   color: black;
-  display: block;
-  width: 90%;
-  height: 90%;
-  margin: 10px;
-  padding: 8px;
-  background-color: rgba(18, 60, 105, 0.336);  
+  width: 60%;
+  height: 90%; 
   cursor: pointer; 
-  border-radius: 5px;
+  border: solid;
+  border-left-color: #9e4993;
+  border-top-style: #9e4993;
+  border-right-style: #9e4993;
+  border-bottom-style: #9e4993;
+  border-width: 5px;
 }
 
 .ul{
