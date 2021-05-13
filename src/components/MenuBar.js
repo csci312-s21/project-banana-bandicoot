@@ -4,43 +4,57 @@
 import styles from "../styles/MenuBar.module.css";
 
 
+import { useState } from "react";
+
 import MenuItem from "../components/MenuItem";
 
 
 
-export default function MenuBar({visible, toggleMenu, allHobbies, select, setPage}){
+export default function MenuBar({allHobbies, children}){
+  const [visible, toggleMenu] = useState(false);
+
+
 
 
 
   const icon = (
-    <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeader}>
+    <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
     {"☰"}</span> 
   );
 
-   function groupEvent(currHobby){
-     setPage("Groups");
-     select(currHobby);
-   }
-
-return (
-   
+  const menu =( 
     <div className={styles.container}>
-  
-    {icon}&emsp;Hobby Buddy
-  <br/>
-    <button className = {styles.button1}onClick={() => {setPage("add")}}>+Add Event</button>
-      <ul className={styles.ul}>
+    &emsp;&emsp;<div className={styles.heading} />
+    <br/>
+    <button className = {styles.button1}>+Add Event</button>
+    <ul className={styles.ul}>
 
+      <MenuItem title = {"Profile"} icon = {"fa fa-user-circle"}/> 
 
-      <MenuItem title = {"Profile"} select = {setPage} icon = {"fa fa-user-circle"}/> 
+      <MenuItem title = {"Notifications"} icon = {"fa fa-bell"}/>
 
-      <MenuItem title = {"Notifications"} select = {setPage} icon = {"fa fa-bell"}/>
-
-      <MenuItem title = {"Groups"} select = {groupEvent} items = {allHobbies} icon = {"fa fa-users"}/> 
+      <MenuItem title = {"Groups"} items = {allHobbies} icon = {"fa fa-users"}/> 
     
-      <MenuItem title = {"MyEvents"} select = {setPage} icon = {"fa fa-calendar"}/>
+      <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
 
       </ul>
+   </div>);
+
+
+return (
+
+  <div className={styles.mainContainer}>
+  <div className = {styles.sideBar}>
+    {menu}
+   </div>
+   <div className = {styles.icon}>
+    {icon}
+    </div> 
+  {visible? menu:null}
+  <div className={styles.welcome}>
+   {children}
+   </div>
+   <footer className = {styles.footer}> A CS 312 Project </footer>
    </div>
 
   );
