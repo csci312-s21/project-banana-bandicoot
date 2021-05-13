@@ -22,7 +22,7 @@ export default function MenuBar({allHobbies, children}){
 
   const menu =( 
     <div className={styles.container}>
-    &emsp;&emsp;<div className={styles.heading}></div>
+    &emsp;&emsp;<div className={styles.heading} />
     <br/>
     <button className = {styles.button1}>+Add Event</button>
     <ul className={styles.ul}>
