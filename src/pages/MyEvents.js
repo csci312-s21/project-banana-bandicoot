@@ -19,14 +19,32 @@ export default function myEvents() {
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
   const [myUsersData] = useState(initialUser);
-  const [collection] = useState(data);
+  //const [collection] = useState(data);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
+  const [myJoinedEvents, setMyJoinedEvents] = useState();
 
   // used for myEvents list
+  /*
   const [myJoinedEvents, setMyJoinedEvents] = useState(
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
+  */
 
+useEffect(() => {
+  const getData = async () => {
+    const response = await fetch(`${data}/api/events`);
+  
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const eventsData = await response.json();
+
+    setMyJoinedEvents(eventsData);
+  };
+
+  getData();
+  },[]);
 
 const hobbies = [];
     collection.forEach((event)=> //determine sections
