@@ -12,6 +12,9 @@ import MenuItem from "../components/MenuItem";
 
 export default function MenuBar({allHobbies, children}){
   const [visible, toggleMenu] = useState(false);
+  
+
+
 
 
 

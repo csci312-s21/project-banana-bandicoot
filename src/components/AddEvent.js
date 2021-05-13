@@ -19,7 +19,7 @@ export default function AddEvent({complete, currHobby}){
 
   //setId(currId + 1);
 
-  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
+  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput,edited: (new Date()).toISOString};
 
   return(
     <div className={styles.add}>
