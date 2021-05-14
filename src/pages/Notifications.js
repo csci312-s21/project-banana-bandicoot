@@ -73,6 +73,7 @@ const hobbies = [];
 
       <h1 className={styles.title}>Notifications</h1> 
 
+       <h2 className={styles.title}>Newest Events:</h2> 
       <Notify events = {collection} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
 
     </div>

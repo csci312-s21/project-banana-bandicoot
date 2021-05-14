@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
 
 const options = {
   providers: [
@@ -9,7 +9,7 @@ const options = {
       type: "oauth",
       version: "2.0",
       scope: "",
-      params: {  grant_type: 'authorization_code', state:"ad16fe59a3a9a6815f2ff6ae85fdcbcc34bd574e301054663f2391f1a5685cbb" },
+      params: {  grant_type: "authorization_code", state:"ad16fe59a3a9a6815f2ff6ae85fdcbcc34bd574e301054663f2391f1a5685cbb" },
       accessTokenUrl: "https://oauth.groupme.com/oauth/token",
       requestTokenUrl: "https://oauth.groupme.com/oauth/auth",
       authorizationUrl:
