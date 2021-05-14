@@ -18,8 +18,6 @@ function complete (hobby){
  
 if(!page){
   return (
-   //<MenuBar allHobbies = {person.hobby} >
- 
    
       <div>
        <div className={styles.left} />
@@ -36,7 +34,6 @@ if(!page){
          <input className={styles.button} type = "button" id = "addHobbyButton" name = "addHobbyButton" value = "Add Hobby" onClick = {() => setPage("addHobby")}/>
       </div>
    </div> 
- //</div>
      );
 } else{
     return (
@@ -45,5 +42,4 @@ if(!page){
        </div>
      );
   }
-   //</MenuBar>
 }

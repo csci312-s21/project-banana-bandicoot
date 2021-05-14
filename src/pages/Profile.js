@@ -16,7 +16,7 @@ export default function Home() {
  
  const user = profiles.find(profile => (profile.name === "Leili Manafi"));
 
- const [myHobbies, setMyHobbies] = useState(user.hobbies);
+ const [myHobbies, setMyHobbies] = useState(user.hobby);
  const [collection] = useState(data);
  
  const [person] = useState(0);
@@ -39,13 +39,12 @@ const hobbies = [];
    const hobbyListCopy = [...hobbyList, newHobby]; //if newHobby isnt in hobby list
    setHobbyList(hobbyListCopy);
    //const hobbies = [...hobbies, newHobby]; // for the specific profile?
- 
+  const myHobbiesCopy = [...myHobbies, newHobby];
+  setMyHobbies(myHobbiesCopy);
  }
- 
-console.log(hobbies)
  return  (
   
-<MenuBar myHobbies = {hobbies} >
+<MenuBar myHobbies = {myHobbies} >
 <ProfilePage person= {person} addHobby = {addHobby} hobbyList = {hobbyList}/>
 </MenuBar>
 );

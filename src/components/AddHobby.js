@@ -7,11 +7,10 @@ import { useState } from "react";
  
 export default function AddHobby({addHobby, allHobbies}){
  
- const [newHobby, setNewHobby] = useState();
+ const [hobbyInput, setHobbyInput] = useState();
   const [dropdownExistingHobby, setDropdownExistingHobby] = useState();
- //setId(currId + 1);
  
- //const newHobby = {name: hobbyInput};
+  const newHobby = {name: hobbyInput};
   // const [dropdownOpen, setDropdownOpen] = useState(false);
  
  return(
@@ -35,9 +34,10 @@ export default function AddHobby({addHobby, allHobbies}){
      <b>Add new Hobby    
        </b>   
      </label> 
- 
+    
      <br />
-     
+     <input type="text" id="newHobby" name="newHobby" placeholder = "test" value = {hobbyInput} onChange = {(event) => setHobbyInput(event.target.value)}/>
+     <br />
  
      <input type = "button" id = "existingHobbyButton" name = "existingHobbyButton" disabled = {dropdownExistingHobby === null} onClick = {() => setDropdownExistingHobby(event.target.hobby)} value = "Add Existing Hobby"/>
  
