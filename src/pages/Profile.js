@@ -36,15 +36,17 @@ const hobbies = [];
  
  
  function addHobby(newHobby){
+   if(hobbyList.includes(newHobby)){
    const hobbyListCopy = [...hobbyList, newHobby]; //if newHobby isnt in hobby list
    setHobbyList(hobbyListCopy);
+   }
    //const hobbies = [...hobbies, newHobby]; // for the specific profile?
-  const myHobbiesCopy = [...myHobbies, newHobby];
+  const myHobbiesCopy = [...myHobbies, newHobby.name];
   setMyHobbies(myHobbiesCopy);
  }
  return  (
   
-<MenuBar myHobbies = {myHobbies} >
+<MenuBar allHobbies = {myHobbies} >
 <ProfilePage person= {person} addHobby = {addHobby} hobbyList = {hobbyList}/>
 </MenuBar>
 );

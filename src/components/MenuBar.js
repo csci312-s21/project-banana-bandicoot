@@ -10,7 +10,9 @@ import MenuItem from "../components/MenuItem";
 
 //Needs to take in hobbies of the person, not allHobbies (changed name)
 
-export default function MenuBar({myHobbies, children}){
+//allHobbies is all of the user's personal hobbies, not ALL hobbies
+
+export default function MenuBar({allHobbies, children}){
   const [visible, toggleMenu] = useState(false);
 
 
@@ -33,7 +35,7 @@ export default function MenuBar({myHobbies, children}){
 
       <MenuItem title = {"Notifications"} icon = {"fa fa-bell"}/>
 
-      <MenuItem title = {"Groups"} items = {myHobbies} icon = {"fa fa-users"}/> 
+      <MenuItem title = {"Groups"} items = {allHobbies} icon = {"fa fa-users"}/> 
     
       <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
 
