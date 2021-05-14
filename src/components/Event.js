@@ -6,8 +6,7 @@ import ButtonBar from "../components/ButtonBar.js";
 export default function Event({ event, joined , joinEvent, leaveEvent}) {
 
 //let numPeople = numJoined;
-  
-      const [numPeople, setNumPeople ] = useState(event.number_joined);
+const [numPeople, setNumPeople ] = useState(event.number_joined);
 
 
   return (

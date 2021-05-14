@@ -1,7 +1,6 @@
 import styles from "../styles/Home.module.css";
 
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MyEvents from "../components/MyEvents.js";
 
@@ -20,43 +19,53 @@ export default function myEvents() {
   const initialUser = profileData.find(user => (user.username === sampleUsername));
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
+  const [events, setEvents]=useState({"id":1,"hobby":"Chess",
+"title":"Chess Tournament!",
+"date":"5/2","time":"10:45 AM",
+"location":"DANA Auditorium",
+"number_joined":1,
+"max_number":12});
+
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-  const [myJoinedEvents, setMyJoinedEvents] = useState();
 
-  // used for myEvents list
-  /*
-  const [myJoinedEvents, setMyJoinedEvents] = useState(
-    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
+   
+const [myJoinedEvents, setMyJoinedEvents] = useState(
+    events.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
-  */
 
-useEffect(() => {
+
+//calls all the events
+ useEffect(() => {
   const getData = async () => {
-    const response = await fetch(`${data}/api/events`);
+    const response = await fetch(`/api/events`);
   
     if (!response.ok) {
       throw new Error(response.statusText);
     }
 
     const eventsData = await response.json();
-
-    setMyJoinedEvents(eventsData);
+    
+    setEvents(eventsData);
   };
 
   getData();
-  },[]);
+  },[events]);
 
-const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
-    }
-    else{
-    hobbies.push(event.hobby);
-    }
-    }
-    );
-    hobbies.sort(); 
+  
+
+//  const myEventsData = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
+
+// const hobbies = [];
+//     events.forEach((event)=> //determine sections
+//     {if(hobbies.includes(event.hobby)){
+//     return null;
+//     }
+//     else{
+//     hobbies.push(event.hobby);
+//     }
+//     }
+//     );
+//     hobbies.sort(); 
 
 
 
@@ -88,8 +97,10 @@ const hobbies = [];
     setJoinedEventIDs(listJoinedEvents);
   }
   
+
+  // allHobbies = {hobbies} 
   return (
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar>
 
     <div className={styles.welcome}>
 

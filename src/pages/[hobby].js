@@ -36,17 +36,17 @@ export default function Hobby() {
   );
 
 
-    const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
-    }
-    else{
-    hobbies.push(event.hobby);
-    }
-    }
-    );
-    hobbies.sort(); 
+    // const hobbies = [];
+    // collection.forEach((event)=> //determine sections
+    // {if(hobbies.includes(event.hobby)){
+    // return null;
+    // }
+    // else{
+    // hobbies.push(event.hobby);
+    // }
+    // }
+    // );
+    // hobbies.sort(); 
 
 
   function addNewEvent (newEvent){
@@ -85,7 +85,7 @@ export default function Hobby() {
   }
 
   return (
-    <MenuBar allHobbies = {hobbies} >
+    <MenuBar >
 
     {(!page)?(
 

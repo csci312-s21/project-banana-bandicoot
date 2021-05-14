@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 
-
 import data from "../../data/seed.json";
 
 import MenuBar from "../components/MenuBar";
@@ -18,23 +17,23 @@ export default function Home() {
   const [person] = useState(0);
 
 
-const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
-    }
-    else{
-    hobbies.push(event.hobby);
-    }
-    }
-    );
-    hobbies.sort(); 
+// const hobbies = [];
+//     collection.forEach((event)=> //determine sections
+//     {if(hobbies.includes(event.hobby)){
+//     return null;
+//     }
+//     else{
+//     hobbies.push(event.hobby);
+//     }
+//     }
+//     );
+//     hobbies.sort(); 
 
-
+// allHobbies = {hobbies}
 
   return  (
     
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar>
  <ProfilePage person= {person} />
 </MenuBar>);
 }
