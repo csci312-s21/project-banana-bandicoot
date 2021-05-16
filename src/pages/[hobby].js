@@ -24,6 +24,8 @@ export default function Hobby() {
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
 
+ const [myHobbies, setMyHobbies] = useState(initialUser.hobby);
+
   const [collection, setCollection] = useState(data);
   const [page, setPage] = useState();
   const [myUsersData] = useState(initialUser);
@@ -85,7 +87,7 @@ export default function Hobby() {
   }
 
   return (
-    <MenuBar allHobbies = {hobbies} >
+    <MenuBar allHobbies = {myHobbies} >
 
     {(!page)?(
 
