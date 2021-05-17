@@ -12,10 +12,10 @@ export default function menuItem({title, items, icon}){
   const itemIcon = <i className={icon} />;
 
 
-  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}className={styles.li}><c>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</c></li>;
+  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}className={styles.li}>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</li>;
 
 
-  const menuItems = <li key = {title} data-testid = {title} className={styles.li}><c>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/"):`/${title}`}><a>{title}</a></Link></c></li>;
+  const menuItems = <li key = {title} data-testid = {title} className={styles.li}>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/"):`/${title}`}><a>{title}</a></Link></li>;
 
 
   let itemsList = <div />;
