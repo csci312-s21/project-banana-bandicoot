@@ -18,7 +18,9 @@ export default function myEvents() {
   const sampleUsername = "a";
 
   const initialUser = profileData.find(user => (user.username === sampleUsername));
+
   const [myUsersData] = useState(initialUser);
+  const [userHobbies] = useState(initialUser.hobby);
   const [collection] = useState(data);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
 
@@ -71,7 +73,7 @@ const hobbies = [];
   }
   
   return (
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar allHobbies = {userHobbies} >
 
     <div className={styles.welcome}>
 
