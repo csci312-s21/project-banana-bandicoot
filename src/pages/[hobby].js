@@ -103,7 +103,7 @@ export default function Hobby() {
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </div>
       ):( <div className={styles.mainContainer}>
-        <AddEvent complete = {addNewEvent} hobby = {hobby}/>
+        <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
       </div>)}
 
     

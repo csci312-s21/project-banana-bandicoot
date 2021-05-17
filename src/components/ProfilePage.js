@@ -4,17 +4,17 @@ import styles from "../styles/ProfilePage.module.css";
  
 import MenuBar from "../components/MenuBar";
 import AddHobby from "../components/AddHobby.js";
-//import skiing from "../components/skiing.jpg"
+
  
-export default function ProfilePage({person, addHobby, hobbyList}){
+export default function ProfilePage({person, hobbyList, addHobby}){
  
 //img
 const [page, setPage] = useState();
  
-function complete (hobby){
+const addHobbyHelper = (hobby) => {
  addHobby(hobby);
  setPage();
-}
+};
  
 if(!page){
   return (
@@ -38,7 +38,7 @@ if(!page){
 } else{
     return (
        <div>
-       <AddHobby addHobby={complete} allHobbies = {hobbyList}/>
+       <AddHobby addHobby={addHobbyHelper} allHobbies = {hobbyList}/>
        </div>
      );
   }
