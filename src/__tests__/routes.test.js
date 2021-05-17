@@ -12,7 +12,7 @@ import {
 
 import { readData, resetData } from "../lib/backend-utils";
 
-jest.setTimeout(1000 * 60);
+jest.setTimeout(1000 * 80);
 
 describe("Hobby Buddy API", () => {
   let server;

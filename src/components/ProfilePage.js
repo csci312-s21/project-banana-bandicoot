@@ -31,7 +31,7 @@ if(!page){
            <p><b>Favorite Hobbies:</b> {person.hobby}</p>
            <p><b>Bio:</b> {person.bio}</p>
            </div>
-         <input className={styles.button} type = "button" id = "addHobbyButton" name = "addHobbyButton" value = "Add Hobby" onClick = {() => setPage("addHobby")}/>
+         <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("addHobby")}/>
       </div>
    </div> 
      );

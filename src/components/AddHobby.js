@@ -34,7 +34,7 @@ export default function AddHobby({addHobby, allHobbies}){
       <select name = "hobbies" id = "hobbies" onChange = {(event) => setHobbyInput(event.target.value)}>{hobbyList}<option value="starter" selected>Choose Hobby </option></select>
 
       <input type = "button" id = "oldHobbyButton" name = "oldHobbyButton" onClick = {() => addHobby(newHobby)} value = "Add Hobby"/>
-    
+
     <div>
     <h3>Create a new hobby:  
        </h3>   
@@ -43,9 +43,12 @@ export default function AddHobby({addHobby, allHobbies}){
      <input type="text" id="newHobby" name="newHobby" placeholder = "New Hobby" value = {newHobbyInput} onChange = {(event) => setNewHobbyInput(event.target.value)} />
 
 
-     <input type = "button" id = "newHobbyButton" name = "newHobbyButton" disabled = {newHobby === null} onClick = {() => addHobby(brandNewHobby)} value = "Create New Hobby"/>
+     <input type = "button" id = "Save" name = "newHobbyButton" disabled = {newHobby === null} onClick = {() => addHobby(brandNewHobby)} value = "Create New Hobby"/>
+
+    
+
  
-     <input type = "button" id = "cancelButton" name = "cancelButton" onClick = {() => addHobby()} value = "Cancel"/>
+     <input type = "button" id = "Cancel"  onClick = {() => addHobby()} value = "Cancel"/>
     
      </div>
      </div>

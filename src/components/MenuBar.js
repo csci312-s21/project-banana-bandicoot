@@ -18,7 +18,6 @@ import MenuItem from "../components/MenuItem";
 export default function MenuBar({allHobbies, children}){
   const [visible, toggleMenu] = useState(false);
 
-
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
     {"☰"}</span> 
