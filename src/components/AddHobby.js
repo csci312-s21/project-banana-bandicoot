@@ -19,16 +19,7 @@ export default function AddHobby({addHobby, allHobbies}){
    <form>
      <p className={styles.p}> Add Hobby </p>
     
-     <br />
-     <label>
-     <b>Add existing hobby:     
-       </b>   
-     </label>
-     <br />
- 
-    
- 
-     <input type="text" id="dropdownExistingHobby" name="dropdownExistingHobby" placeholder = "test" value = {dropdownExistingHobby} onChange = {(event) => setDropdownExistingHobby(event.target.value)}/>
+     
      <br />
      <label>
      <b>Add new Hobby    
@@ -36,14 +27,12 @@ export default function AddHobby({addHobby, allHobbies}){
      </label> 
     
      <br />
-     <input type="text" id="newHobby" name="newHobby" placeholder = "test" value = {hobbyInput} onChange = {(event) => setHobbyInput(event.target.value)}/>
+     <input type="text" id="newHobby" name="newHobby" placeholder = "text" value = {hobbyInput} onChange = {(event) => setHobbyInput(event.target.value)}/>
      <br />
  
-     <input type = "button" id = "existingHobbyButton" name = "existingHobbyButton" disabled = {dropdownExistingHobby === null} onClick = {() => setDropdownExistingHobby(event.target.hobby)} value = "Add Existing Hobby"/>
+     <input type = "button" id = "Save" disabled = {newHobby === null} onClick = {() => addHobby(newHobby)} value = "Create New Hobby"/>
  
-     <input type = "button" id = "newHobbyButton" name = "newHobbyButton" disabled = {newHobby === null} onClick = {() => addHobby(newHobby)} value = "Create New Hobby"/>
- 
-     <input type = "button" id = "cancelButton" name = "cancelButton" onClick = {() => addHobby()} value = "Cancel"/>
+     <input type = "button" id = "Cancel"  onClick = {() => addHobby()} value = "Cancel"/>
     
      </form>
      </div>
@@ -71,6 +60,23 @@ export default function AddHobby({addHobby, allHobbies}){
 
 
      take 2
+
+
+     <br />
+     <label>
+     <b>Add existing hobby:     
+       </b>   
+     </label>
+     <br />
+ 
+    
+ 
+     <input type="text" id="dropdownExistingHobby" name="dropdownExistingHobby" placeholder = "test" value = {dropdownExistingHobby} onChange = {(event) => setDropdownExistingHobby(event.target.value)}/>
+
+
+
+     <input type = "button" id = "existingHobbyButton" name = "existingHobbyButton" disabled = {dropdownExistingHobby === null} onClick = {() => setDropdownExistingHobby(event.target.hobby)} value = "Add Existing Hobby"/>
+
 
 
 
