@@ -6,6 +6,7 @@ import MenuBar from "../components/MenuBar";
 
 import data from "../../data/hobbies.json";
 
+
 const allHobbies = [
   {
     "name": "Basketball"
@@ -15,9 +16,6 @@ const allHobbies = [
   }
 ]
 
-const newHobbyTest = {
-  name: "Waterpolo"
- }
 
 
 describe("AddHobby Component", ()=> {
