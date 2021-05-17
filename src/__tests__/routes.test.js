@@ -39,7 +39,7 @@ describe("Hobby Buddy API", () => {
 			.catch((rejection) =>{
 				console.log(rejection);
 			});
-});
+   }, 1000 * 100);
 
   beforeEach(async () => {
     resetData();
