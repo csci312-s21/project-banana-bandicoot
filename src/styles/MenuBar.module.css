@@ -57,7 +57,7 @@
   position: static;
 }
 
-.li curr{
+.li{
   display: inline-block;
   width:100%;
   color: white;
@@ -66,7 +66,7 @@
 }
 
 
-.li curr:hover{
+.li:hover{
   background-color: #9e4993;
   color: white;
   cursor: pointer;
