@@ -32,5 +32,15 @@
     "username": "a",
     "password": "b",
     "joinedEvents": [3,4]
+    },
+     {"name": "Corey Scheinfeld",
+    "hometown": "New Rochelle",
+    "birthday": "2000-07-20",
+    "major": "Computer Science",
+    "year": "2022",
+    "hobby": "Ultimate Frisbee and Skiing",
+    "bio": "Let's Go!",
+    "email": "cscheinfeld@middlebury.edu",
+    "joinedEvents": [3,4]
     }
 ]

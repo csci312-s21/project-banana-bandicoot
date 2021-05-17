@@ -12,10 +12,10 @@ export default function menuItem({title, items, icon}){
   const itemIcon = <i className={icon} />;
 
 
-  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</curr></li>;
+  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}className={styles.li}>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</li>;
 
 
-  const menuItems = <li key = {title} data-testid = {title}><curr>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/Profile"):`/${title}`}><a>{title}</a></Link></curr></li>;
+  const menuItems = <li key = {title} data-testid = {title} className={styles.li}>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/"):`/${title}`}><a>{title}</a></Link></li>;
 
 
   let itemsList = <div />;
@@ -27,11 +27,10 @@ export default function menuItem({title, items, icon}){
 
   return (
     <div>
+    <span>{items? menuItemsHeader: menuItems}
     
-    <li className={styles.li}><span>{items? menuItemsHeader: menuItems}
-    
-    {extended?(<div className = {styles.navDropDown}> {itemsList}</div>): null}
-    </span></li>
+    {extended?(<ul className = {styles.navDropDown}> {itemsList}</ul>): null}
+    </span>
    
   </div>
 

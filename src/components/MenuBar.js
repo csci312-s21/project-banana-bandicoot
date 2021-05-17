@@ -1,5 +1,7 @@
 
-
+import {
+  signOut,
+} from "next-auth/client"
 
 import styles from "../styles/MenuBar.module.css";
 
@@ -10,10 +12,9 @@ import MenuItem from "../components/MenuItem";
 
 
 
+
 export default function MenuBar({allHobbies, children}){
   const [visible, toggleMenu] = useState(false);
-
-
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
@@ -24,7 +25,8 @@ export default function MenuBar({allHobbies, children}){
     <div className={styles.container}>
     &emsp;&emsp;<div className={styles.heading} />
     <br/>
-    <button className = {styles.button1}>+Add Event</button>
+
+    <button className = {styles.button1} onClick={signOut}>Sign Out</button>
     <ul className={styles.ul}>
 
       <MenuItem title = {"Profile"} icon = {"fa fa-user-circle"}/> 
