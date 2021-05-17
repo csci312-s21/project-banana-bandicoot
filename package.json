@@ -23,7 +23,7 @@
     "cross-spawn": "^7.0.3",
     "dependencies": "0.0.1",
     "fetch-mock-jest": "^1.5.1",
-    "next": "10.0.8",
+    "next": "^10.2.0",
     "next-auth": "^3.21.1",
     "next-connect": "^0.10.1",
     "node-fetch": "^2.6.1",
