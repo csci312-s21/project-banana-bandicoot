@@ -1,5 +1,6 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+/* eslint-disable */
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
 
 const options = {
   providers: [

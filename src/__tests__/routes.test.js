@@ -19,19 +19,27 @@ describe("Hobby Buddy API", () => {
   let events;
   let sampleEvent;
 
-  beforeAll(async () => {
-    const appDir = path.join(__dirname, "../../");
-    const result = await nextBuild(appDir);
-
-    const app = nextServer({
-      dir: appDir,
-      dev: false,
-      quiet: true,
-    });
-
-      server = await startApp(app);
-
-  });
+ 	beforeAll(() => {
+		const appDir = path.join(__dirname, "../../");
+		return nextBuild(appDir,[], {stderr:true, stdout: true})
+			.then((results)=>{
+				if (results.stderr){
+					console.log(results.stderr);
+				}
+				const app = nextServer({
+					dir: appDir,
+					dev: false,
+					quiet: true,
+				});
+			return startApp(app)
+			})
+			.then((s)=>{
+				server = s;
+			})
+			.catch((rejection) =>{
+				console.log(rejection);
+			});
+});
 
   beforeEach(async () => {
     resetData();

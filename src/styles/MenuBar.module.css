@@ -8,7 +8,7 @@
   right: 0;
   left: 0;
   top: 0px;
-  background-color: #EEE2DC;
+  background-color: white;
   display: block;
   flex-direction: column;
 }
@@ -22,13 +22,22 @@
   z-index: -1;
 }
 
+.heading{
+  background-image: url(hobbyBuddy.JPG), url(hobbyBuddy.JPG);
+  margin-left: 40px;
+  padding: 1px;
+  width: 170px; 
+  height: 160px;
+  display: block;
+  text-align: center;
+}
 .container {
-  width: 220px;
+  width: 260px;
   padding: 0;
   height: 100%;
   margin: 0px;
   padding-top: 5px;
-  background-color: #dceeeb;
+  background-color: black;
   justify-content: flex-start;
   position: fixed;
   transition-timing-function: ease-in;
@@ -37,7 +46,6 @@
 .sideBar{
   width: 220px;
   float: left;
-
 }
 
 .ul{
@@ -52,14 +60,14 @@
 .li curr{
   display: inline-block;
   width:100%;
-  color: black;
+  color: white;
   padding: 8px 16px;
   flex-direction: column;
 }
 
 
 .li curr:hover{
-  background-color: #a9d5ce;
+  background-color: #9e4993;
   color: white;
   cursor: pointer;
 }
@@ -79,7 +87,7 @@
   background-color:aliceblue;
   border: 1px solid #555;
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 40px;
   border-radius: 4px;
   padding: 5px 55px;
   color:black;
@@ -90,9 +98,11 @@
 }
 
 .button1:hover{
-  background-color:#a9d5ce;
-  color: white;
-
+  background-color:#ebdaee;
+  color: black;
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .icon{
@@ -121,21 +131,21 @@
   margin: 10px;
   padding: 8px;
   row-gap: .65rem;
-  background-color: #a9d5ce;  
+  background-color: aliceblue;  
   cursor: pointer; 
   border-radius: 5px;
 }
 
 .navItem g{
   width:100%;
-  color: black;
+  font-weight: bold;
   padding: 8px 16px;
 }
 
 
 .navitem g:hover{
   font-weight: bold;
-  color: white;
+  color: black;
   cursor: pointer;
 }
 
@@ -151,3 +161,13 @@
     position: relative;
   }
 }
+
+
+/* 
+color: white;
+  width: 240px;
+  text-align: center;
+  font-family: Apple Chancery, cursive;
+  font-size: 50px;
+  font-weight: 100;
+  padding: 1px; */

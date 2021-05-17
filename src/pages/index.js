@@ -10,17 +10,13 @@ import MenuBar from "../components/MenuBar";
 import ProfilePage from "../components/ProfilePage.js";
 
 import {
-  signOut,
   useSession
 } from "next-auth/client"
 
 
 export default function Home() {
   const [ session ] = useSession();
-
-
   const [collection] = useState(data);
-
   const [person] = useState(0);
 
 
