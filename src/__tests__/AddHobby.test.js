@@ -104,10 +104,10 @@ describe("AddHobby Component", ()=> {
 
     });
 
-   act(() => {
-     expect(newHobbyTest.name).toBeInTheDocument;
+  //  act(() => {
+  //    expect(newHobbyTest.name).toBeInTheDocument;
 
-    });
+  //   });
    
 
     // await waitFor(async () => {
