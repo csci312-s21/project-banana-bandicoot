@@ -34,7 +34,7 @@ let localHobbies;
 let localProfiles;
 jest.mock("next-auth/client");
 
-describe.skip("AddHobby Component", ()=> {
+describe("AddHobby Component", ()=> {
 
    const getId = (url) => +/\d+$/.exec(url)[0];
   let localFilms;
@@ -43,8 +43,11 @@ describe.skip("AddHobby Component", ()=> {
     let root;
     beforeEach(() => {
        useSession.mockReturnValue([{user: {name:"someone"}}, false]);
+         act(() => {
        const { container } = render(<Home/>);
        root = container;
+
+         });
     });
 
     beforeAll(()=>{
@@ -101,10 +104,10 @@ describe.skip("AddHobby Component", ()=> {
 
     });
 
-    // await waitFor(() => {
-    //  expect(newHobbyTest.name).toBeInTheDocument;
+   act(() => {
+     expect(newHobbyTest.name).toBeInTheDocument;
 
-    // });
+    });
    
 
     // await waitFor(async () => {
@@ -114,7 +117,7 @@ describe.skip("AddHobby Component", ()=> {
     
       // let groupButton = screen.queryByText("Groups");
 
-      // fireEvent.click(groupButton);;
+      // fireEvent.click(groupButton);
       // let skiText = screen.getByText(newHobbyTest.name);
       // expect(skiText).toBeInTheDocument;
     
