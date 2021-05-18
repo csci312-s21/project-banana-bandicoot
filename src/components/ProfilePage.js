@@ -5,20 +5,16 @@ import styles from "../styles/ProfilePage.module.css";
 import MenuBar from "../components/MenuBar";
 import AddHobby from "../components/AddHobby.js";
 
+import profiles from "../../data/profile.json";
+
  
-export default function ProfilePage({person, hobbyList, addHobby}){
+export default function ProfilePage({person, hobbyList, setPage}){
  
 //img
-const [page, setPage] = useState();
+
  
-const addHobbyHelper = (hobby) => {
- addHobby(hobby);
- setPage();
-};
  
-if(!page){
   return (
-   
       <div>
        <div className={styles.left} />
          <div className={styles.center}>
@@ -31,15 +27,8 @@ if(!page){
            <p><b>Favorite Hobbies:</b> {person.hobby}</p>
            <p><b>Bio:</b> {person.bio}</p>
            </div>
-         <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("addHobby")}/>
+         <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("add")}/>
       </div>
    </div> 
      );
-} else{
-    return (
-       <div>
-       <AddHobby addHobby={addHobbyHelper} allHobbies = {hobbyList}/>
-       </div>
-     );
-  }
 }

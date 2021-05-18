@@ -20,9 +20,8 @@ export default function Hobby() {
   const router = useRouter();
   const { hobby } = router.query;
 
-  const sampleUsername = "a";
 
-  const initialUser = profileData.find(user => (user.username === sampleUsername));
+  const initialUser = profileData.find(user => (user.username === "Samantha Enriquez"));
 
  const [myHobbies, setMyHobbies] = useState(initialUser.hobby);
 
@@ -87,7 +86,7 @@ export default function Hobby() {
   }
 
   return (
-    <MenuBar allHobbies = {myHobbies} >
+    <MenuBar allHobbies = {myHobbies} person = {myUsersData}>
 
     {(!page)?(
 

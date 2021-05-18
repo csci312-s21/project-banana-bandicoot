@@ -21,7 +21,7 @@ export default function menuItem({title, items, icon}){
   let itemsList = <div />;
   if(items){
     itemsList = items.map((item)=> { //list of sections
-    return <li className = {styles.navitem} key = {item} data-testid = "item"><g><Link href={`/${item}`}><a>{item}</a></Link></g></li>;
+    return <li className = {styles.navitem} key = {item} data-testid = "item"><Link href={`/${item}`}><a>{item}</a></Link></li>;
    }); //initiate helper to perform callbacks on click
   }
 

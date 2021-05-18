@@ -136,14 +136,8 @@
   border-radius: 5px;
 }
 
-.navItem g{
-  width:100%;
-  font-weight: bold;
-  padding: 8px 16px;
-}
 
-
-.navitem g:hover{
+.navitem:hover{
   font-weight: bold;
   color: black;
   cursor: pointer;
