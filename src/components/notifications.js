@@ -1,3 +1,4 @@
+
 import styles from "../styles/Home.module.css";
 
 
@@ -6,8 +7,6 @@ import { useState, useEffect } from "react";
 import MenuItem from "../components/MenuItem";
 
 import Event from "../components/Event";
-
-
 
 
 export default function Notify({person, joinEvent, leaveEvent}){
@@ -73,6 +72,6 @@ else{
   return null;
 }
 
-}
 
+}
 

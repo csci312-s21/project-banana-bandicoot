@@ -12,6 +12,7 @@
 "date":"4/8","time":"6:45 PM",
 "location":"Wilson Cafe",
 "number_joined":3,"max_number":8,"edited":"2021-05-19T20:19:20Z"
+
 },
 {"id":3,
 "hobby":"Chess",
@@ -36,3 +37,4 @@
 "time":"2:45 PM",
 "location":"Ross Courts",
 "number_joined":6,"max_number":6, "edited":"2021-05-14T18:11:37Z"},{"id":46,"hobby":"Chess","title":"2v2 Chess","date":"5/4","time":"2:45 PM","location":"Axinn","number_joined":0,"max_number":4, "edited": "2021-05-14T18:11:37Z"}]
+

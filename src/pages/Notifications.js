@@ -41,8 +41,6 @@ export default function Notifications() {
   
     setPerson(updated);
     
-
-
     };
 
   const leaveEvent = async (oldEvent)=>{
@@ -65,16 +63,19 @@ export default function Notifications() {
 
     };
 
+
   
   return (
- <MenuBar person = {person} >
+ <MenuBar allHobbies = {hobbies} >
 
     <div className={styles.welcome}>
 
       <h1 className={styles.title}>Notifications</h1> 
 
+
        <h2 className={styles.title}>Newest Events:</h2> 
       <Notify person = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
+
 
     </div>
   </MenuBar>

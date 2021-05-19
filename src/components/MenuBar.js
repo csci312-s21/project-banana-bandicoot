@@ -14,6 +14,9 @@ import MenuItem from "../components/MenuItem";
 
 export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
+  
+
+
 
   const [hobbies, updateHobbies] = useState();
 
