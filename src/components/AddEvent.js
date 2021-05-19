@@ -1,6 +1,5 @@
 import styles from "../styles/AddEvent.module.css";
 
-import profiles from "../../data/profile.json";
 
 import { useState } from "react";
 
@@ -16,11 +15,6 @@ export default function AddEvent({complete, currHobby}){
   const [locationInput, setLocation] = useState("");
 
   const [capacityInput, setCapacity] = useState("");
-
-   const user = profiles.find(profile => (profile.name === "Leili Manafi"));
-
-  const [myHobbies, setMyHobbies] = useState(user.hobby);
-
 
   //setId(currId + 1);
 

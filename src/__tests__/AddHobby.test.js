@@ -6,20 +6,8 @@ import { act } from "react-dom/test-utils";
 
 import Home from "../pages/index";
 
-import MenuBar from "../components/MenuBar";
-
-import data from "../../data/hobbies.json";
-
 import { useSession } from "next-auth/client";
 
-const allHobbies = [
-  {
-    "name": "Basketball"
-  },
-  {
-    "name": "Chess"
-  }
-]
 
 const newHobbyTest = {
 
@@ -30,15 +18,12 @@ const profile = [
   {"name":"Katelyn Pease","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[3,4],"id":2}
 ]
 
-let localHobbies;
 let localProfiles;
 jest.mock("next-auth/client");
 
 describe("AddHobby Component", ()=> {
 
    const getId = (url) => +/\d+$/.exec(url)[0];
-  let localFilms;
-
 
     let root;
     beforeEach(() => {
@@ -52,14 +37,13 @@ describe("AddHobby Component", ()=> {
 
     beforeAll(()=>{
 
-      localHobbies = allHobbies.map((hobby) => ({ ...hobby }));
 
       localProfiles = profile.map((prof) => ({ ...prof }));
 
        fetchMock.reset();
        fetchMock.get(
       `/api/profile/2`,
-      () => localProfiles[1]
+      () => localProfiles[0]
     );
     fetchMock.put(
       `/api/profile/2`,
@@ -99,27 +83,18 @@ describe("AddHobby Component", ()=> {
      
     fireEvent.click(submitButton);
     
-
-    await waitFor(() => {expect(localHobbies.toContain(newHobbyTest.name));
-
-    });
-
-   act(() => {
-     expect(newHobbyTest.name).toBeInTheDocument;
-
-    });
    
 
-    // await waitFor(async () => {
-    //     await fetchMock.flush(true);
-    //    });
+    await waitFor(async () => {
+        await fetchMock.flush(true);
+       });
  
     
-      // let groupButton = screen.queryByText("Groups");
+      const groupButton = screen.queryByText("Groups");
 
-      // fireEvent.click(groupButton);
-      // let skiText = screen.getByText(newHobbyTest.name);
-      // expect(skiText).toBeInTheDocument;
+      fireEvent.click(groupButton);
+      const skiText = screen.getByText(newHobbyTest.name);
+      expect(skiText).toBeInTheDocument;
     
   
  });

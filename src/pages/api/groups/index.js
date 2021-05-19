@@ -1,4 +1,4 @@
-import { readHobbies} from "../../../lib/backend-utils";
+import { readHobbies, saveHobbies } from "../../../lib/backend-utils";
 
 import nc from "next-connect";
 

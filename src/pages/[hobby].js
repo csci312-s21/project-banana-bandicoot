@@ -21,19 +21,17 @@ export default function Hobby() {
   const { hobby } = router.query;
 
 
-  const initialUser = profileData.find(user => (user.username === "Samantha Enriquez"));
-
- const [myHobbies, setMyHobbies] = useState(initialUser.hobby);
+  const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
 
   const [collection, setCollection] = useState(data);
   const [page, setPage] = useState();
-  const [myUsersData] = useState(initialUser);
+
   //used for join/leave buttons
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
+  const [joinedEventsIDs, setJoinedEventIDs] = useState(initialUser.joinedEvents);
 
   // used for myEvents list
   const [myJoinedEvents, setMyJoinedEvents] = useState(
-    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
+    collection.filter(event => (initialUser.joinedEvents).includes(event.id))
   );
 
 
@@ -86,7 +84,7 @@ export default function Hobby() {
   }
 
   return (
-    <MenuBar allHobbies = {myHobbies} person = {myUsersData}>
+    <MenuBar person = {initialUser}>
 
     {(!page)?(
 

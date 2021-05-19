@@ -1,11 +1,6 @@
 import LoginPage from "../components/LoginPage.js";
 
-import { useState, useEffect } from "react";
-
-
-import data from "../../data/seed.json";
-
-import allHobbies from "../../data/hobbies.json";
+import { useState } from "react";
 
 import MenuBar from "../components/MenuBar";
 
@@ -23,39 +18,20 @@ import {
 export default function Home() {
   const [ session ] = useSession();
   const user = profiles.find(profile => (profile.name === "Samantha Enriquez"));
-  const [collection] = useState(data);
   const [person, setPerson] = useState(user);
   const [page, setPage] = useState("prof");
-  const [hobbyList, setHobbyList] = useState(allHobbies);
  
   
 
-  const [myHobbies, setMyHobbies] = useState(user.hobby);
 
   let newUser; 
 
-  const setHobbies = (newHobby) => {
 
-  
-  if(newHobby){
-   console.log(newHobby);
-   newUser = {...user, hobby:[...user.hobby, newHobby]}
-   console.log(newUser);
-   setPage("prof");
-   console.log("here");
-   setProfile(newUser);
-   setMyHobbies(user.hobby);
-
-  }
-
-}
-
- const setProfile = async (newPerson)=>{
-
-    console.log(newPerson);
-    const response = await fetch( `/api/profile/${newPerson.id}`,{
+ const setHobbies = async (newHobby)=>{
+    newUser = {...user, hobby:[...user.hobby, newHobby]}
+    const response = await fetch( `/api/profile/${newUser.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newPerson),
+    body:  JSON.stringify(newUser),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -65,7 +41,7 @@ export default function Home() {
     const updated = await response.json();
 
     setPerson(updated);
-
+    setPage("prof");
 
     };
    
@@ -75,10 +51,10 @@ export default function Home() {
 if(session){
 
   return(
-  <MenuBar person = {person}>
-    {(page === "prof")?
- <ProfilePage person= {person} hobbyList = {hobbyList} setPage = {setPage} />:<AddHobby addHobby={setHobbies} allHobbies = {hobbyList}/>}
-</MenuBar>
+  <div>
+    {(page === "prof")?<MenuBar person = {person}>
+ <ProfilePage person= {person} setPage = {setPage} /></MenuBar>:<AddHobby addHobby={setHobbies}/>}
+</div>
   );
 
 

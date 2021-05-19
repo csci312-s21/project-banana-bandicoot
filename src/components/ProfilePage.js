@@ -1,14 +1,10 @@
-import { useState } from "react";
+
  
 import styles from "../styles/ProfilePage.module.css";
  
-import MenuBar from "../components/MenuBar";
-import AddHobby from "../components/AddHobby.js";
-
-import profiles from "../../data/profile.json";
 
  
-export default function ProfilePage({person, hobbyList, setPage}){
+export default function ProfilePage({person, setPage}){
  
 //img
 

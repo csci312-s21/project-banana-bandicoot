@@ -3,22 +3,13 @@ import styles from "../styles/AddEvent.module.css";
 
 import collection from "../../data/hobbies.json";
  
-
-
-
-// import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
- 
 import { useState } from "react";
  
-export default function AddHobby({addHobby, allHobbies}){
+export default function AddHobby({addHobby}){
  
   const [hobbyInput, setHobbyInput] = useState("");
-   const [newHobbyInput, setNewHobbyInput] = useState("");
-  const [dropdownExistingHobby, setDropdownExistingHobby] = useState();
- 
+  const [newHobbyInput, setNewHobbyInput] = useState("");
   const newHobby = {name: hobbyInput};
-  const brandNewHobby = {name: newHobbyInput};
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
 
   
   const hobbyList = collection.map((hobby)=> { //list of sections

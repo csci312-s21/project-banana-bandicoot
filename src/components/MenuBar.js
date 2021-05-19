@@ -10,9 +10,6 @@ import { useState, useEffect } from "react";
 
 import MenuItem from "../components/MenuItem";
 
-//Needs to take in hobbies of the person, not allHobbies (changed name)
-
-//allHobbies is all of the user's personal hobbies, not ALL hobbies
 
 
 export default function MenuBar({person, children}){
@@ -39,8 +36,6 @@ export default function MenuBar({person, children}){
 
     updateHobbies(newPerson.hobby);
 
-
-    return newPerson
 };
 
 getHobbies();
