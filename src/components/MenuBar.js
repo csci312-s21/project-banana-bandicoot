@@ -6,20 +6,45 @@ import {
 import styles from "../styles/MenuBar.module.css";
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MenuItem from "../components/MenuItem";
 
 
 
-
-export default function MenuBar({allHobbies, children}){
+export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
+  const [hobbies, updateHobbies] = useState();
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
     {"☰"}</span> 
   );
+
+
+  useEffect(()=>{
+  //updates groups when menu is rendered
+
+    const getHobbies = async () => {
+    const response = await fetch( `/api/profile/${person.id}`);
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const newPerson = await response.json();
+
+    updateHobbies(newPerson.hobby);
+
+};
+
+getHobbies();
+
+ 
+  }, [person]);
+
+
+
 
   const menu =( 
     <div className={styles.container}>
@@ -33,7 +58,7 @@ export default function MenuBar({allHobbies, children}){
 
       <MenuItem title = {"Notifications"} icon = {"fa fa-bell"}/>
 
-      <MenuItem title = {"Groups"} items = {allHobbies} icon = {"fa fa-users"}/> 
+      <MenuItem title = {"Groups"} items = {hobbies} icon = {"fa fa-users"}/> 
     
       <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
 

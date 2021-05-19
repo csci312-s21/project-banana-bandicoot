@@ -20,19 +20,18 @@ export default function Hobby() {
   const router = useRouter();
   const { hobby } = router.query;
 
-  const sampleUsername = "a";
 
-  const initialUser = profileData.find(user => (user.username === sampleUsername));
+  const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
 
   const [collection, setCollection] = useState(data);
   const [page, setPage] = useState();
-  const [myUsersData] = useState(initialUser);
+
   //used for join/leave buttons
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
+  const [joinedEventsIDs, setJoinedEventIDs] = useState(initialUser.joinedEvents);
 
   // used for myEvents list
   const [myJoinedEvents, setMyJoinedEvents] = useState(
-    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
+    collection.filter(event => (initialUser.joinedEvents).includes(event.id))
   );
 
 
@@ -85,7 +84,7 @@ export default function Hobby() {
   }
 
   return (
-    <MenuBar allHobbies = {hobbies} >
+    <MenuBar person = {initialUser}>
 
     {(!page)?(
 
@@ -101,7 +100,7 @@ export default function Hobby() {
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </div>
       ):( <div className={styles.mainContainer}>
-        <AddEvent complete = {addNewEvent} hobby = {hobby}/>
+        <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
       </div>)}
 
     
