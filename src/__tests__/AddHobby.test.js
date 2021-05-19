@@ -82,7 +82,6 @@ describe("AddHobby Component", ()=> {
      
      
     fireEvent.click(submitButton);
-    
    
 
     await waitFor(async () => {
