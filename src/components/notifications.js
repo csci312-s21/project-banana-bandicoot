@@ -4,13 +4,10 @@ import styles from "../styles/Home.module.css";
 
 import { useState, useEffect } from "react";
 
-import MenuItem from "../components/MenuItem";
-
 import Event from "../components/Event";
 
 
 export default function Notify({person, joinEvent, leaveEvent}){
-  const [visible, toggleMenu] = useState(false);
   const [eventsList, setEventsList] = useState([]);
 
 
@@ -39,8 +36,8 @@ useEffect(()=>{
   
   const currDate = new Date();
   const newest_events = []
-  let min = 1000*60;
-  let hours = min*60;
+  const min = 1000*60;
+  const hours = min*60;
 
   if(eventsList && person.hobby){
   eventsList.forEach(event => {

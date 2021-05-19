@@ -1,9 +1,7 @@
 import styles from "../styles/Home.module.css";
 
 
-import { useState, useEffect } from "react";
-
-import data from "../../data/seed.json";
+import { useState } from "react";
 
 import MenuBar from "../components/MenuBar";
 
@@ -16,12 +14,6 @@ export default function Notifications() {
   const user = profileData.find(profile => (profile.name === "Samantha Enriquez"));
   const [person, setPerson] = useState(user);
   
-
-  const sampleUsername = "a";
-  const initialUser = profileData.find(user => (user.username === sampleUsername));
-  const [myUsersData] = useState(initialUser);
-  const [collection] = useState(data);
-  const [hobbies, setHobbies] = useState();
   
   
   let newUser;
@@ -66,7 +58,7 @@ export default function Notifications() {
 
   
   return (
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar person = {person} >
 
     <div className={styles.welcome}>
 

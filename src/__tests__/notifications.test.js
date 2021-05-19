@@ -1,4 +1,6 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+/* eslint-disable */
+
+import { render, screen } from "@testing-library/react";
 
 import fetchMock from "fetch-mock-jest";
 
@@ -34,14 +36,12 @@ jest.mock("next-auth/client");
 
 describe("notifications Component", ()=> {
 
-   const getId = (url) => +/\d+$/.exec(url)[0];
 
     let root;
     beforeEach(() => {
        useSession.mockReturnValue([{user: {name:"someone"}}, false]);
          act(() => {
        const { container } = render(<Notifications/>);
-       root = container;
 
          });
     });
