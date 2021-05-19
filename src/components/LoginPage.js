@@ -1,5 +1,5 @@
 import {
-  signIn, 
+  signIn 
 } from "next-auth/client"
 
 import styles from "../styles/LoginPage.module.css";
