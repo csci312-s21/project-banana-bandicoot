@@ -10,34 +10,62 @@ import {
 
 
 
-import { readData, resetData } from "../lib/backend-utils";
+import { readEvents, resetEvents, readHobbies, resetHobbies } from "../lib/backend-utils";
 
-jest.setTimeout(1000 * 60);
+jest.setTimeout(1000 * 80);
 
 describe("Hobby Buddy API", () => {
   let server;
   let events;
   let sampleEvent;
+  let sampleProfile;
+  let hobbies
 
-  beforeAll(async () => {
-    const appDir = path.join(__dirname, "../../");
-    const result = await nextBuild(appDir);
-
-    const app = nextServer({
-      dir: appDir,
-      dev: false,
-      quiet: true,
-    });
-
-      server = await startApp(app);
-
-  });
+ 	beforeAll(() => {
+		const appDir = path.join(__dirname, "../../");
+		return nextBuild(appDir,[], {stderr:true, stdout: true})
+			.then((results)=>{
+				if (results.stderr){
+					console.log(results.stderr);
+				}
+				const app = nextServer({
+					dir: appDir,
+					dev: false,
+					quiet: true,
+				});
+			return startApp(app)
+			})
+			.then((s)=>{
+				server = s;
+			})
+			.catch((rejection) =>{
+				console.log(rejection);
+			});
+   }, 1000 * 100);
 
   beforeEach(async () => {
-    resetData();
+    resetEvents();
 
-    events = readData();
+    events = readEvents();
+    const groups = readHobbies();
+    hobbies =  groups.map((h) => {
+      return h.name;
+       });
     sampleEvent = events[Math.floor(events.length / 2)];
+
+    sampleProfile =  {
+    "name": "Leili Manafi",
+    "hometown": "Alhambra",
+    "birthday": "2000-05-05",
+    "major": "Computer Science and Psychology",
+    "year": "2022",
+    "hobby": ["Basketball"],
+    "bio": "AHHHHHHH IM STRESSED",
+    "username": "a",
+    "password": "b",
+    "joinedEvents": [3,4],
+    "id": 3
+    }
 
     
   });
@@ -97,7 +125,7 @@ describe("Hobby Buddy API", () => {
       .expect(newEvent);
 
 
-    const updatedEvents = readData();
+    const updatedEvents = readEvents();
     const testEvent = updatedEvents.find((e) => e.id === newEvent.id);
     expect(testEvent).toEqual(newEvent);
   });
@@ -135,9 +163,31 @@ test("POST /api/events/:id should add new event (mostly SuperTest)", async () =>
       .expect(sampleNewEvent);
 
 
-    const updatedEvents = readData();
+    const updatedEvents = readEvents();
     const testEvent = updatedEvents.find((e) => e.id === sampleNewEvent.id);
     expect(testEvent).toEqual(sampleNewEvent);
   });
+
+
+  test("GET /api/groups should return all hobbies (mostly SuperTest)", (done) => {
+
+    request(server)
+      .get("/api/groups")
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .expect(hobbies, done);
+  });
+
+
+  test("GET /api/profile/:id should return profile hobbies", (done) => {
+    request(server)
+      .get(`/api/profile/${sampleProfile.id}`)
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .expect(sampleProfile, done);
+
+
+  });
+
 
 });

@@ -1,21 +1,21 @@
 
-
+import {
+  signOut,
+} from "next-auth/client"
 
 import styles from "../styles/MenuBar.module.css";
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MenuItem from "../components/MenuItem";
 
 
 
-export default function MenuBar({allHobbies, children}){
+export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
-  
 
-
-
+  const [hobbies, updateHobbies] = useState();
 
 
   const icon = (
@@ -23,18 +23,43 @@ export default function MenuBar({allHobbies, children}){
     {"☰"}</span> 
   );
 
+
+  useEffect(()=>{
+  //updates groups when menu is rendered
+
+    const getHobbies = async () => {
+    const response = await fetch( `/api/profile/${person.id}`);
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const newPerson = await response.json();
+    updateHobbies(newPerson.hobby);
+
+};
+
+getHobbies();
+
+ 
+  }, [person]);
+
+
+
+
   const menu =( 
     <div className={styles.container}>
     &emsp;&emsp;<div className={styles.heading} />
     <br/>
-    <button className = {styles.button1}>+Add Event</button>
+
+    <button className = {styles.button1} onClick={signOut}>Sign Out</button>
     <ul className={styles.ul}>
 
       <MenuItem title = {"Profile"} icon = {"fa fa-user-circle"}/> 
 
       <MenuItem title = {"Notifications"} icon = {"fa fa-bell"}/>
 
-      <MenuItem title = {"Groups"} items = {allHobbies} icon = {"fa fa-users"}/> 
+      <MenuItem title = {"Groups"} items = {hobbies} icon = {"fa fa-users"}/> 
     
       <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
 

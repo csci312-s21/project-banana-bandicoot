@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.css";
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import data from "../../data/seed.json";
 
@@ -11,70 +11,70 @@ import Notify from "../components/notifications";
 
 import profileData from "../../data/profile.json";
 
+export default function Notifications() {
 
-
-export default function notifications() {
+  const user = profileData.find(profile => (profile.name === "Samantha Enriquez"));
+  const [person, setPerson] = useState(user);
   
-  const sampleUsername = "a";
 
+  const sampleUsername = "a";
   const initialUser = profileData.find(user => (user.username === sampleUsername));
   const [myUsersData] = useState(initialUser);
   const [collection] = useState(data);
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-  const [myJoinedEvents, setMyJoinedEvents] = useState();
-
-  // used for myEvents list
+  const [hobbies, setHobbies] = useState();
   
+  
+  let newUser;
 
-const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
+  const joinEvent = async (newEvent)=>{
+    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent]}
+    const response = await fetch( `/api/profile/${person.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    else{
-    hobbies.push(event.hobby);
-    }
-    }
-    );
-    hobbies.sort(); 
 
-
-  function joinEvent(joinedEvent){
-    const joinedEventsCopy =  [...myJoinedEvents, joinedEvent];
-    setMyJoinedEvents(joinedEventsCopy);
-    const listJoinedEvents = [...joinedEventsIDs, joinedEvent.id];
-    setJoinedEventIDs(listJoinedEvents);
-  }
-
-  function leaveEvent(leftEvent){
-    const joinedEventsCopy = [...myJoinedEvents];
+    const updated = await response.json();
+  
+    setPerson(updated);
     
-    for( let i = 0; i < joinedEventsCopy.length; i++){ 
-        if ( joinedEventsCopy[i].id === leftEvent.id) { 
-            joinedEventsCopy.splice(i, 1); 
-        }
-    }
-    setMyJoinedEvents(joinedEventsCopy);
 
-    //Take event ID out of joinedEventsIDs
-    const listJoinedEvents = [...joinedEventsIDs];
-    for( let i = 0; i < listJoinedEvents.length; i++){ 
-        if ( listJoinedEvents[i] === leftEvent.id) { 
-            listJoinedEvents.splice(i, 1); 
-        }
+
+    };
+
+  const leaveEvent = async (oldEvent)=>{
+    console.log(oldEvent);
+    newUser = {...person, joinedEvents:[person.joinedEvents.filter(event => event ===oldEvent)]}
+    console.log(newUser);
+    const response = await fetch( `/api/profile/${person.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    setJoinedEventIDs(listJoinedEvents);
-  }
+
+    const updated = await response.json();
+    
+    setPerson(updated);
+
+
+    };
+
   
   return (
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar person = {person} >
 
     <div className={styles.welcome}>
 
       <h1 className={styles.title}>Notifications</h1> 
 
        <h2 className={styles.title}>Newest Events:</h2> 
-      <Notify events = {collection} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
+      <Notify person = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
 
     </div>
   </MenuBar>

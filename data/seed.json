@@ -1,3 +1,4 @@
+
 [{"id":1,
 "hobby":"Chess",
 "title":"Chess Tournament!",
@@ -10,7 +11,7 @@
 "title":"Chess Club Practice, bring friends",
 "date":"4/8","time":"6:45 PM",
 "location":"Wilson Cafe",
-"number_joined":3,"max_number":8,"edited":"2021-05-12T21:40:41.352Z"
+"number_joined":3,"max_number":8,"edited":"2021-05-19T20:19:20Z"
 },
 {"id":3,
 "hobby":"Chess",

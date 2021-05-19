@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function AddEvent({complete, currHobby}){
 
-  const [hobbyInput, setHobby] = useState(currHobby);
 
   const [titleInput, setTitle] = useState("");
 
@@ -19,7 +18,10 @@ export default function AddEvent({complete, currHobby}){
 
   //setId(currId + 1);
 
-  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput,edited: (new Date()).toISOString};
+
+  const newEvent = {id: 7, hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
+
+
 
   return(
     <div className={styles.add}>
@@ -28,14 +30,6 @@ export default function AddEvent({complete, currHobby}){
     <form>
       <p className={styles.p}> Add Event </p>
       
-      <br />
-      <label>
-      <b>Event:     
-        </b>    
-      </label>
-      <br /> 
-
-      <input type="text" id="text_hobby" name="hobby" placeholder = "Hobby must be set" value = {hobbyInput} onChange = {(event) => setHobby(event.target.value)}/>
       <br />
       <label>
       <b>Title:     

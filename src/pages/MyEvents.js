@@ -15,36 +15,34 @@ import profileData from "../../data/profile.json";
 
 export default function myEvents() {
   
-  const sampleUsername = "a";
 
-  const initialUser = profileData.find(user => (user.username === sampleUsername));
+  const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
+
   const [myUsersData] = useState(initialUser);
-  //const [collection] = useState(data);
+  const [collection] = useState(data);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-  const [myJoinedEvents, setMyJoinedEvents] = useState();
-
+ 
   // used for myEvents list
-  /*
+
   const [myJoinedEvents, setMyJoinedEvents] = useState(
     collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
-  */
 
-useEffect(() => {
-  const getData = async () => {
-    const response = await fetch(`${data}/api/events`);
+// useEffect(() => {
+//   const getData = async () => {
+//     const response = await fetch(`${data}/api/events`);
   
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+//     if (!response.ok) {
+//       throw new Error(response.statusText);
+//     }
 
-    const eventsData = await response.json();
+//     const eventsData = await response.json();
 
-    setMyJoinedEvents(eventsData);
-  };
+//     setMyJoinedEvents(eventsData);
+//   };
 
-  getData();
-  },[]);
+//   getData();
+//   },[]);
 
 const hobbies = [];
     collection.forEach((event)=> //determine sections
@@ -89,7 +87,7 @@ const hobbies = [];
   }
   
   return (
- <MenuBar allHobbies = {hobbies} >
+ <MenuBar person = {myUsersData}>
 
     <div className={styles.welcome}>
 

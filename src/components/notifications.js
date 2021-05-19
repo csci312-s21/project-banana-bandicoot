@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.css";
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MenuItem from "../components/MenuItem";
 
@@ -10,26 +10,55 @@ import Event from "../components/Event";
 
 
 
-export default function Notify({events, joinEvent, leaveEvent}){
+export default function Notify({person, joinEvent, leaveEvent}){
   const [visible, toggleMenu] = useState(false);
+  const [eventsList, setEventsList] = useState([]);
 
+
+useEffect(()=>{
+    const getEvents = async () => {
+    const response = await fetch( `/api/events`);
+    
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const eventObjs = await response.json();
+    setEventsList(eventObjs);
+    
+
+    };
+
+    getEvents();
+    
+
+ 
+  }, [person]);
+
+
+  
   const currDate = new Date();
-  console.log("hello?")
   const newest_events = []
-  events.forEach(event => {
-    console.log(event)
+  let min = 1000*60;
+  let hours = min*60;
+
+  if(eventsList && person.hobby){
+  eventsList.forEach(event => {
+    if(person.hobby.includes(event.hobby)){
+
     const possDate = new Date(event.edited);
-    console.log(possDate)
-    console.log(currDate)
-    const diff =Math.abs(currDate.getHours() - possDate.getHours());
-    console.log(diff)
+
+    const diff = Math.round((currDate.getTime() - possDate.getTime())/hours);
+
     if(diff<2){
-      console.log("YES")
       newest_events.push(event);
     }
+  }
   } 
+  
   )
-console.log(newest_events);
+  }
 if(newest_events){
 return(
 
