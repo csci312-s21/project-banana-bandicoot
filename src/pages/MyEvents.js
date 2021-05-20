@@ -14,9 +14,9 @@ import profileData from "../../data/profile.json";
 
 export default function myEvents() {
   
-  const sampleUsername = "a";
 
-  const initialUser = profileData.find(user => (user.username === sampleUsername));
+  const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
+
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
   const [events, setEvents]=useState({"id":1,"hobby":"Chess",
@@ -38,10 +38,12 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
  useEffect(() => {
   const getData = async () => {
     const response = await fetch(`/api/events`);
+
   
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+//     if (!response.ok) {
+//       throw new Error(response.statusText);
+//     }
+
 
     const eventsData = await response.json();
     
@@ -50,6 +52,15 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
 
   getData();
   },[events]);
+
+//     const eventsData = await response.json();
+
+//     setMyJoinedEvents(eventsData);
+//   };
+
+//   getData();
+//   },[]);
+
 
   
 
@@ -100,7 +111,11 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
 
   // allHobbies = {hobbies} 
   return (
+<<<<<<< HEAD
  <MenuBar>
+=======
+ <MenuBar person = {myUsersData}>
+>>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
 
     <div className={styles.welcome}>
 

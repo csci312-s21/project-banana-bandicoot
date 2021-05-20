@@ -7,7 +7,6 @@ https://github.com/vercel/next.js/blob/2e8068fcbea427bf50dd464c5565e676e4685ff0/
 
 import path from "path";
 import spawn from "cross-spawn";
-
 import http from "http";
 import server from "next/dist/server/next";
 import fetch from "node-fetch";

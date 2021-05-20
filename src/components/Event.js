@@ -9,6 +9,7 @@ export default function Event({ event, joined , joinEvent, leaveEvent}) {
 const [numPeople, setNumPeople ] = useState(event.number_joined);
 
 
+
   return (
           <div className = {styles.event}>
             <ul className = {styles.ul}>
