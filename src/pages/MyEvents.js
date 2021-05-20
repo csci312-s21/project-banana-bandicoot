@@ -16,39 +16,39 @@ export default function myEvents() {
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
-  const [events, setEvents] = useState({
+  const [events, setEvents] = useState([{
     "id": 1, "hobby": "Chess",
     "title": "Chess Tournament!",
     "date": "5/2", "time": "10:45 AM",
     "location": "DANA Auditorium",
     "number_joined": 1,
     "max_number": 12
-  });
+  }]);
 
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
+  console.log("joinedEventsIDs"+joinedEventsIDs[0]);
 
 
   const [myJoinedEvents, setMyJoinedEvents] = useState(
     events.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
 
+  console.log("myJoinedEvents"+ myJoinedEvents);
   //calls all the events
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/api/events`);
-
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
       const eventsData = await response.json();
-
       setEvents(eventsData);
     };
-
       getData();
-      },[]);
-
-  
+      },[joinedEventsIDs]);
 
 
-
+console.log("events: ", events)
 
     //  const myEventsData = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
 
@@ -106,7 +106,7 @@ export default function myEvents() {
 
           <h1 className={styles.title}>My Events</h1>
 
-          <MyEvents id="MyEvents" ourEvents={myJoinedEvents} myData={myUsersData} joinEvent={joinEvent} leaveEvent={leaveEvent} />
+           <MyEvents id="MyEvents" ourEvents={myJoinedEvents} myData={myUsersData} joinEvent={joinEvent} leaveEvent={leaveEvent} />
 
         </div>
       </MenuBar>

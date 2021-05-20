@@ -11,34 +11,27 @@ import { useState, useEffect } from "react";
 import MenuItem from "../components/MenuItem";
 
 //children prop was deleted because it wasn't being used anywhere
-export default function MenuBar(person,children) {
+export default function MenuBar({person,children}) {
   const [visible, toggleMenu] = useState(false);
   const [events, setEvents] = useState([]);
 
-  //calls all the events
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(`/api/events`);
+  // //calls all the events
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const response = await fetch(`/api/events`);
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-
-      const eventsData = await response.json();
+  //     if (!response.ok) {
+  //       throw new Error(response.statusText);
+  //     }
 
 
-
-  
-
-
-
-      setEvents(eventsData);
-    };
+  //     const eventsData = await response.json();
+  //     setEvents(eventsData);
+  //   };
 
 
-    getData();
-  }, []);
+  //   getData();
+  // }, []);
 
   const [hobbies, updateHobbies] = useState();
 
@@ -112,7 +105,7 @@ getHobbies();
       </div>
       {visible ? menu : null}
       <div className={styles.welcome}>
-    {/*children */}
+        {children}
       </div>
       <footer className={styles.footer}> A CS 312 Project </footer>
     </div>
