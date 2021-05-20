@@ -10,21 +10,16 @@ import MenuBar from "../components/MenuBar";
 
 import profileData from "../../data/profile.json";
 
-
-
 export default function myEvents() {
-  
-
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
-
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
   const [events, setEvents]=useState({"id":1,"hobby":"Chess",
-"title":"Chess Tournament!",
-"date":"5/2","time":"10:45 AM",
-"location":"DANA Auditorium",
-"number_joined":1,
-"max_number":12});
+  "title":"Chess Tournament!",
+  "date":"5/2","time":"10:45 AM",
+  "location":"DANA Auditorium",
+  "number_joined":1,
+  "max_number":12});
 
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
 
@@ -32,7 +27,6 @@ export default function myEvents() {
 const [myJoinedEvents, setMyJoinedEvents] = useState(
     events.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
-
 
 //calls all the events
  useEffect(() => {
@@ -51,7 +45,7 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
   };
 
   getData();
-  },[events]);
+  },[]);
 
 //     const eventsData = await response.json();
 
