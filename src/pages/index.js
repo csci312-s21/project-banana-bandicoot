@@ -1,6 +1,7 @@
-import LoginPage from "../components/LoginPage.js";
-
 import { useState } from "react";
+
+
+import LoginPage from "../components/LoginPage.js";
 
 import MenuBar from "../components/MenuBar";
 
@@ -24,7 +25,7 @@ export default function Home() {
   
 
 
-  let newUser; 
+ let newUser; 
 
 
  const setHobbies = async (newHobby)=>{
@@ -41,7 +42,7 @@ export default function Home() {
     }
 
     const updated = await response.json();
-
+    
     setPerson(updated);
     setPage("prof");
 

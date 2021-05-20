@@ -3,10 +3,13 @@ import { readEvents } from "../../../lib/backend-utils";
 import { saveEvents } from "../../../lib/backend-utils";
 
 const handler = nc().get((req, res) => {
+  
 const { id } = req.query;
 const events = readEvents();
 const event = events.find((e)=> e["id"] === +id);
+
 res.status(200).json(event);
+
 
 }).put((req, res) => {
   const { id } = req.query;
