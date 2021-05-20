@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 
 import MenuItem from "../components/MenuItem";
 
-//children prop was deleted because it wasn't being used anywhere
+
 export default function MenuBar({person,children}) {
   const [visible, toggleMenu] = useState(false);
   const [events, setEvents] = useState([]);
@@ -19,6 +19,7 @@ export default function MenuBar({person,children}) {
   // useEffect(() => {
   //   const getData = async () => {
   //     const response = await fetch(`/api/events`);
+
 
   //     if (!response.ok) {
   //       throw new Error(response.statusText);
@@ -30,22 +31,21 @@ export default function MenuBar({person,children}) {
   //   };
 
 
+
   //   getData();
   // }, []);
 
+
+
+  
   const [hobbies, updateHobbies] = useState();
 
-
-
- 
 
 
   const icon = (
     <span onClick={() => { toggleMenu(!visible) }} className={styles.menuHeaderI}>
       {"☰"}</span>
   );
-
-
 
 
 
@@ -105,7 +105,9 @@ getHobbies();
       </div>
       {visible ? menu : null}
       <div className={styles.welcome}>
+
         {children}
+
       </div>
       <footer className={styles.footer}> A CS 312 Project </footer>
     </div>

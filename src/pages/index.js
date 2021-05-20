@@ -48,7 +48,7 @@ export default function Home() {
    
    
 
-
+console.log(session);
 if(session){
 
   return(
@@ -57,10 +57,10 @@ if(session){
  <ProfilePage person= {person} setPage = {setPage} /></MenuBar>:<AddHobby addHobby={setHobbies}/>}
 </div>
   );
-
-
-//   }
 }
+
+
+
   else{
    return (
       <div>
@@ -70,7 +70,8 @@ if(session){
   }
   
 
-  } 
+  }; 
+  
 
 
 

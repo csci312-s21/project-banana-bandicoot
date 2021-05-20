@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import MyEvents from "../components/MyEvents.js";
 
-import data from "../../data/seed.json";
+//import data from "../../data/seed.json";
 
 import MenuBar from "../components/MenuBar";
 
@@ -14,8 +14,11 @@ export default function myEvents() {
 
 
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
+  //const [person, setPerson] = useState(initialUser);
+
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
+
   const [events, setEvents] = useState([{
     "id": 1, "hobby": "Chess",
     "title": "Chess Tournament!",
@@ -25,6 +28,7 @@ export default function myEvents() {
     "max_number": 12
   }]);
 
+
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
   console.log("joinedEventsIDs"+joinedEventsIDs[0]);
 
@@ -33,19 +37,33 @@ export default function myEvents() {
     events.filter(event => (myUsersData.joinedEvents).includes(event.id))
   );
 
+
   console.log("myJoinedEvents"+ myJoinedEvents);
+
+
+
   //calls all the events
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/api/events`);
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+
       const eventsData = await response.json();
       setEvents(eventsData);
     };
+
       getData();
       },[joinedEventsIDs]);
+
+
+
+      
+
 
 
 console.log("events: ", events)
