@@ -34,7 +34,7 @@
 }
 
 .button {
-  background-color: #123C69;
+  background-color: #9e4993;
   border: none;
   color: white;
   padding: 12px;
@@ -42,7 +42,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: 15px;
-  margin: 4px 2px;
+  margin: 5px;
   border-radius: 4px;
   cursor: pointer;
   margin-left: 110px;
@@ -73,7 +73,6 @@
   background-color: white;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-left: 300px;
 }
 
 

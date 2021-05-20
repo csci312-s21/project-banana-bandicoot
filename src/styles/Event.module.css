@@ -6,19 +6,23 @@
 
 .event{
   display: flex;
+  position: static;
+  margin: 10px;
+  padding-left: 10px;
   flex-flow: row wrap;
   justify-content: space-around;
   list-style: none;
-  color: black;
   width: 60%;
   height: 90%; 
   cursor: pointer; 
   border: solid;
-  border-left-color: #9e4993;
+  color: #9e4993b2;
+  border-radius: 10px;
+  /* border-left-color: #9e4993;
   border-top-style: #9e4993;
   border-right-style: #9e4993;
-  border-bottom-style: #9e4993;
-  border-width: 5px;
+  border-bottom-style: #9e4993; */
+  /* border-width: 5px; */
 }
 
 .ul{
