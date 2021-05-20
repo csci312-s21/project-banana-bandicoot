@@ -85,8 +85,6 @@ export default function Hobby() {
 
   return (
 
-    // <MenuBar >
-
     <MenuBar person = {initialUser}>
 
     {(!page)?(

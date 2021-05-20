@@ -11,6 +11,7 @@ import MenuBar from "../components/MenuBar";
 import profileData from "../../data/profile.json";
 
 export default function myEvents() {
+
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
@@ -33,19 +34,14 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
   const getData = async () => {
     const response = await fetch(`/api/events`);
 
-  
-//     if (!response.ok) {
-//       throw new Error(response.statusText);
-//     }
-
-
     const eventsData = await response.json();
     
     setEvents(eventsData);
   };
 
-  getData();
-  },[]);
+
+//   getData();
+//   },[]);
 
 //     const eventsData = await response.json();
 
@@ -105,11 +101,8 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
 
   // allHobbies = {hobbies} 
   return (
-<<<<<<< HEAD
- <MenuBar>
-=======
+
  <MenuBar person = {myUsersData}>
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
 
     <div className={styles.welcome}>
 
