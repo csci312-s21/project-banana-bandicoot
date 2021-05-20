@@ -24,33 +24,27 @@ export default function MenuBar(person,children) {
         throw new Error(response.statusText);
       }
 
-<<<<<<< HEAD
+
       const eventsData = await response.json();
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
-export default function MenuBar({person, children}){
-  const [visible, toggleMenu] = useState(false);
+
+
   
 
-<<<<<<< HEAD
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
+
 
       setEvents(eventsData);
     };
-=======
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
+
 
     getData();
   }, []);
 
   const [hobbies, updateHobbies] = useState();
 
-  const [hobbies, updateHobbies] = useState();
 
-  const [hobbies, updateHobbies] = useState();
+
+ 
 
 
   const icon = (
@@ -59,13 +53,10 @@ export default function MenuBar({person, children}){
   );
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
-=======
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
+
+
+
   useEffect(()=>{
   //updates groups when menu is rendered
 
@@ -101,17 +92,10 @@ getHobbies();
 
         <MenuItem title={"Notifications"} icon={"fa fa-bell"} />
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         <MenuItem title={"Groups"} items={hobbies} icon={"fa fa-users"} />
         <MenuItem title={"MyEvents"} icon={"fa fa-calendar"} />
-=======
-=======
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
-      <MenuItem title = {"Groups"} items = {hobbies} icon = {"fa fa-users"}/> 
-    
-      <MenuItem title = {"MyEvents"} icon = {"fa fa-calendar"}/>
->>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
+
 
       </ul>
     </div>);
