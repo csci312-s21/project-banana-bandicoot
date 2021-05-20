@@ -79,16 +79,14 @@ export default function Home() {
       //Add person to hobby's list
       const response2 = await fetch( `/api/groups/${newHobby}`,{
       method: "PUT",
-      body:  JSON.stringify("7"),
+      body:  JSON.stringify(person.id),
       headers: new Headers({ "Content-type": "application/json" }),
           });
       if (!response2.ok) {
         throw new Error(response2.statusText);
       }
 
-      const hello = await response2.json();
-      console.log("hello");
-      //console.log(hello);
+      await response2.json();
       
     }
    }
