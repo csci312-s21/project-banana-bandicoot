@@ -14,9 +14,11 @@ import MenuItem from "../components/MenuItem";
 
 export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
+  
+
+
+
   const [hobbies, updateHobbies] = useState();
-
-
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
@@ -35,7 +37,6 @@ export default function MenuBar({person, children}){
     }
 
     const newPerson = await response.json();
-
     updateHobbies(newPerson.hobby);
 
 };

@@ -14,5 +14,9 @@
   {
     "name": "Skiing", 
     "members": ["1", "2", "3", "4"]
+  },
+  {
+    "name": "Testing",
+    "members": ["1"]
   }
 ]

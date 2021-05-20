@@ -1,6 +1,7 @@
-import LoginPage from "../components/LoginPage.js";
-
 import { useState } from "react";
+
+
+import LoginPage from "../components/LoginPage.js";
 
 import MenuBar from "../components/MenuBar";
 
@@ -24,14 +25,44 @@ export default function Home() {
   
 
 
-  let newUser; 
+ let newUser; 
 
 
  const setHobbies = async (newHobby)=>{
+   if(newHobby){
+  //   //Get list of ALL hobbies
+     const response = await fetch(`/api/groups`);
+     if (!response.ok) {
+       throw new Error(response.statusText);
+     }
 
+     const allHobbiesObject = await response.json(); //Includes members, need to extract just hobbies
+  //   const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.name)
+    /*
+    console.log("allHobbiesObject");
+    console.log(allHobbiesObject);
+    console.log("allHobbies");
+    console.log(allHobbies);
+    */
+    //If newHobby isn't in allHobbies, add it
+    if(!allHobbiesObject.includes(newHobby)){
+      const addedHobby = {name: newHobby, members: []} //Add the specific user's id?
+      const response = await fetch( `/api/groups`,{
+      method: "POST",
+      body:  JSON.stringify(addedHobby),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const updated = await response.json();
+    }
+   
     //If the user doesn't already have this hobby, add it to their list
-    if(!user.hobby.includes(newHobby)){
-      newUser = {...user, hobby:[...user.hobby, newHobby]}
+    if(!person.hobby.includes(newHobby)){
+      //Add hobby to the user's list
+      newUser = {...person, hobby:[...person.hobby, newHobby]}
       const response = await fetch( `/api/profile/${newUser.id}`,{
       method: "PUT",
       body:  JSON.stringify(newUser),
@@ -44,31 +75,27 @@ export default function Home() {
       const updated = await response.json();
 
       setPerson(updated);
-      setPage("prof");
-    }
-    //Get list of ALL hobbies
-    const response = await fetch(`/api/groups`);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
 
-    const allHobbiesObject = await response.json(); //Includes members, need to extract just hobbies
-    const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.hobby)
-    //If newHobby isn't in allHobbies, add it
-    if(!allHobbies.includes(newHobby)){
-      const addedHobby = {hobby: newHobby, members: {"FIX"}} //Add the specific user's id?
-      const response = await fetch( `/api/groups`,{
-      method: "POST",
-      body:  JSON.stringify(addedHobby),
+      //Add person to hobby's list
+      const response2 = await fetch( `/api/groups/${newHobby}`,{
+      method: "PUT",
+      body:  JSON.stringify("7"),
       headers: new Headers({ "Content-type": "application/json" }),
           });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      if (!response2.ok) {
+        throw new Error(response2.statusText);
       }
 
-      const updated = await response.json();
+      const hello = await response2.json();
+      console.log("hello");
+      //console.log(hello);
+      
     }
-    };
+   }
+  
+   setPage("prof");
+    
+  };
    
    
 
