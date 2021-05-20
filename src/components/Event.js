@@ -12,6 +12,9 @@ const [numPeople, setNumPeople ] = useState(event.number_joined);
 =======
   
   const [numPeople, setNumPeople ] = useState(event.number_joined);
+<<<<<<< HEAD
+>>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
+=======
 >>>>>>> 60f109d89c78ab2e355520ad8a10c6af2b09e0af
 
 

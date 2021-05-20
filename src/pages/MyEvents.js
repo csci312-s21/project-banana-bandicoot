@@ -12,6 +12,7 @@ import profileData from "../../data/profile.json";
 
 export default function myEvents() {
 
+
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
@@ -38,6 +39,7 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
     
     setEvents(eventsData);
   };
+
 
 
 //   getData();
@@ -101,6 +103,8 @@ const [myJoinedEvents, setMyJoinedEvents] = useState(
 
   // allHobbies = {hobbies} 
   return (
+
+
 
  <MenuBar person = {myUsersData}>
 
