@@ -1,17 +1,17 @@
 import nc from "next-connect";
-import { readData } from "../../../lib/backend-utils";
-import { saveData } from "../../../lib/backend-utils";
+import { readEvents } from "../../../lib/backend-utils";
+import { saveEvents } from "../../../lib/backend-utils";
 
 const handler = nc().get((req, res) => {
 const { id } = req.query;
-const events = readData();
+const events = readEvents();
 const event = events.find((e)=> e["id"] === +id);
 res.status(200).json(event);
 
 }).put((req, res) => {
   const { id } = req.query;
   const updatedEvent = req.body;
-  const origEvents = readData();
+  const origEvents = readEvents();
 
   const alteredEvents = origEvents.map((e) => {
       if (e.id === +id) {
@@ -26,18 +26,18 @@ res.status(200).json(event);
  
   res.status(200).json(updatedEvent);
 
-  saveData(alteredEvents);
+  saveEvents(alteredEvents);
 
  
 }).post((req, res)=>{
   const newEvent = req.body;
-  const origEvents = readData();
+  const origEvents = readEvents();
   const alteredEvents = [...origEvents, newEvent];
 
   
   res.status(200).json(newEvent);
 
-  saveData(alteredEvents);
+  saveEvents(alteredEvents);
 
 
 });
