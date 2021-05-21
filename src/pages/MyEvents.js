@@ -19,7 +19,7 @@ export default function myEvents() {
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
-  //calls all the events
+  //calls all the events specific to the user 
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/api/events`);
