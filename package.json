@@ -21,13 +21,16 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "cross-spawn": "^7.0.3",
+    "knex": "^0.95.6",
     "next": "10.0.8",
     "next-auth": "^3.23.0",
     "next-connect": "^0.10.1",
     "node-fetch": "^2.6.1",
+    "pg": "^8.6.0",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",

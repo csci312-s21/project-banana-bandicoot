@@ -1,12 +1,10 @@
 import nc from "next-connect";
-import { readEvents } from "../../../lib/backend-utils";
-import { saveEvents } from "../../../lib/backend-utils";
+import { getEvents, getEvent } from "../../../lib/backend-utils";
 
-const handler = nc().get((req, res) => {
+const handler = nc().get(async(req, res) => {
   
 const { id } = req.query;
-const events = readEvents();
-const event = events.find((e)=> e["id"] === +id);
+const event = await getEvent(+id);
 
 res.status(200).json(event);
 
