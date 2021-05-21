@@ -4,10 +4,10 @@ import nc from "next-connect";
 
 const handler = nc().get((req, res) => {
   const groups = readHobbies();
-  const hobbies =  groups.map((h) => {
+  /*const hobbies =  groups.map((h) => {
       return h.name;
-       });
-  res.status(200).json(hobbies);
+       });*/
+  res.status(200).json(groups);
 
 
 }).post((req, res)=>{

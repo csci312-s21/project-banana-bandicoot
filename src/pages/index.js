@@ -30,14 +30,15 @@ export default function Home() {
 
  const setHobbies = async (newHobby)=>{
    if(newHobby){
+     
   //   //Get list of ALL hobbies
      const response = await fetch(`/api/groups`);
      if (!response.ok) {
        throw new Error(response.statusText);
      }
 
-     const allHobbiesObject = await response.json(); //Includes members, need to extract just hobbies
-  //   const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.name)
+     const allHobbiesObject = await response.json(); ///Includes members, need to extract just hobbies
+     const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.name)
     /*
     console.log("allHobbiesObject");
     console.log(allHobbiesObject);
@@ -45,7 +46,7 @@ export default function Home() {
     console.log(allHobbies);
     */
     //If newHobby isn't in allHobbies, add it
-    if(!allHobbiesObject.includes(newHobby)){
+    if(!allHobbies.includes(newHobby)){
       const addedHobby = {name: newHobby, members: []} //Add the specific user's id?
       const response = await fetch( `/api/groups`,{
       method: "POST",
@@ -77,6 +78,7 @@ export default function Home() {
       setPerson(updated);
 
       //Add person to hobby's list
+      /*
       const response2 = await fetch( `/api/groups/${newHobby}`,{
       method: "PUT",
       body:  JSON.stringify(person.id),
@@ -87,7 +89,7 @@ export default function Home() {
       }
 
       await response2.json();
-      
+      */
     }
    }
   

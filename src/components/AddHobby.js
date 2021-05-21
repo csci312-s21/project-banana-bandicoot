@@ -38,7 +38,7 @@ export default function AddHobby({addHobby}){
      <input type="text" id="newHobby" name="newHobby" placeholder = "New Hobby" value = {newHobbyInput} onChange = {(event) => setNewHobbyInput(event.target.value)} />
 
 
-     <input type = "button" disabled = {newHobby === null} onClick = {() => addHobby(newHobbyInput)} value = "Save"/>
+     <input type = "button" disabled = {newHobby === null} onClick = {() => addHobby(newHobbyInput.charAt(0).toUpperCase() + newHobbyInput.slice(1))} value = "Save"/>
 
   
  
