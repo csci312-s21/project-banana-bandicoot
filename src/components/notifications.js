@@ -60,7 +60,7 @@ return(
 
   <ul className = {styles.eventGrid}>
   {newest_events.map((event) => (
-    <Event key={event} event = {event} joined="false" joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
+    <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
   ))}
   </ul>
 );
