@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSession } from "react";
 
 import MyEvents from "../components/MyEvents.js";
 
@@ -12,12 +12,35 @@ import profileData from "../../data/profile.json";
 
 export default function myEvents() {
 
-
-  const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
+  
+  // const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   //const [person, setPerson] = useState(initialUser);
+  const [session, setSession] = useSession();
+  console.log("session", session.user);
   const [myUsersData] = useState(initialUser);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+
+  // get user
+
+  useEffect(() => {
+    const getPerson = async () => {
+      const response = await fetch(`/api/profile/${initialUser.id}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+      const foundPerson = await response.json();
+
+      // doing the filter here instead
+      const myOwnEvents = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
+
+      setMyJoinedEvents(myOwnEvents);
+    };
+
+      getPerson();
+      },[myUsersData]);
+
 
   //calls all the events specific to the user 
   useEffect(() => {
@@ -37,9 +60,6 @@ export default function myEvents() {
 
       getData();
       },[joinedEventsIDs]);
-
-
-    console.log("events: ", myJoinedEvents)
 
     function joinEvent(joinedEvent) {
       const joinedEventsCopy = [...myJoinedEvents, joinedEvent];

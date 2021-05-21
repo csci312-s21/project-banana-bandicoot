@@ -76,25 +76,6 @@ export default function Hobby() {
       getData();
       },[joinedEventsIDs]);
 
-
-    // console.log("events: ", myJoinedEvents)
-
-
-    // const hobbies = [];
-    // collection.forEach((event)=> //determine sections
-    // {if(hobbies.includes(event.hobby)){
-    // return null;
-    // }
-    // else{
-    // hobbies.push(event.hobby);
-    // }
-    // }
-    // );
-    // hobbies.sort(); 
-  
-  
-
-
   function addNewEvent (newEvent){
       if(newEvent != null){
         const coll_copy = [...events, newEvent];
