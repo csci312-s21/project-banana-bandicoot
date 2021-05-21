@@ -1,6 +1,8 @@
 import styles from "../styles/Home.module.css";
 
-import { useState, useEffect, useSession } from "react";
+import { useState, useEffect } from "react";
+
+import {useSession} from "next-auth/client"
 
 import MyEvents from "../components/MyEvents.js";
 
@@ -14,10 +16,11 @@ export default function myEvents() {
 
   
   // const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
-  //const [person, setPerson] = useState(initialUser);
+  
   const [session, setSession] = useSession();
   console.log("session", session.user);
-  const [myUsersData] = useState(initialUser);
+  const [person, setPerson] = useState(initialUser);
+  // const [myUsersData] = useState(initialUser);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
@@ -25,21 +28,21 @@ export default function myEvents() {
 
   useEffect(() => {
     const getPerson = async () => {
-      const response = await fetch(`/api/profile/${initialUser.id}`);
+      const response = await fetch(`/api/profile`);
 
        if (!response.ok) {
       throw new Error(response.statusText);
     }
-      const foundPerson = await response.json();
+      const foundPeople = await response.json();
 
       // doing the filter here instead
-      const myOwnEvents = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
-
-      setMyJoinedEvents(myOwnEvents);
+      const foundProfile = foundPeople.filter(profile => (profile.name).includes(session.user.name))
+      console.log("PERSON",foundProfile)
+      setPerson(foundProfile);
     };
 
       getPerson();
-      },[myUsersData]);
+      },[session]);
 
 
   //calls all the events specific to the user 

@@ -18,7 +18,7 @@ import {
 
 export default function Home() {
   const [ session ] = useSession();
-  const user = profiles.find(profile => (profile.name === "Samantha Enriquez"));
+  const user = profiles.find(profile => (profile.name === "senriquez"));
   const [person, setPerson] = useState(user);
   const [page, setPage] = useState("prof");
  
