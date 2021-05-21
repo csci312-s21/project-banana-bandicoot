@@ -18,27 +18,42 @@ export default function myEvents() {
 
   const [myUsersData] = useState(initialUser);
   //const [collection] = useState(data);
+  console.log("userinfo",initialUser.joinedEvents)
 
-  const [events, setEvents] = useState([{
-    "id": 1, "hobby": "Chess",
-    "title": "Chess Tournament!",
-    "date": "5/2", "time": "10:45 AM",
-    "location": "DANA Auditorium",
-    "number_joined": 1,
-    "max_number": 12
-  }]);
+  // const [events, setEvents] = useState([{
+  //   "id": 1, 
+  //   "hobby": "Chess",
+  //   "title": "Chess Tournament!",
+  //   "date": "5/2", "time": "10:45 AM",
+  //   "location": "DANA Auditorium",
+  //   "number_joined": 1,
+  //   "max_number": 12
+  // }]);
+  
+ 
 
 
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-  console.log("joinedEventsIDs"+joinedEventsIDs[0]);
 
+  console.log("joinedEventsIDs",joinedEventsIDs);
 
-  const [myJoinedEvents, setMyJoinedEvents] = useState(
-    events.filter(event => (myUsersData.joinedEvents).includes(event.id))
-  );
+  const [myJoinedEvents, setMyJoinedEvents] = useState([])
+  
 
+  // const currentEvents = events.filter(event => (myUsersData.joinedEvents).includes(event.id))
 
-  console.log("myJoinedEvents"+ myJoinedEvents);
+  // console.log("hello",currentEvents)
+
+  // const [myJoinedEvents, setMyJoinedEvents] = useState( currentEvents);
+    // events.map(event =>{
+    //   for (i = 0; i < 5; i++){
+
+    //   }
+    // });
+  // );
+  
+
+  console.log("myJoinedEvents", myJoinedEvents);
 
 
 
@@ -47,26 +62,24 @@ export default function myEvents() {
     const getData = async () => {
       const response = await fetch(`/api/events`);
 
-
        if (!response.ok) {
       throw new Error(response.statusText);
     }
-
-
       const eventsData = await response.json();
-      setEvents(eventsData);
+
+      // doing the filter here instead
+      const myOwnEvents = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
+
+      setMyJoinedEvents(myOwnEvents);
+
+      // setEvents(eventsData);
     };
 
       getData();
       },[joinedEventsIDs]);
 
 
-
-      
-
-
-
-console.log("events: ", events)
+    console.log("events: ", myJoinedEvents)
 
     //  const myEventsData = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
 
