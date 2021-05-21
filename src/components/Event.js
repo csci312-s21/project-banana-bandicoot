@@ -3,7 +3,8 @@ import styles from "../styles/Event.module.css";
 
 import ButtonBar from "../components/ButtonBar.js";
 
-export default function Event({ event, joined , joinEvent, leaveEvent}) {
+
+export default function Event({ event, joinEvent, leaveEvent, joined}) {
 
 //let numPeople = numJoined;
   
@@ -22,7 +23,7 @@ export default function Event({ event, joined , joinEvent, leaveEvent}) {
              
               </li>
             </ul>
-                 {(numPeople === event.max_number)?<p className = {styles.full}>FULL</p>: 
+                 {((numPeople === event.max_number)&&!joined)?<p className = {styles.full}>FULL</p>: 
                   <ButtonBar numPeople = {numPeople} setNumPeople = {setNumPeople} maxPeople = {event.max_number} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event}/>}
           </div>
   );
