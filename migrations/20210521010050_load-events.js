@@ -1,3 +1,4 @@
+
 exports.up = function(knex) {
   return knex.schema.createTable("Event", (table) => {
     table.increments("id").primary();
@@ -76,4 +77,5 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema.dropTableIfExists("Event").dropTableIfExists("Hobby").dropTableIfExists("EventProfile").dropTableIfExists("HobbyProfile").dropTableIfExists('accounts').dropTableIfExists('sessions').dropTableIfExists('users').dropTableIfExists('verification_requests');
+
 };

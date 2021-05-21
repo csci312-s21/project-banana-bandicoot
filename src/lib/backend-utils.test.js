@@ -1,3 +1,4 @@
+
 import events from "../../data/seed.json";
 import users from "../../data/profile.json";
 
@@ -250,5 +251,4 @@ describe("Tests of the database utility functions", () => {
 //   });
 
 // });
-
 

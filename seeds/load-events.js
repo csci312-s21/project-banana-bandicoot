@@ -3,6 +3,7 @@ const fs = require("fs");
 
 
 exports.seed = async function (knex) {
+
   const eventContents = fs.readFileSync("./data/seed.json");
   const profileContents = fs.readFileSync("./data/profile.json");
   const hobbyContents = fs.readFileSync("./data/hobbies.json");
@@ -54,9 +55,11 @@ exports.seed = async function (knex) {
         userID: mem,
         hobbyID: hobby.id
        });
+
     });
 
   });
+
 
   await knex("EventUser").del();
   await knex.batchInsert("EventUser", eventMap, 100);
