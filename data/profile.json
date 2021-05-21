@@ -1,1 +1,22 @@
-[{"name":"Katelyn Pease","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[3,4],"id":1},{"name":"Samantha Enriquez","hometown":"Alhambra","birthday":"2000-05-05","major":"Computer Science and Spanish","year":"2022","hobby":["Basketball","Chess"],"bio":"AHHHHHHH IM STRESSED","username":"ESamantha7","password":"codingiscool!","joinedEvents":[],"id":2},{"name":"Leili Manafi","hometown":"Alhambra","birthday":"2000-05-05","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball"],"bio":"AHHHHHHH IM STRESSED","username":"a","password":"b","joinedEvents":[3,4],"id":3},{"name":"Corey Scheinfeld","hometown":"New Rochelle","birthday":"2000-07-20","major":"Computer Science","year":"2022","hobby":"Ultimate Frisbee and Skiing","bio":"Let's Go!","email":"cscheinfeld@middlebury.edu","joinedEvents":[3,4],"id":4}]
+[{"name": "kpease",
+  "email":"kpease@middlebury.edu",
+  "hobby":["Basketball","Chess"],
+  "joinedEvents":[1,2]
+  },{
+  "name":"senriquez","email":"senriquez@middlebury.edu",
+  "hobby":["Basketball ","Chess ","Frisbee ","Hiking ","Cooking"],
+  "joinedEvents":[3,4]
+  },{
+  "name":"lmashadimanafi","email":"lmashadimanafi@middlebury.edu",
+  "hobby":["Basketball"],
+  "joinedEvents":[3,4]
+  },{
+  "name":"cscheinfeld","email":"cscheinfeld@middlebury.edu",
+  "hobby":["Ultimate Frisbee","Skiing"],
+  "joinedEvents":[3,4]
+  },{
+  "name":"dbrey",
+  "email":"dbrey@middlebury.edu",
+  "hobby":["Ultimate Frisbee","Skiing"],
+  "joinedEvents":[1]
+  }]
