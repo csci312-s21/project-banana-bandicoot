@@ -15,47 +15,9 @@ export default function myEvents() {
 
   const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   //const [person, setPerson] = useState(initialUser);
-
   const [myUsersData] = useState(initialUser);
-  //const [collection] = useState(data);
-  console.log("userinfo",initialUser.joinedEvents)
-
-  // const [events, setEvents] = useState([{
-  //   "id": 1, 
-  //   "hobby": "Chess",
-  //   "title": "Chess Tournament!",
-  //   "date": "5/2", "time": "10:45 AM",
-  //   "location": "DANA Auditorium",
-  //   "number_joined": 1,
-  //   "max_number": 12
-  // }]);
-  
- 
-
-
   const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-
-  console.log("joinedEventsIDs",joinedEventsIDs);
-
-  const [myJoinedEvents, setMyJoinedEvents] = useState([])
-  
-
-  // const currentEvents = events.filter(event => (myUsersData.joinedEvents).includes(event.id))
-
-  // console.log("hello",currentEvents)
-
-  // const [myJoinedEvents, setMyJoinedEvents] = useState( currentEvents);
-    // events.map(event =>{
-    //   for (i = 0; i < 5; i++){
-
-    //   }
-    // });
-  // );
-  
-
-  console.log("myJoinedEvents", myJoinedEvents);
-
-
+  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
   //calls all the events
   useEffect(() => {
@@ -71,8 +33,6 @@ export default function myEvents() {
       const myOwnEvents = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
 
       setMyJoinedEvents(myOwnEvents);
-
-      // setEvents(eventsData);
     };
 
       getData();
@@ -80,23 +40,6 @@ export default function myEvents() {
 
 
     console.log("events: ", myJoinedEvents)
-
-    //  const myEventsData = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
-
-    // const hobbies = [];
-    //     events.forEach((event)=> //determine sections
-    //     {if(hobbies.includes(event.hobby)){
-    //     return null;
-    //     }
-    //     else{
-    //     hobbies.push(event.hobby);
-    //     }
-    //     }
-    //     );
-    //     hobbies.sort(); 
-
-
-
 
     function joinEvent(joinedEvent) {
       const joinedEventsCopy = [...myJoinedEvents, joinedEvent];
@@ -125,11 +68,8 @@ export default function myEvents() {
       setJoinedEventIDs(listJoinedEvents);
     }
 
-
     // allHobbies = {hobbies} 
     return (
-
-
 
       <MenuBar person={myUsersData}>
 
