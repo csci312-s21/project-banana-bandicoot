@@ -64,7 +64,7 @@ describe("AddHobby Component", ()=> {
       );
       fetchMock.post(
         `/api/groups`, 
-        (newHobby) => {
+        () => {
           const alteredHobbies = [...localHobbies, newHobbyTest];
 
           return alteredHobbies;

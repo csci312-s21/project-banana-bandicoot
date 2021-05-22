@@ -21,9 +21,9 @@ const handler = nc().get((req, res) => {
   saveHobbies(alteredHobbies);
 
 
-}).put((req, res) => {
+})/*.put((req, res) => {
   const allNewHobbies = req.body;
   
-});
+});*/
 
 export default handler;

@@ -48,32 +48,32 @@ export default function Home() {
     //If newHobby isn't in allHobbies, add it
     if(!allHobbies.includes(newHobby)){
       const addedHobby = {name: newHobby, members: []} //Add the specific user's id?
-      const response = await fetch( `/api/groups`,{
+      const response2 = await fetch( `/api/groups`,{
       method: "POST",
       body:  JSON.stringify(addedHobby),
       headers: new Headers({ "Content-type": "application/json" }),
           });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      if (!response2.ok) {
+        throw new Error(response2.statusText);
       }
 
-      const updated = await response.json();
+      await response2.json();
     }
    
     //If the user doesn't already have this hobby, add it to their list
     if(!person.hobby.includes(newHobby)){
       //Add hobby to the user's list
       newUser = {...person, hobby:[...person.hobby, newHobby]}
-      const response = await fetch( `/api/profile/${newUser.id}`,{
+      const response3 = await fetch( `/api/profile/${newUser.id}`,{
       method: "PUT",
       body:  JSON.stringify(newUser),
       headers: new Headers({ "Content-type": "application/json" }),
           });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      if (!response3.ok) {
+        throw new Error(response3.statusText);
       }
 
-      const updated = await response.json();
+      const updated = await response3.json();
 
       setPerson(updated);
 
