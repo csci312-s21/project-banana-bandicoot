@@ -4,11 +4,10 @@ import styles from "../styles/ProfilePage.module.css";
  
 
  
-export default function ProfilePage({person, setPage}){
+export default function ProfilePage({session, person, setPage}){
  
 //img
 
- 
  
   return (
       <div>
@@ -21,10 +20,11 @@ export default function ProfilePage({person, setPage}){
            <p><b>Major(s):</b> {person.major}</p>
            <p><b>Class of:</b> {person.year}</p>
            <p><b>Favorite Hobbies:</b> {person.hobby}</p>
-           <p><b>Bio:</b> {person.bio}</p>
+           <p><b>Picture:</b> {session.user.image}</p>
            </div>
          <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("add")}/>
       </div>
    </div> 
      );
+
 }

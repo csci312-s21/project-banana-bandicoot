@@ -10,73 +10,68 @@ import MyEvents from "../components/MyEvents.js";
 
 import MenuBar from "../components/MenuBar";
 
-import profileData from "../../data/profile.json";
+//import profileData from "../../data/profile.json";
 
 export default function myEvents() {
 
   
   // const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
+
   
-  const [session, setSession] = useSession();
-  console.log("session", session.user);
-  const [person, setPerson] = useState([]);
-  console.log("PERSON", person);
+  const [session, setSession] = useSession(); //session
+  console.log("session", session)
+  const [person, setPerson] = useState(session.user.name);
+ 
   // const [myUsersData] = useState(initialUser);
   const [joinedEventsIDs, setJoinedEventIDs] = useState(person.joinedEvents);
-  const [myJoinedEvents, setMyJoinedEvents] = useState([{
-    "id": 1,
-    "hobby": "Chess",
-    "title": "Chess Tournament!",
-    "date": "5/2",
-    "time": "10:45 AM",
-    "location": "DANA Auditorium",
-    "number_joined": 1,
-    "max_number": 12
-  }]);
-  console.log("joinedEvents",myJoinedEvents)
-  // get user
 
+  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+
+  
+  //getting user
   useEffect(() => {
     const getPerson = async () => {
-      const response = await fetch(`/api/profile`);
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.name}`);
 
        if (!response.ok) {
       throw new Error(response.statusText);
     }
       const foundPeople = await response.json();
 
-      // doing the filter here instead
-      const foundProfile = foundPeople.find(profile => (profile.name === session.user.name))
-      console.log("PERSONfrom fetch",foundProfile)
-      setPerson(foundProfile);
-    };
+      setPerson(foundPeople);
+      //setJoinedEventIDs(person.joinedEvents) //not sure if i need this
+      };
 
-      // getPerson();
-      },[session]);
+    }
+
+      getPerson();
+      },[]);
 
 
   //calls all the events specific to the user 
   useEffect(() => {
     const getData = async () => {
+      //if(joinedEventsIDs) {
       const response = await fetch(`/api/events`);
       console.log("thisiswhereI fetch events")
        if (!response.ok) {
       throw new Error(response.statusText);
     }
       const eventsData = await response.json();
+      
       console.log(eventsData);
 
       // doing the filter here instead
-      if (person !== undefined) {
       const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
-      }
-      console.log("this is once filter happens")
 
       setMyJoinedEvents(myOwnEvents);
+      //}
+      
     };
 
       getData();
-      },[person, joinedEventsIDs]);
+      },[joinedEventsIDs]);
 
     function joinEvent(joinedEvent) {
       const joinedEventsCopy = [...myJoinedEvents, joinedEvent];
@@ -119,4 +114,5 @@ export default function myEvents() {
         </div>
       </MenuBar>
     );
+
   };

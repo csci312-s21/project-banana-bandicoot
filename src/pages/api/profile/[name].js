@@ -3,9 +3,9 @@ import { readProfile } from "../../../lib/backend-utils";
 import { saveProfile } from "../../../lib/backend-utils";
 
 const handler = nc().get((req, res) => {
-const { id } = req.query;
+const { name } = req.query;
 const profiles = readProfile();
-const profile = profiles.find((p)=> p["id"] === +id);
+const profile = profiles.find((p)=> p["name"] === name);
 
 res.status(200).json(profile);
 

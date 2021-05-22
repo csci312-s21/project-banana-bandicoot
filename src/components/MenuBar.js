@@ -48,13 +48,11 @@ export default function MenuBar({person,children}) {
   );
 
 
-
-
   useEffect(()=>{
   //updates groups when menu is rendered
 
     const getHobbies = async () => {
-    const response = await fetch( `/api/profile/${person.id}`);
+    const response = await fetch( `/api/profile/${person.name}`);
 
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -69,7 +67,6 @@ getHobbies();
 
  
   }, [person]);
-
 
 
 
