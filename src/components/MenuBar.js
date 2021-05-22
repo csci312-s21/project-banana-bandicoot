@@ -19,7 +19,7 @@ export default function MenuBar({person, children}){
 
 
   const [hobbies, updateHobbies] = useState();
-  
+
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
     {"☰"}</span> 
