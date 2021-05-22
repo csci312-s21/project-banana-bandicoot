@@ -19,11 +19,21 @@ export default function myEvents() {
   
   const [session, setSession] = useSession();
   console.log("session", session.user);
-  const [person, setPerson] = useState(initialUser);
+  const [person, setPerson] = useState([]);
+  console.log("PERSON", person);
   // const [myUsersData] = useState(initialUser);
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
-
+  const [joinedEventsIDs, setJoinedEventIDs] = useState(person.joinedEvents);
+  const [myJoinedEvents, setMyJoinedEvents] = useState([{
+    "id": 1,
+    "hobby": "Chess",
+    "title": "Chess Tournament!",
+    "date": "5/2",
+    "time": "10:45 AM",
+    "location": "DANA Auditorium",
+    "number_joined": 1,
+    "max_number": 12
+  }]);
+  console.log("joinedEvents",myJoinedEvents)
   // get user
 
   useEffect(() => {
@@ -36,12 +46,12 @@ export default function myEvents() {
       const foundPeople = await response.json();
 
       // doing the filter here instead
-      const foundProfile = foundPeople.filter(profile => (profile.name).includes(session.user.name))
-      console.log("PERSON",foundProfile)
+      const foundProfile = foundPeople.find(profile => (profile.name === session.user.name))
+      console.log("PERSONfrom fetch",foundProfile)
       setPerson(foundProfile);
     };
 
-      getPerson();
+      // getPerson();
       },[session]);
 
 
@@ -49,20 +59,24 @@ export default function myEvents() {
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/api/events`);
-
+      console.log("thisiswhereI fetch events")
        if (!response.ok) {
       throw new Error(response.statusText);
     }
       const eventsData = await response.json();
+      console.log(eventsData);
 
       // doing the filter here instead
-      const myOwnEvents = eventsData.filter(event => (myUsersData.joinedEvents).includes(event.id))
+      if (person !== undefined) {
+      const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
+      }
+      console.log("this is once filter happens")
 
       setMyJoinedEvents(myOwnEvents);
     };
 
       getData();
-      },[joinedEventsIDs]);
+      },[person, joinedEventsIDs]);
 
     function joinEvent(joinedEvent) {
       const joinedEventsCopy = [...myJoinedEvents, joinedEvent];
@@ -94,13 +108,13 @@ export default function myEvents() {
     // allHobbies = {hobbies} 
     return (
 
-      <MenuBar person={myUsersData}>
+      <MenuBar person={person}>
 
         <div className={styles.welcome}>
 
           <h1 className={styles.title}>My Events</h1>
 
-           <MyEvents id="MyEvents" ourEvents={myJoinedEvents} myData={myUsersData} joinEvent={joinEvent} leaveEvent={leaveEvent} />
+           <MyEvents id="MyEvents" ourEvents={myJoinedEvents} myData={person} joinEvent={joinEvent} leaveEvent={leaveEvent} />
 
         </div>
       </MenuBar>
