@@ -1,27 +1,27 @@
 [{"name": "kpease",
   "email":"kpease@middlebury.edu",
-  "hobby":["Basketball","Chess"],
+  "hobby":[32,67],
   "joinedEvents":[1,2], 
   "id":1
   },{
   "name":"senriquez","email":"senriquez@middlebury.edu",
-  "hobby":["Basketball ","Chess ","Frisbee ","Hiking ","Cooking"],
+  "hobby":[32],
   "joinedEvents":[3,4], 
   "id":2
   },{
   "name":"lmashadimanafi","email":"lmashadimanafi@middlebury.edu",
-  "hobby":["Basketball"],
+  "hobby":[67],
   "joinedEvents":[3,4], 
   "id":3
   },{
   "name":"cscheinfeld","email":"cscheinfeld@middlebury.edu",
-  "hobby":["Ultimate Frisbee","Skiing"],
+  "hobby":[32, 67],
   "joinedEvents":[3,4],
   "id":4
   },{
   "name":"dbrey",
   "email":"dbrey@middlebury.edu",
-  "hobby":["Ultimate Frisbee","Skiing"],
+  "hobby":[],
   "joinedEvents":[1],
   "id":5
   }]

@@ -1,23 +1,30 @@
 
 import events from "../../data/seed.json";
 import users from "../../data/profile.json";
+import hobbies from "../../data/hobbies.json";
 
 
 import {
   knex,
   getParticipants,
-  getEvent
+  getEvent, 
+  getEvents, 
+  addEvent, 
+  addParticipant, 
+  getMembers, 
+  getGroups, 
+  getGroupEvents
 } from "./backend-utils";
 
 describe("Tests of the database utility functions", () => {
     let sampleEvent;
+    let sampleHobby;
 
 
     beforeAll(async ()=>{
         sampleEvent = events[Math.floor(events.length/2)];
-
-        
-       
+        sampleHobby= hobbies[Math.floor(hobbies.length/2)];
+   
     });
 
 
@@ -28,76 +35,149 @@ describe("Tests of the database utility functions", () => {
     });
 
 
-    test.only("getParticipants fetches the correct participants for an event", async ()=>{
+    test("getParticipants fetches the correct participants for an event", async ()=>{
         const testParticipants = await getParticipants(sampleEvent.id);
 
         expect(testParticipants.length).toBe(sampleEvent.participants.length);
         expect(testParticipants).toEqual(expect.arrayContaining(sampleEvent.participants));
     });
 
-    test("getFilm fetches the correct film", async ()=>{
-        const film = await getFilm(sampleFilm.id);
-
-        expect(film.title).toBe(sampleFilm.title);
-        expect(film.overview).toBe(sampleFilm.overview);
-        expect(film.release_year).toBe(sampleFilm.release_year);
-
-    });
-
-    test("getFilm fetches film with the correct genres", async()=>{
-        const film = await getFilm(sampleFilm.id);
-
-        expect(film.genres.length).toBe(sampleFilm.genres.length);
-        expect(film.genres).toEqual(expect.arrayContaining(sampleFilm.genres));
+    test("getEvent fetches the correct event", async ()=>{
+        const event = await getEvent(sampleEvent.id);
+         expect(event.hobbyID).toBe(sampleEvent.hobbyID);
+         expect(event.title).toBe(sampleEvent.title);
+         expect(event.date).toBe(sampleEvent.date);
+         expect(event.time).toBe(sampleEvent.time);
+         expect(event.location).toBe(sampleEvent.location);
+         expect(event.edited).toBe(sampleEvent.edited);
+         expect(event.maxNum).toBe(sampleEvent.maxNum);
+         expect(event.creator).toBe(sampleEvent.creator);
+         expect(event.id)
+         expect(event.id).toBeGreaterThanOrEqual(0);
 
     });
 
-    test("getFilm returns null on bad id", async ()=>{
-        const film = await getFilm(-1);
+    test("getEvent fetches event with the correct participants", async()=>{
+        const event = await getEvent(sampleEvent.id);
 
-        expect(film).toBeNull();
-    });
-
-    test("getAllFilms fetches all films", async()=>{
-
-        const fetchedFilms = await getAllFilms();
-
-        expect(fetchedFilms).toHaveLength(films.length);
-        const testFilm = fetchedFilms.find((film)=>film.id === sampleFilm.id);
-        expect(testFilm).toEqual(sampleFilm);
-        const properties = ["id", "title", "overview", "poster_path", "vote_average", "release_date", "rating", "genres"];
-        properties.forEach((prop)=>{expect(fetchedFilms[0]).toHaveProperty(prop)});
-    });
-
-    test("getAllFilms loads the correct genres", async()=>{
-        const fetchedFilms = await getAllFilms();
-        const testFilm = fetchedFilms.find((film)=>film.id === sampleFilm.id);
-
-        expect(testFilm.genres.length).toBe(sampleFilm.genres.length);
-        expect(testFilm.genres).toEqual(expect.arrayContaining(sampleFilm.genres));
+        expect(event.participants.length).toBe(sampleEvent.participants.length);
+        expect(event.participants).toEqual(expect.arrayContaining(sampleEvent.participants));
 
     });
 
+    test("getEvent returns null on bad id", async ()=>{
+        const event = await getEvent(-1);
 
-    test("updateFilmRating updates the film", async ()=>{
-        const newFilm = { ...sampleFilm, rating: 4 };
+        expect(event).toBeNull();
+    });
 
-        const updated = await updateFilmRating(newFilm.id, newFilm.rating);
+    test("getEvents fetches all events", async()=>{
+
+        const fetchedEvents = await getEvents();
+
+        expect(fetchedEvents).toHaveLength(events.length);
+        const testEvent = fetchedEvents.find((event)=>event.id === sampleEvent.id);
+        expect(testEvent).toEqual(sampleEvent);
+        const properties = ["id", "title", "hobbyID", "date", "time", "location", "edited", "maxNum", "creator"];
+        properties.forEach((prop)=>{expect(fetchedEvents[0]).toHaveProperty(prop)});
+    });
+
+    test("getEvents loads the correct participants", async()=>{
+        const fetchedEvents = await getEvents();
+        const testEvent = fetchedEvents.find((event)=>event.id === sampleEvent.id);
+
+        expect(testEvent.participants.length).toBe(sampleEvent.participants.length);
+        expect(testEvent.participants).toEqual(expect.arrayContaining(sampleEvent.participants));
+
+    });
+
+
+    test("addEvent adds an event with correct participants. ", async ()=>{
+        const newEvent = { ...sampleEvent, participants: [5] };
+
+        const firstPar = newEvent.participants[0];
+        const eventObj = {
+           hobbyID: newEvent.hobbyID,
+           title: newEvent.title, 
+           date: newEvent.date, 
+           time: newEvent.time, 
+           location: newEvent.location, 
+           maxNum: newEvent.maxNum, 
+           edited: newEvent.edited, 
+           creator: newEvent.creator
+        }
+  
+
+        const added = await addEvent(eventObj, firstPar);
+
+        expect(added).toBeTruthy();
+        const addedEvent = await getEvent(added.id);
+
+        expect(addedEvent).toEqual(added);
+
+
+    });
+
+    test("addParticipant adds participants to correct event", async ()=>{
+        const newEvent = { ...sampleEvent };
+
+        const updated = await addParticipant(newEvent.id, 2);
+
+        const newPart = [...newEvent.participants, 2];
+
+        const updatedEvent = await getEvent(newEvent.id);
 
         expect(updated).toBeTruthy();
-        const updatedFilm = await getFilm(newFilm.id);
-
-        expect(updatedFilm).toEqual(newFilm);
+        expect(updatedEvent.participants.length).toBe(newPart.length);
+        expect(updatedEvent.participants).toEqual(expect.arrayContaining(newPart));
 
     });
 
-    test("updateFilmRating returns false on bad id", async ()=>{
-        const newFilm = { ...sampleFilm, rating: 4 };
+    test("getMembers fetches the correct members for a group/hobby", async ()=>{
+        const testMembers = await getMembers(sampleHobby.id);
 
-        const updated = await updateFilmRating(-1, newFilm.rating);
-
-        expect(updated).toBeFalsy();
+        expect(testMembers.length).toBe(sampleHobby.members.length);
+        expect(testMembers).toEqual(expect.arrayContaining(sampleHobby.members));
     });
+
+    test("getGroupEvents fetches the correct events for a group/hobby", async ()=>{
+        const testEvents = await getGroupEvents(sampleHobby.id);
+
+        expect(testEvents.length).toBe(sampleHobby.events.length);
+        expect(testEvents).toEqual(expect.arrayContaining(sampleHobby.events));
+    });
+
+
+    test("getGroups fetches all groups", async()=>{
+
+        const fetchedGroups = await getGroups();
+
+        expect(fetchedGroups).toHaveLength(hobbies.length);
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+        expect(testGroup).toEqual(sampleHobby);
+        const properties = ["id", "name", "members", "events"];
+        properties.forEach((prop)=>{expect(fetchedGroups[0]).toHaveProperty(prop)});
+    });
+
+    test("getGroups loads the correct members", async()=>{
+        const fetchedGroups = await getGroups();
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+
+        expect(testGroup.members.length).toBe(sampleHobby.members.length);
+        expect(testGroup.members).toEqual(expect.arrayContaining(sampleHobby.members));
+
+    });
+
+    test("getGroups loads the correct group events", async()=>{
+        const fetchedGroups = await getGroups();
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+
+        expect(testGroup.events.length).toBe(sampleHobby.events.length);
+        expect(testGroup.events).toEqual(expect.arrayContaining(sampleHobby.events));
+
+    });
+
+
 
 });
 

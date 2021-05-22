@@ -20,6 +20,7 @@ exports.seed = async function (knex) {
     "location": event.location,
     "edited": event.edited,
     "maxNum": event.maxNum,
+    "creator": event.creator,
     }
   });
 
@@ -52,8 +53,8 @@ exports.seed = async function (knex) {
   hobbies.forEach((hobby)=>{
     hobby.members.forEach((mem)=>{
         hobbyMap.push({
-        userID: mem,
-        hobbyID: hobby.id
+        hobbyID: hobby.id, 
+        userID: mem
        });
 
     });
