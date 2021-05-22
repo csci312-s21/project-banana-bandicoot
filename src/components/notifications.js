@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 import Event from "../components/Event";
 
+import PropTypes from "prop-types"
 
 export default function Notify({person, joinEvent, leaveEvent}){
   const [eventsList, setEventsList] = useState([]);
@@ -72,3 +73,12 @@ else{
 
 }
 
+
+
+
+
+Notify.propTypes = {
+  person: PropTypes.object,
+  joinEvent: PropTypes.func.isRequired,
+  leaveEvent: PropTypes.func.isRequired
+};

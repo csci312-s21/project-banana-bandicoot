@@ -1,4 +1,6 @@
 
+import PropTypes from "prop-types"
+
 import styles from "../styles/Home.module.css";
 
 export default function ButtonBar({numPeople, setNumPeople, maxPeople, joined, joinEvent, leaveEvent, event}){
@@ -29,3 +31,17 @@ export default function ButtonBar({numPeople, setNumPeople, maxPeople, joined, j
     );
   }
 }
+
+
+ButtonBar.propTypes = {
+  person: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  setNumPeople: PropTypes.func.isRequired,
+  joinEvent: PropTypes.func.isRequired,
+  leaveEvent: PropTypes.func.isRequired,
+  event: PropTypes.object.isRequired,
+  maxPeople: PropTypes.number.isRequired,
+  joined: PropTypes.bool.isRequired
+};
+

@@ -3,6 +3,7 @@ import styles from "../styles/Event.module.css";
 
 import ButtonBar from "../components/ButtonBar.js";
 
+import PropTypes from "prop-types"
 
 export default function Event({ event, joinEvent, leaveEvent, joined}) {
 
@@ -29,3 +30,11 @@ export default function Event({ event, joinEvent, leaveEvent, joined}) {
   );
 
 }
+
+
+Event.propTypes = {
+  joinEvent: PropTypes.func.isRequired,
+  leaveEvent: PropTypes.func.isRequired,
+  event: PropTypes.object.isRequired,
+  joined: PropTypes.bool.isRequired
+};

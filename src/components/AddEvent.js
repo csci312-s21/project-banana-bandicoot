@@ -1,5 +1,6 @@
 import styles from "../styles/AddEvent.module.css";
 
+import PropTypes from "prop-types"
 
 import { useState } from "react";
 
@@ -81,3 +82,12 @@ export default function AddEvent({complete, currHobby, person}){
       </div>
   );
 }
+
+
+AddEvent.propTypes = {
+  currHobby: PropTypes.string,
+  person: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  complete: PropTypes.func.isRequired
+};
