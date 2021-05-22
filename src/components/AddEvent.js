@@ -3,7 +3,7 @@ import styles from "../styles/AddEvent.module.css";
 
 import { useState } from "react";
 
-export default function AddEvent({complete, currHobby}){
+export default function AddEvent({complete, currHobby, person}){
 
 
   const [titleInput, setTitle] = useState("");
@@ -18,7 +18,7 @@ export default function AddEvent({complete, currHobby}){
 
   //setId(currId + 1);
 
-  const newEvent = {id: 7, hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
+  const newEvent = {id: 7, hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 1, max_number: capacityInput, participants: [person.id]};
 
 
   return(

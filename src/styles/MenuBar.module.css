@@ -11,6 +11,8 @@
   background-color: white;
   display: block;
   flex-direction: column;
+  overflow: scroll;
+  margin: auto;
 }
 
 .welcome{
@@ -107,6 +109,7 @@
 
 .icon{
   display: none;
+  color: #9e4993;
 }
 
 
@@ -124,7 +127,7 @@
 
 
 .navDropDown{
-  color: black;
+  color: rgba(0, 0, 0, 0.829);
   display: grid;
   width: 90%;
   height: 75%;
@@ -139,29 +142,16 @@
 
 .navitem:hover{
   font-weight: bold;
-  color: black;
+  color: #9e4993;
   cursor: pointer;
+  list-style-type: none;
 }
 
 .footer{
-  position: fixed;
+  position: relative;
   margin: auto;
   bottom: 10px;
   z-index: -1;
 }
 
-@media only screen and (max-height: 600px){
-  .footer{
-    position: relative;
-  }
-}
 
-
-/* 
-color: white;
-  width: 240px;
-  text-align: center;
-  font-family: Apple Chancery, cursive;
-  font-size: 50px;
-  font-weight: 100;
-  padding: 1px; */

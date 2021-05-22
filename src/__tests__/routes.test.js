@@ -20,6 +20,7 @@ describe("Hobby Buddy API", () => {
   let sampleEvent;
   let sampleProfile;
   let hobbies
+  let groups;
 
  	beforeAll(() => {
 		const appDir = path.join(__dirname, "../../");
@@ -47,10 +48,10 @@ describe("Hobby Buddy API", () => {
     resetEvents();
 
     events = readEvents();
-    const groups = readHobbies();
-    hobbies =  groups.map((h) => {
+    groups = readHobbies();
+    /*hobbies =  groups.map((h) => {
       return h.name;
-       });
+       });*/
     sampleEvent = events[Math.floor(events.length / 2)];
 
     sampleProfile =  {
@@ -141,7 +142,7 @@ describe("Hobby Buddy API", () => {
 
   });
 
-test("POST /api/events/:id should add new event (mostly SuperTest)", async () => {
+test("POST /api/events should add new event (mostly SuperTest)", async () => {
 
     const sampleNewEvent = {
     "id": 46,
@@ -156,7 +157,7 @@ test("POST /api/events/:id should add new event (mostly SuperTest)", async () =>
 
     
     await request(server)
-      .post(`/api/events/${sampleNewEvent.id}`)
+      .post(`/api/events`)
       .send(sampleNewEvent)
       .expect(200)
       .expect("Content-Type", /json/)
@@ -164,6 +165,7 @@ test("POST /api/events/:id should add new event (mostly SuperTest)", async () =>
 
 
     const updatedEvents = readEvents();
+    
     const testEvent = updatedEvents.find((e) => e.id === sampleNewEvent.id);
     expect(testEvent).toEqual(sampleNewEvent);
   });
@@ -175,7 +177,7 @@ test("POST /api/events/:id should add new event (mostly SuperTest)", async () =>
       .get("/api/groups")
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect(hobbies, done);
+      .expect(groups, done);
   });
 
 
