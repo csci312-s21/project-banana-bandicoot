@@ -20,6 +20,7 @@ describe("Hobby Buddy API", () => {
   let sampleEvent;
   let sampleProfile;
   let hobbies
+  let groups;
 
  	beforeAll(() => {
 		const appDir = path.join(__dirname, "../../");
@@ -47,10 +48,10 @@ describe("Hobby Buddy API", () => {
     resetEvents();
 
     events = readEvents();
-    const groups = readHobbies();
-    hobbies =  groups.map((h) => {
+    groups = readHobbies();
+    /*hobbies =  groups.map((h) => {
       return h.name;
-       });
+       });*/
     sampleEvent = events[Math.floor(events.length / 2)];
 
     sampleProfile =  {
@@ -176,7 +177,7 @@ test("POST /api/events should add new event (mostly SuperTest)", async () => {
       .get("/api/groups")
       .expect(200)
       .expect("Content-Type", /json/)
-      .expect(hobbies, done);
+      .expect(groups, done);
   });
 
 

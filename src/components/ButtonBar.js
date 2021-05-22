@@ -19,6 +19,7 @@ export default function ButtonBar({numPeople, setNumPeople, maxPeople, joined, j
     <div>
     <input className={styles.button} type = "button" id = "joinButton" name = "joinButton" value = "Join" onClick = {() => complete()} hidden = {joined || numPeople===maxPeople} disabled = {joined || numPeople===maxPeople}/>
     </div>
+    /*<input className = {styles.button} type = "button" id = "deleteEvent" value = "Delete Event"  disabled = {true} onClick = {() => delete()}*/
     );
   } else{ //If I am in the event, I will only see leave button
     return(
