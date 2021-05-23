@@ -28,7 +28,7 @@ export default function Hobby() {
   //getting user info
   const [session, setSession] = useSession();
   //initializing person 
-  const [person, setPerson] = useState(session.user.name);
+  const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
   //getting IDs of joinedEvents 
   const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
 
@@ -110,7 +110,7 @@ export default function Hobby() {
   function addNewEvent (newEvent){
       if(newEvent != null){
         const coll_copy = [...events, newEvent];
-        setCollection(coll_copy);
+        setEvents(coll_copy);
       }
     setPage("");
   }

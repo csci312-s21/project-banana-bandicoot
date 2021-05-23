@@ -15,12 +15,9 @@ export default function ProfilePage({session, person, setPage}){
          <div className={styles.center}>
            <h1 className={styles.name}>{person.name}</h1>
            <div className={styles.info}>
-           <p><b>Hometown:</b> {person.hometown}</p>
-           <p><b>Birthday:</b> {person.birthday}</p>
-           <p><b>Major(s):</b> {person.major}</p>
-           <p><b>Class of:</b> {person.year}</p>
+           <p><b>Email:</b> {person.email}</p>
            <p><b>Favorite Hobbies:</b> {person.hobby}</p>
-           <p><b>Picture:</b> {session.user.image}</p>
+           <div><p><b>Picture:</b></p> {session.user.image}</div>
            </div>
          <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("add")}/>
       </div>

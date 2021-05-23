@@ -64,33 +64,10 @@ export default function myEvents() {
       const eventsData = await response.json();
       myEventsArray.push(eventsData)
       console.log("this is a newly fetched event ",eventsData);
-
-      // doing the filter here instead
-      // Wouldn't have to filter anymore
-      // if (person !== undefined) {
-      // const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
-      // }
-      // console.log("this is once filter happens")
     };
 
       setMyJoinedEvents(myEventsArray);
-      setJoinedEventIDs(person.joinedEvents)
-    //   //if(joinedEventsIDs) {
-    //   const response = await fetch(`/api/events`);
-    //   console.log("thisiswhereI fetch events")
-    //    if (!response.ok) {
-    //   throw new Error(response.statusText);
-    // }
-    //   const eventsData = await response.json();
-      
-    //   console.log(eventsData);
-
-    //   // doing the filter here instead
-    //   const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
-
-    //   setMyJoinedEvents(myOwnEvents);
-      //}
-      
+      setJoinedEventIDs(person.joinedEvents) 
     };
 
       getData();
