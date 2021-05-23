@@ -114,17 +114,16 @@ export default function Home() {
 
 console.log(session);
 
+
+
 if (session) {
   return(
   <div>
-    {(page === "prof")?<MenuBar person = {person}>
+    {(page === "prof")?<MenuBar person = {person} >
  <ProfilePage session = {session} person= {person} setPage = {setPage} /></MenuBar>:<AddHobby addHobby={setHobbies}/>}
 </div>
   );
-}
-
-
-  else{
+}else{
    return (
       <div>
       <LoginPage />

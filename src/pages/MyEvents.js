@@ -18,7 +18,8 @@ export default function myEvents() {
 
   
   const [session, setSession] = useSession(); //session
-  console.log("session hello", session)
+  console.log("session ", session)
+  console.log("session ID", session.user.id)
   const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
 
  

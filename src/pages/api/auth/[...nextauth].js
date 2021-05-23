@@ -10,7 +10,13 @@ const options = {
       domain: process.env.AUTH0_DOMAIN,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks:{
+    async session(session, user) {
+  session.user.id = user.id;
+  return session
+}
+  }
 };
 
 export default (req, res) => NextAuth(req, res, options);
