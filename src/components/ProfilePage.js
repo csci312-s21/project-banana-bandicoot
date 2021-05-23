@@ -2,8 +2,6 @@
  
 import styles from "../styles/ProfilePage.module.css";
  
-
- 
 export default function ProfilePage({session, person, setPage}){
  
 //img
