@@ -11,7 +11,7 @@ import profileData from "../../data/profile.json";
 
 export default function Notifications() {
 
-  const user = profileData.find(profile => (profile.name === "Samantha Enriquez"));
+  const user = profileData.find(profile => (profile.name === "senriquez"));
   const [person, setPerson] = useState(user);
   
   

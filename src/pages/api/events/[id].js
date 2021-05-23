@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { getEvents, getEvent } from "../../../lib/backend-utils";
+import { getEvent, addParticipant } from "../../../lib/backend-utils";
 
 const handler = nc().get(async(req, res) => {
   
@@ -9,25 +9,13 @@ const event = await getEvent(+id);
 res.status(200).json(event);
 
 
-}).put((req, res) => {
+}).put(async(req, res) => {
   const { id } = req.query;
-  const updatedEvent = req.body;
-  const origEvents = readEvents();
+  const newParticipant = req.body;
 
-  const alteredEvents = origEvents.map((e) => {
-      if (e.id === +id) {
-        return updatedEvent;
-        }
-        else{
-      return e;
-        }
-       });
-
-  
+  const result = await addParticipant(+id, newParticipant);
  
-  res.status(200).json(updatedEvent);
-
-  saveEvents(alteredEvents);
+  res.status(200).json(result);
 
  
 });

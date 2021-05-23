@@ -18,7 +18,7 @@ export default function AddEvent({complete, currHobby, person}){
 
   //setId(currId + 1);
 
-  const newEvent = {hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, max_number: capacityInput, participants: [person.id], edited: (new Date).toISOString()};
+  const newEvent = {hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, maxNum: capacityInput, participants: [person.id], edited: (new Date).toISOString(), creator: person.id};
 
 
   return(

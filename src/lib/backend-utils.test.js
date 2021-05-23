@@ -1,23 +1,38 @@
 
 import events from "../../data/seed.json";
-import users from "../../data/profile.json";
+import users from "../../data/test-profile.json";
+import hobbies from "../../data/hobbies.json";
 
 
 import {
   knex,
   getParticipants,
-  getEvent
+  getEvent, 
+  getEvents, 
+  addEvent, 
+  addParticipant, 
+  removeParticipant,
+  getMembers, 
+  getGroups, 
+  getGroup,
+  getGroupEvents, 
+  addGroup, 
+  addMember, 
+  getUser
 } from "./backend-utils";
 
 describe("Tests of the database utility functions", () => {
     let sampleEvent;
+    let sampleHobby;
+    let sampleUser;
 
 
     beforeAll(async ()=>{
         sampleEvent = events[Math.floor(events.length/2)];
-
-        
-       
+        sampleHobby= hobbies[Math.floor(hobbies.length/2)];
+        sampleUser= users[Math.floor(users.length/2)];
+   
+   
     });
 
 
@@ -27,228 +42,278 @@ describe("Tests of the database utility functions", () => {
       await knex.seed.run();
     });
 
-
-    test.only("getParticipants fetches the correct participants for an event", async ()=>{
+describe("Events", () => {
+    test("getParticipants fetches the correct participants for an event", async ()=>{
         const testParticipants = await getParticipants(sampleEvent.id);
 
         expect(testParticipants.length).toBe(sampleEvent.participants.length);
         expect(testParticipants).toEqual(expect.arrayContaining(sampleEvent.participants));
     });
 
-    test("getFilm fetches the correct film", async ()=>{
-        const film = await getFilm(sampleFilm.id);
-
-        expect(film.title).toBe(sampleFilm.title);
-        expect(film.overview).toBe(sampleFilm.overview);
-        expect(film.release_year).toBe(sampleFilm.release_year);
-
-    });
-
-    test("getFilm fetches film with the correct genres", async()=>{
-        const film = await getFilm(sampleFilm.id);
-
-        expect(film.genres.length).toBe(sampleFilm.genres.length);
-        expect(film.genres).toEqual(expect.arrayContaining(sampleFilm.genres));
+    test("getEvent fetches the correct event", async ()=>{
+        const event = await getEvent(sampleEvent.id);
+         expect(event.hobbyID).toBe(sampleEvent.hobbyID);
+         expect(event.title).toBe(sampleEvent.title);
+         expect(event.date).toBe(sampleEvent.date);
+         expect(event.time).toBe(sampleEvent.time);
+         expect(event.location).toBe(sampleEvent.location);
+         expect(event.edited).toBe(sampleEvent.edited);
+         expect(event.maxNum).toBe(sampleEvent.maxNum);
+         expect(event.creator).toBe(sampleEvent.creator);
+         expect(event.id)
+         expect(event.id).toBeGreaterThanOrEqual(0);
 
     });
 
-    test("getFilm returns null on bad id", async ()=>{
-        const film = await getFilm(-1);
+    test("getEvent fetches event with the correct participants", async()=>{
+        const event = await getEvent(sampleEvent.id);
 
-        expect(film).toBeNull();
-    });
-
-    test("getAllFilms fetches all films", async()=>{
-
-        const fetchedFilms = await getAllFilms();
-
-        expect(fetchedFilms).toHaveLength(films.length);
-        const testFilm = fetchedFilms.find((film)=>film.id === sampleFilm.id);
-        expect(testFilm).toEqual(sampleFilm);
-        const properties = ["id", "title", "overview", "poster_path", "vote_average", "release_date", "rating", "genres"];
-        properties.forEach((prop)=>{expect(fetchedFilms[0]).toHaveProperty(prop)});
-    });
-
-    test("getAllFilms loads the correct genres", async()=>{
-        const fetchedFilms = await getAllFilms();
-        const testFilm = fetchedFilms.find((film)=>film.id === sampleFilm.id);
-
-        expect(testFilm.genres.length).toBe(sampleFilm.genres.length);
-        expect(testFilm.genres).toEqual(expect.arrayContaining(sampleFilm.genres));
+        expect(event.participants.length).toBe(sampleEvent.participants.length);
+        expect(event.participants).toEqual(expect.arrayContaining(sampleEvent.participants));
 
     });
 
+    test("getEvent returns null on bad id", async ()=>{
+        const event = await getEvent(-1);
 
-    test("updateFilmRating updates the film", async ()=>{
-        const newFilm = { ...sampleFilm, rating: 4 };
+        expect(event).toBeNull();
+    });
 
-        const updated = await updateFilmRating(newFilm.id, newFilm.rating);
+    test("getEvents fetches all events", async()=>{
+
+        const fetchedEvents = await getEvents();
+
+        expect(fetchedEvents).toHaveLength(events.length);
+        const testEvent = fetchedEvents.find((event)=>event.id === sampleEvent.id);
+        expect(testEvent).toEqual(sampleEvent);
+        const properties = ["id", "title", "hobbyID", "date", "time", "location", "edited", "maxNum", "creator"];
+        properties.forEach((prop)=>{expect(fetchedEvents[0]).toHaveProperty(prop)});
+    });
+
+    test("getEvents loads the correct participants", async()=>{
+        const fetchedEvents = await getEvents();
+        const testEvent = fetchedEvents.find((event)=>event.id === sampleEvent.id);
+
+        expect(testEvent.participants.length).toBe(sampleEvent.participants.length);
+        expect(testEvent.participants).toEqual(expect.arrayContaining(sampleEvent.participants));
+
+    });
+
+
+    test("addEvent adds an event with correct participants. ", async ()=>{
+        const newEvent = { ...sampleEvent, participants: [5] };
+
+        const firstPar = newEvent.participants[0];
+        const eventObj = {
+           hobbyID: newEvent.hobbyID,
+           title: newEvent.title, 
+           date: newEvent.date, 
+           time: newEvent.time, 
+           location: newEvent.location, 
+           maxNum: newEvent.maxNum, 
+           edited: newEvent.edited, 
+           creator: newEvent.creator
+        }
+  
+
+        const added = await addEvent(eventObj, firstPar);
+
+        expect(added).toBeTruthy();
+        const addedEvent = await getEvent(added.id);
+
+        expect(addedEvent).toEqual(added);
+
+
+    });
+
+    test("addParticipant adds participants to correct event", async ()=>{
+        const newEvent = { ...sampleEvent };
+
+        const updated = await addParticipant(newEvent.id, 2);
+
+        const newPart = [...newEvent.participants, 2];
+
+        const updatedEvent = await getEvent(newEvent.id);
 
         expect(updated).toBeTruthy();
-        const updatedFilm = await getFilm(newFilm.id);
-
-        expect(updatedFilm).toEqual(newFilm);
+        expect(updatedEvent.participants.length).toBe(newPart.length);
+        expect(updatedEvent.participants).toEqual(expect.arrayContaining(newPart));
 
     });
 
-    test("updateFilmRating returns false on bad id", async ()=>{
-        const newFilm = { ...sampleFilm, rating: 4 };
 
-        const updated = await updateFilmRating(-1, newFilm.rating);
+    test("removeParticipant removes correct participant from event", async ()=>{
+        const newEvent = { ...sampleEvent };
 
-        expect(updated).toBeFalsy();
+  
+
+        const updated = await removeParticipant(newEvent.id, newEvent.participants[0]);
+
+      
+        newEvent.participants.shift();
+
+        const updatedEvent = await getEvent(newEvent.id);
+
+
+        expect(updated).toBeTruthy();
+        expect(updatedEvent.participants.length).toBe(newEvent.participants.length);
+        expect(updatedEvent.participants).toEqual(expect.arrayContaining(newEvent.participants));
+
     });
+
 
 });
+describe("Groups", () => {
+    test("getMembers fetches the correct members for a group/hobby", async ()=>{
+        const testMembers = await getMembers(sampleHobby.id);
 
-// import sampleEvents from "../../data/test-data.json";
+        expect(testMembers.length).toBe(sampleHobby.members.length);
+        expect(testMembers).toEqual(expect.arrayContaining(sampleHobby.members));
+    });
 
-// import {
-//   knex,
-//   getEvents,
-//   getEvent,
-//   updateEvent,
-//   addEvent,
-// } from "./backend-utils";
+    test("getGroupEvents fetches the correct events for a group/hobby", async ()=>{
+        const testEvents = await getGroupEvents(sampleHobby.id);
 
-
-
-// describe("Tests of the database utility functions", () => {
-
-//   beforeEach(async () => {
-//     await knex.migrate.rollback();
-//     await knex.migrate.latest();
-//     await knex.seed.run();
-//   });
+        expect(testEvents.length).toBe(sampleHobby.events.length);
+        expect(testEvents).toEqual(expect.arrayContaining(sampleHobby.events));
+    });
 
 
-//   describe("get events", () => {
-//     test("getEvents gets all events", async () => {
+    test("getGroups fetches all groups", async()=>{
 
-//       const events = await getEvents();
+        const fetchedGroups = await getGroups();
 
-//       sampleEvents.sort((a, b) => a.title.localeCompare(b.title));
-//       events.sort((a, b) => a.title.localeCompare(b.title))
-//       expect(events).toEqual(sampleEvents);
-//     });
+        expect(fetchedGroups).toHaveLength(hobbies.length);
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+        expect(testGroup).toEqual(sampleHobby);
+        const properties = ["id", "name", "members", "events"];
+        properties.forEach((prop)=>{expect(fetchedGroups[0]).toHaveProperty(prop)});
+    });
+
+    test("getGroups loads the correct members", async()=>{
+        const fetchedGroups = await getGroups();
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+
+        expect(testGroup.members.length).toBe(sampleHobby.members.length);
+        expect(testGroup.members).toEqual(expect.arrayContaining(sampleHobby.members));
+
+    });
+
+    test("getGroups loads the correct group events", async()=>{
+        const fetchedGroups = await getGroups();
+        const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
+
+        expect(testGroup.events.length).toBe(sampleHobby.events.length);
+        expect(testGroup.events).toEqual(expect.arrayContaining(sampleHobby.events));
+
+    });
+
+     test("getGroup fetches the correct hobby", async ()=>{
+        const hobby = await getGroup(sampleHobby.id);
+         expect(hobby.id).toBe(sampleHobby.id);
+         expect(hobby.name).toBe(sampleHobby.name);
+     
+
+    });
+
+    test("getGroup fetches hobby with the correct members", async()=>{
+        const hobby = await getGroup(sampleHobby.id);
+
+        expect(hobby.members.length).toBe(sampleHobby.members.length);
+        expect(hobby.members).toEqual(expect.arrayContaining(sampleHobby.members));
+
+    });
+
+     test("getGroup fetches hobby with the correct events", async()=>{
+        const hobby = await getGroup(sampleHobby.id);
+
+        expect(hobby.events.length).toBe(sampleHobby.events.length);
+        expect(hobby.events).toEqual(expect.arrayContaining(sampleHobby.events));
+
+    });
+
+    test("getGroup returns null on bad id", async ()=>{
+        const group = await getGroup(-1);
+
+        expect(group).toBeNull();
+    });
+
+     test("addGroup adds a hobby with correct members. ", async ()=>{
+        const newHobby = { 
+          name: "Skiing", 
+          members: [4] 
+          };
+
+        const firstMem = newHobby.members[0];
+        const hobbyObj = {
+           name:newHobby.name
+        };
+
+        const added = await addGroup(hobbyObj, firstMem);
+
+        expect(added).toBeTruthy();
+        const addedHobby = await getGroup(added.id);
+
+        expect(addedHobby).toEqual({...added, members: [ "cscheinfeld" ], events:[]});
+
+    });
 
 
-//     test("getEvent gets a single event", async () => {
-//       const sampleEvent = sampleEvents[Math.floor(sampleEvents.length / 2)];
+    test("addMember adds member to correct hobby", async ()=>{
+        const newHobby = { ...sampleHobby };
 
-//       const event = await getEvent(sampleEvent.id);
+        const updated = await addMember(newHobby.id, 5);
 
-//       expect(event).toEqual(sampleEvent);
-//     });
+        const newMem = [...newHobby.members, "dbrey"];
 
-//     test("getEvent returns null if no event matching the id is found", async () => {
-//       const result = await getEvent(-1);
+        const updatedHobby = await getGroup(newHobby.id);
 
-//       expect(result).toBeNull();
-//     });
+        expect(updated).toBeTruthy();
+        expect(updatedHobby.members.length).toBe(newMem.length);
+        expect(updatedHobby.members).toEqual(expect.arrayContaining(newMem));
 
+    });
 
-
-//   });
-
-//   describe("add events", () => {
+ });
 
 
-//     test("addEvent returns an event with new id", async () => {
-//       const sample = {
-//         hobby: "hobby",
-//         title: "new event",
-//         date: "05/30",
-//         time: "5:00pm",
-//         location: "KDR",
-//         edited: "2020-08-10T18:00:40Z",
-//         maxNum: "1"
-//       };
+ describe("Users", () => {
+     test("getUser fetches the correct user", async ()=>{
+        const user = await getUser(sampleUser.id);
+         expect(user.id).toBe(sampleUser.id);
+         expect(user.name).toBe(sampleUser.name);
+    
+    });
 
-//       const event = await addEvent(sample);
-//       expect(event.hobby).toBe(sample.hobby);
-//       expect(event.title).toBe(sample.title);
-//       expect(event.date).toBe(sample.date);
-//        expect(event.time).toBe(sample.time);
-//       expect(event.location).toBe(sample.location);
-//       expect(event.edited).toBe(sample.edited);
-//        expect(event.maxNum).toBe(sample.maxNum);
-//       expect(event.id)
-//       expect(event.id).toBeGreaterThanOrEqual(0);
-//     });
 
-//     test("addEvent should reject event with no title", async () => {
-//       expect.assertions(1);
-//       const sample = {
-//         hobby: "hobby",
-//         date: "05/30",
-//         time: "5:00pm",
-//         location: "KDR",
-//         edited: "2020-08-10T18:00:40Z",
-//         maxNum: "1"
-//       };
+    test("getUser fetches user with the correct events", async()=>{
+        const user = await getUser(sampleUser.id);
 
-//       try {
-//         await addEvent(sample);
-//       } catch (e) {
-//         expect(e.toString()).toContain("Error");
-//       }
-//     });
+        expect(user.joinedEvents.length).toBe(sampleUser.joinedEvents.length);
+        expect(user.joinedEvents).toEqual(expect.arrayContaining(sampleUser.joinedEvents));
 
-//      test("addEvent should reject event with no hobby", async () => {
-//       expect.assertions(1);
-//       const sample = {
-//         title: "title",
-//         date: "05/30",
-//         time: "5:00pm",
-//         location: "KDR",
-//         edited: "2020-08-10T18:00:40Z",
-//         maxNum: "1"
-//       };
+    });
 
-//       try {
-//         await addEvent(sample);
-//       } catch (e) {
-//         expect(e.toString()).toContain("Error");
-//       }
-//     });
-//      test("addEvent should reject event with no edit time", async () => {
-//       expect.assertions(1);
-//       const sample = {
-//         hobby: "hobby",
-//         title: "title",
-//         date: "05/30",
-//         time: "5:00pm",
-//         location: "KDR",
-//         maxNum: "1"
-//       };
+     test("getUser fetches user with the correct hobbies", async()=>{
+        const user = await getUser(sampleUser.id);
+      
 
-//       try {
-//         await addEvent(sample);
-//       } catch (e) {
-//         expect(e.toString()).toContain("Error");
-//       }
-//     });
+        expect(user.hobby.length).toBe(sampleUser.hobby.length);
+        expect(user.hobby).toEqual(expect.arrayContaining(sampleUser.hobby));
 
-//   });
+    });
 
-//   describe("update events", () => {
-//     test("updateEvent updates the event", async () => {
-//       const sample = { ...sampleEvents[0], title: "The Masters" };
-//       const success = await updateEvent(sample);
-//       expect(success).toBeTruthy();
-//       const rows = await knex("Event").where({ id: sample.id }).select();
+    test("getUser returns null on bad id", async ()=>{
+        const user = await getUser(-1);
 
-//       const event = rows[0];
-//       expect(event.title).toBe(sample.title);
-//     });
+        expect(user).toBeNull();
+    });
 
-//     test("updateEvent returns 0 if the id doesn't exist", async () => {
-//       const sample = { id: -1, title: "Bad event" };
-//       const success = await updateEvent(sample);
-//       expect(success).toBeFalsy();
-//     });
-//   });
 
-// });
 
+
+
+
+ });
+
+});

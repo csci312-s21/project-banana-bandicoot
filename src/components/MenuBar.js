@@ -1,9 +1,12 @@
 
 import {
   signOut,
+  useSession
 } from "next-auth/client"
 
 import styles from "../styles/MenuBar.module.css";
+
+import Link from "next/link";
 
 
 import { useState, useEffect } from "react";
@@ -14,10 +17,7 @@ import MenuItem from "../components/MenuItem";
 
 export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
-  
-
-
-
+  const [session] = useSession();
   const [hobbies, updateHobbies] = useState();
 
 
@@ -31,13 +31,14 @@ export default function MenuBar({person, children}){
   //updates groups when menu is rendered
 
     const getHobbies = async () => {
-    const response = await fetch( `/api/profile/${person.id}`);
+    const response = await fetch( `/api/profile/${session.user.id}`);
 
     if (!response.ok) {
       throw new Error(response.statusText);
     }
 
     const newPerson = await response.json();
+
     updateHobbies(newPerson.hobby);
 
 };
@@ -55,7 +56,7 @@ getHobbies();
     &emsp;&emsp;<div className={styles.heading} />
     <br/>
 
-    <button className = {styles.button1} onClick={signOut}>Sign Out</button>
+    <button className = {styles.button1} onClick={signOut}><Link href={`/`}><a>Sign Out</a></Link></button>
     <ul className={styles.ul}>
 
       <MenuItem title = {"Profile"} icon = {"fa fa-user-circle"}/> 

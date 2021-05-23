@@ -8,10 +8,16 @@ const options = {
       clientId: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
       domain: process.env.AUTH0_DOMAIN,
-      database: process.env.DATABASE_URL,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  database: process.env.DATABASE_URL,
+  callbacks:{
+    async session(session, user) {
+    session.user.id = user.id;
+  return session
+}
+  }
 };
 
 export default (req, res) => NextAuth(req, res, options);

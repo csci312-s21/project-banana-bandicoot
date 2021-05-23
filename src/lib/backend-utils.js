@@ -10,12 +10,16 @@ export const knex = knexInitializer(
 );
 
 export async function getEvents() {
-  const rows = await knex("Event").select();
-  return rows;
+  const events = await knex("Event").select();
+  await Promise.all(
+  events.map(async (event)=>{
+    event.participants = await getParticipants(event.id);
+  }));
+  return events;
 }
 
 export async function getParticipants(id){
-  const part = await knex.select( "id")
+  const part = await knex.select("id")
     .from("EventUser")
     .join("users", "users.id", "EventUser.userID")
     .where({"eventID":id});
@@ -23,8 +27,6 @@ export async function getParticipants(id){
     return p.id
   });
   return participants;
-
-
 }
 
 export async function getEvent(id) {
@@ -37,108 +39,128 @@ export async function getEvent(id) {
   
 }
 
-export async function updateEvent(event) {
- 
- const rows = await knex("Event").update(event).where({id:event.id});
- if(rows){
-   return true;
- }
- return false;
+export async function addParticipant(eventID, part) {
+ const newEU = { eventID: eventID, 
+    userID: part };
+  const result = await knex("EventUser").insert(newEU);
+  return(result);
 }
 
-export async function addEvent(event) {
+export async function removeParticipant(eventID, part) {
+  
+  const result = await knex("EventUser")
+    .where({"eventID": eventID, "userID": part}).del();
+
+  return(result);
+}
+
+export async function addEvent(event, firstParticipant) {
   [event.id] = await knex("Event").insert(event);
-
- return event;
-
+  const newEU = { eventID: event.id, 
+    userID: firstParticipant };
+  const part = await knex("EventUser").insert(newEU);
+ return {...event, participants:[firstParticipant]};
 
 }
 
+export async function getMembers(id){
+  const mem = await knex.select("name")
+    .from("HobbyUser")
+    .join("users", "users.id", "HobbyUser.userID")
+    .where({"hobbyID":id});
+  const members = mem.map((m)=>{
+    return m.name
+  });
+  return members;
+}
 
-// export function resetEvents() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const orig = path.join(dataDirectory, "seed-orig.json");
-//   const dest = path.join(dataDirectory, "seed.json");
-//   fs.copyFileSync(orig, dest);
-// }
-
-
-// export function readEvents() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "seed.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetEvents();
-//   }
-//   const fileContents = fs.readFileSync(fullPath, "utf8");
-//   const events = JSON.parse(fileContents);
-
-//   return events;
-// }
-
-// export function saveEvents(events) {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "seed.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetEvents();
-//   }
-//   fs.writeFileSync(fullPath, JSON.stringify(events), "utf8");
-// }
+export async function getGroupEvents(id){
+  const gE = await knex.select("id")
+    .from("Event")
+    .where({"hobbyID":id});
+  const groupEvents = gE.map((e)=>{
+    return e.id
+  });
+  return groupEvents;
+}
 
 
-// export function resetHobbies() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const orig = path.join(dataDirectory, "hobbies-orig.json");
-//   const dest = path.join(dataDirectory, "hobbies.json");
-//   fs.copyFileSync(orig, dest);
-// }
+export async function getGroups() {
+  const groups = await knex("Hobby").select();
+  await Promise.all(
+  groups.map(async (group)=>{
+    group.members = await getMembers(group.id);
+    group.events = await getGroupEvents(group.id);
+  }));
+  return groups;
+}
+
+export async function getGroup(id) {
+  const [group] = await knex("Hobby").select().where({id:id});
+  if(group){
+    group.members = await getMembers(id);
+    group.events = await getGroupEvents(id);
+    return group;
+  }
+  return null;
+  
+}
 
 
-// export function readHobbies() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "hobbies.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetHobbies();
-//   }
-//   const fileContents = fs.readFileSync(fullPath, "utf8");
-//   const hobbies = JSON.parse(fileContents);
+export async function addGroup(hobby, firstMember) {
+  [hobby.id] = await knex("Hobby").insert(hobby);
+  const newHU = { hobbyID: hobby.id, 
+    userID: firstMember };
+  const part = await knex("HobbyUser").insert(newHU);
+ return hobby;
 
-//   return hobbies;
-// }
+}
 
-// export function saveHobbies(hobbies) {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "hobbies.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetHobbies();
-//   }
-//   fs.writeFileSync(fullPath, JSON.stringify(hobbies), "utf8");
-// }
+export async function addMember(hobbyID, member) {
+ const newHU = { hobbyID: hobbyID, 
+    userID: member };
+  const result = await knex("HobbyUser").insert(newHU);
 
-// export function resetProfile() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const orig = path.join(dataDirectory, "profile-orig.json");
-//   const dest = path.join(dataDirectory, "profile.json");
-//   fs.copyFileSync(orig, dest);
-// }
+  return(result);
+}
 
 
-// export function readProfile() {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "profile.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetProfile();
-//   }
-//   const fileContents = fs.readFileSync(fullPath, "utf8");
-//   const profile = JSON.parse(fileContents);
+export async function getUser(id){
+  const [user] = await knex("users").select().where({id:id});
+  if(user){
+    user.hobby = await getUserHobbies(id);
+    user.joinedEvents = await getUserEvents(id);
+    return user;
+  }
+  return null;
+}
 
-//   return profile;
-// }
+export async function getUserEvents(id){
+  const uE = await knex.select("id")
+    .from("EventUser")
+    .join("Event", "Event.id", "EventUser.eventID")
+    .where({"userID":id});
+  const userEvents = uE.map((e)=>{
+    return e.id
+  });
+  return userEvents;
+}
 
-// export function saveProfile(profile) {
-//   const dataDirectory = path.join(process.cwd(), "data");
-//   const fullPath = path.join(dataDirectory, "profile.json");
-//   if (!fs.existsSync(fullPath)) {
-//     resetProfile();
-//   }
-//   fs.writeFileSync(fullPath, JSON.stringify(profile), "utf8");
-// }
+export async function getUserHobbies(id){
+  const uH = await knex.select("name")
+    .from("HobbyUser")
+    .join("Hobby", "Hobby.id", "HobbyUser.hobbyID")
+    .where({"userID":id});
+  const userHobbies = uH.map((h)=>{
+    return h.name
+  });
+  return userHobbies;
+}
+
+
+
+
+
+
+
+

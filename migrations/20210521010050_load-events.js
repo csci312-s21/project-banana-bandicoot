@@ -10,6 +10,8 @@ exports.up = function(knex) {
     table.string("location");
     table.string("edited").notNullable();
     table.integer("maxNum");
+    table.integer("creator").notNullable();
+    table.foreign("creator").references("users.id").onDelete("CASCADE");
   })
   .createTable("Hobby", table =>{
     table.increments("id").primary();
@@ -41,7 +43,6 @@ exports.up = function(knex) {
       table.string("access_token", 255).notNullable();
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updated_at").notNullable().defaultTo(knex.fn.now());
-  
       table.unique("session_token");
       table.index("access_token");
     })
@@ -76,6 +77,6 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("Event").dropTableIfExists("Hobby").dropTableIfExists("EventProfile").dropTableIfExists("HobbyProfile").dropTableIfExists('accounts').dropTableIfExists('sessions').dropTableIfExists('users').dropTableIfExists('verification_requests');
+  return knex.schema.dropTableIfExists("Event").dropTableIfExists("Hobby").dropTableIfExists("EventUser").dropTableIfExists("HobbyUser").dropTableIfExists('accounts').dropTableIfExists('sessions').dropTableIfExists('users').dropTableIfExists('verification_requests');
 
 };

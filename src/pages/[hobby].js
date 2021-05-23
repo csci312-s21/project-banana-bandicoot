@@ -21,7 +21,7 @@ export default function Hobby() {
   const { hobby } = router.query;
 
 
-  const user = profileData.find(curr => (curr.name === "Samantha Enriquez"));
+  const user = profileData.find(curr => (curr.name === "senriquez"));
 
   const [collection] = useState(data);
   const [page, setPage] = useState();

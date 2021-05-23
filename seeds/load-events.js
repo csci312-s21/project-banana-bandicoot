@@ -20,6 +20,7 @@ exports.seed = async function (knex) {
     "location": event.location,
     "edited": event.edited,
     "maxNum": event.maxNum,
+    "creator": event.creator,
     }
   });
 
@@ -38,27 +39,24 @@ exports.seed = async function (knex) {
   let eventMap = [];
   let hobbyMap = [];
 
-  events.forEach((event)=>{
-    event.participants.forEach((part)=>{
+   profiles.forEach((profile)=>{
+    profile.joinedEvents.forEach((event)=>{
         eventMap.push({
-        eventID: event.id,
-        userID:part
+        eventID: event,
+        userID: profile.id
        });
     });
-
   });
 
-
-  hobbies.forEach((hobby)=>{
-    hobby.members.forEach((mem)=>{
+    profiles.forEach((profile)=>{
+    profile.hobby.forEach((hobby)=>{
         hobbyMap.push({
-        userID: mem,
-        hobbyID: hobby.id
+        hobbyID: hobby, 
+        userID: profile.id
        });
-
     });
-
   });
+
 
 
   await knex("EventUser").del();
