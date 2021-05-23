@@ -14,7 +14,7 @@ import MenuItem from "../components/MenuItem";
 
 export default function MenuBar({person,children}) {
   const [visible, toggleMenu] = useState(false);
-  const [events, setEvents] = useState([]);
+  //const [events, setEvents] = useState([]);
 
   // //calls all the events
   // useEffect(() => {

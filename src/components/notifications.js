@@ -70,6 +70,7 @@ export default function Notify({ person, joinEvent, leaveEvent }) {
     return null;
   }
 // there was a merge conflict here but nothing in HEAD to compare
+/*
 if(newest_events){
 return(
 
@@ -83,6 +84,7 @@ return(
 else{
   return null;
 }
+*/
 
 
 

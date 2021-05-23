@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import styles from "../styles/Home.module.css";
 
-import data from "../../data/seed.json";
+//import data from "../../data/seed.json";
 
 import Event from "../components/Event.js";
 
@@ -14,7 +14,7 @@ import MenuBar from "../components/MenuBar";
 
 import { useRouter } from "next/router";
 
-import profileData from "../../data/profile.json";
+//import profileData from "../../data/profile.json";
 
 import {useSession} from "next-auth/client"
 
@@ -27,11 +27,11 @@ export default function Hobby() {
   const [events, setEvents] = useState([])
   const [page, setPage] = useState();
   //getting user info
-  const [session, setSession] = useSession();
+  const [session] = useSession();
   //initializing person 
   const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
   //getting IDs of joinedEvents 
-  const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
+
 
   // used for myEvents list
   // const [myJoinedEvents, setMyJoinedEvents] = useState(
@@ -39,7 +39,7 @@ export default function Hobby() {
   // );
 
   //getting Joined Events
-  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+  //const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
 
   //getting the user if session!
@@ -56,7 +56,7 @@ export default function Hobby() {
       setPerson(foundPeople);
       //setJoinedEventIDs(person.joinedEvents) //should I do this?
       console.log("Person after init", person);
-      };
+      }
 
     }
 
@@ -83,7 +83,7 @@ export default function Hobby() {
     };
 
       getData();
-      },[person, joinedEventsIDs]);
+      },[person]);
 
   // Call all the events specific to the user 
   //calls all the events specific to the user 
@@ -101,8 +101,8 @@ export default function Hobby() {
       const eventsData = await response.json();
       myEventsArray.push(eventsData)
       console.log("this is a newly fetched event ",eventsData);
-    };
-      setMyJoinedEvents(myEventsArray);
+    }
+      //setMyJoinedEvents(myEventsArray);
     };
 
       getData();
@@ -229,7 +229,7 @@ export default function Hobby() {
         <h1 className={styles.title}>{hobby} Events</h1> 
         <ul className ={styles.eventGrid}>
         {events.filter(event => event.hobby === hobby).map(event =>(
-            <Event key={event.id} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
+            <Event key={event.id} event = {event} joined = {person.joinedEvents.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
 
         // {collection.filter(event => event.hobby === hobby).map(event =>(
         //     <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>

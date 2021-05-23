@@ -17,14 +17,14 @@ export default function myEvents() {
   // const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
 
   
-  const [session, setSession] = useSession(); //session
+  const [session] = useSession(); //session
   console.log("session ", session)
   console.log("session ID", session.user.id)
   const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
 
  
   // const [myUsersData] = useState(initialUser);
-  const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
+
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
 
@@ -42,7 +42,7 @@ export default function myEvents() {
 
       setPerson(foundPeople);
       //setJoinedEventIDs(person.joinedEvents) //not sure if i need this
-      };
+      }
 
     }
 
@@ -66,10 +66,9 @@ export default function myEvents() {
       const eventsData = await response.json();
       myEventsArray.push(eventsData)
       console.log("this is a newly fetched event ",eventsData);
-    };
+    }
 
       setMyJoinedEvents(myEventsArray);
-      setJoinedEventIDs(person.joinedEvents) 
     };
 
       getData();
@@ -160,4 +159,4 @@ export default function myEvents() {
       </MenuBar>
     );
 
-  };
+  }

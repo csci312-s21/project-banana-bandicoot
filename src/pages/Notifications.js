@@ -7,12 +7,10 @@ import MenuBar from "../components/MenuBar";
 
 import Notify from "../components/notifications";
 
-import profileData from "../../data/profile.json";
+//import profileData from "../../data/profile.json";
 
 export default function Notifications() {
-
-  const user = profileData.find(profile => (profile.name === "Samantha Enriquez"));
-  const [person, setPerson] = useState(user);
+  const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hobby":["Basketball","Chess"],"joinedEvents":[1,2]});
   
   
   

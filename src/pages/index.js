@@ -8,13 +8,13 @@ import ProfilePage from "../components/ProfilePage.js";
 
 import AddHobby from "../components/AddHobby.js";
 
-import profiles from "../../data/profile.json";
+//import profiles from "../../data/profile.json";
 
 import {useSession} from "next-auth/client"
 
 
 export default function Home() {
-  const [session, setSession] = useSession();
+  const [session] = useSession();
   console.log("session in index", session);
   //const user = profiles.find(profile => (profile.name === "senriquez"));
   const [person, setPerson] = useState([]);
@@ -35,7 +35,7 @@ export default function Home() {
       //console.log("PERSONfrom fetch",foundProfile)
       setPerson(foundPeople);
       console.log("this person", person)
-      };
+      }
 
     }
 
@@ -132,7 +132,7 @@ if (session) {
   }
   
 
-  }; 
+  } 
   
 
 
