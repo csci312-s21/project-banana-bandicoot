@@ -18,6 +18,8 @@ export default function myEvents() {
 
   const user = profileData.find(curr => (curr.name === "senriquez"));
 
+
+
   const [person, setPerson] = useState(user);
   const [collection] = useState(data);
 

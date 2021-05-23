@@ -22,6 +22,7 @@ describe("Hobby Buddy API", () => {
   let sampleEvent;
   let sampleProfile;
   let hobbies
+  let groups;
 
  	beforeAll(() => {
 		const appDir = path.join(__dirname, "../../");

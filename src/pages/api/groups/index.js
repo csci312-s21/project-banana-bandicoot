@@ -2,10 +2,10 @@ import { getGroups, addGroup } from "../../../lib/backend-utils";
 
 import nc from "next-connect";
 
+
 const handler = nc().get(async (req, res) => {
   const hobbies =  await getGroups();
   res.status(200).json(hobbies);
-
 
 }).post(async(req, res)=>{
   const newHobby = req.body;
@@ -20,5 +20,4 @@ const handler = nc().get(async (req, res) => {
 
 
 });
-
 export default handler;

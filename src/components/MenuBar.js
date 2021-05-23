@@ -6,8 +6,10 @@ import {
 
 import styles from "../styles/MenuBar.module.css";
 
+
 import Link from "next/link";
 
+import PropTypes from "prop-types"
 
 import { useState, useEffect } from "react";
 
@@ -19,7 +21,6 @@ export default function MenuBar({person, children}){
   const [visible, toggleMenu] = useState(false);
   const [session] = useSession();
   const [hobbies, updateHobbies] = useState();
-
 
   const icon = (
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
@@ -90,3 +91,12 @@ return (
   );
 
 }
+
+
+
+
+MenuBar.propTypes = {
+  person: PropTypes.shape({
+    id: PropTypes.number,
+  })
+};
