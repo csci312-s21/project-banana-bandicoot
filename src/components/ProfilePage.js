@@ -1,12 +1,9 @@
 
  
 import styles from "../styles/ProfilePage.module.css";
- 
-export default function ProfilePage({session, person, setPage}){
- 
-//img
+import PropTypes from "prop-types"
 
- 
+export default function ProfilePage({session, person, setPage}){
   return (
     <div>
       <div className={styles.left} />
@@ -26,3 +23,9 @@ export default function ProfilePage({session, person, setPage}){
      );
 
 }
+
+
+ProfilePage.propTypes = {
+  person: PropTypes.object,
+  setPage: PropTypes.func.isRequired
+};

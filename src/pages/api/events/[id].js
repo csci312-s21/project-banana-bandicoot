@@ -32,17 +32,6 @@ res.status(200).json(event);
   saveEvents(alteredEvents);
 
  
-}).post((req, res)=>{
-  const newEvent = req.body;
-  const origEvents = readEvents();
-  const alteredEvents = [...origEvents, newEvent];
-
-  
-  res.status(200).json(newEvent);
-
-  saveEvents(alteredEvents);
-
-
 });
 
 export default handler;

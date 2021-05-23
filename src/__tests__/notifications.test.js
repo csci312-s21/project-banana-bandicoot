@@ -49,17 +49,17 @@ describe("notifications Component", ()=> {
     beforeAll(()=>{
 
       localProfiles = profile.map((prof) => ({ ...prof }));
-
-       fetchMock.reset();
+      act(() =>
+       fetchMock.reset(),
        fetchMock.get(
       `/api/profile/2`,
       () => localProfiles[0]
-    );
+    ),
        fetchMock.get(
       `/api/events`,
       () => eventTests
-    );
-
+    )
+    )
     });
 
   //Starting at Profile may not work if we have a real program with a backend
@@ -70,4 +70,5 @@ describe("notifications Component", ()=> {
     
   
  });
+
 })

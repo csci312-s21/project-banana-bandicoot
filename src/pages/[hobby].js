@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from "react";
 
 import styles from "../styles/Home.module.css";
@@ -107,40 +108,114 @@ export default function Hobby() {
       getData();
       },[person.joinedEvents]);
 
-  function addNewEvent (newEvent){
-      if(newEvent != null){
-        const coll_copy = [...events, newEvent];
-        setEvents(coll_copy);
+
+  // function addNewEvent (newEvent){
+  //     if(newEvent != null){
+  //       const coll_copy = [...events, newEvent];
+  //       setEvents(coll_copy);
+  //  }
+  //   setPage("");
+  // }
+
+   let newUser;
+   let updatedEvent;
+   
+   const addEvent = async (event)=>{
+     if(event){
+      const response = await fetch( `/api/events`,{
+      method: "POST",
+      body:  JSON.stringify(event),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
-    setPage("");
-  }
-  
-  function joinEvent(joinedEvent){
-    const joinedEventsCopy =  [...myJoinedEvents, joinedEvent];
-    setMyJoinedEvents(joinedEventsCopy);
-    const listJoinedEvents = [...joinedEventsIDs, joinedEvent.id];
-    setJoinedEventIDs(listJoinedEvents);
-  }
 
-  function leaveEvent(leftEvent){
-    const joinedEventsCopy = [...myJoinedEvents];
+      await response.json();
+
+      newUser = {...person, joinedEvents: [...person.joinedEvents, event.id]}
+      const response2 = await fetch( `/api/profile/${person.name}`,{
+      method: "PUT",
+      body:  JSON.stringify(newUser),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response2.ok) {
+        throw new Error(response2.statusText);
+      }
+
+      const newPerson = await response2.json();
     
-    for( let i = 0; i < joinedEventsCopy.length; i++){ 
-        if ( joinedEventsCopy[i].id === leftEvent.id) { 
-            joinedEventsCopy.splice(i, 1); 
-        }
-    }
-    setMyJoinedEvents(joinedEventsCopy);
+      setPerson(newPerson);
+     }
+    
+    setPage();
 
-    //Take event ID out of joinedEventsIDs
-    const listJoinedEvents = [...joinedEventsIDs];
-    for( let i = 0; i < listJoinedEvents.length; i++){ 
-        if ( listJoinedEvents[i] === leftEvent.id) { 
-            listJoinedEvents.splice(i, 1); 
-        }
+    };
+
+  
+   const joinEvent = async (newEvent)=>{
+    //console.log("before", person.joinedEvents);
+    newUser = {...person, joinedEvents: [...person.joinedEvents, newEvent.id]}
+    //console.log("added", newEvent.id);
+    const response = await fetch( `/api/profile/${person.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    setJoinedEventIDs(listJoinedEvents);
-  }
+
+    const updated = await response.json();
+  
+    updatedEvent = {...newEvent, participants: [...newEvent.participants, person.id]}
+
+    const response2 = await fetch( `/api/events/${newEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
+    }
+
+    await response2.json();
+
+    setPerson(updated);
+    
+    };
+
+  const leaveEvent = async (oldEvent)=>{
+    newUser = {...person, joinedEvents:
+    (person.joinedEvents.filter(event => event !== oldEvent.id))}
+    const response = await fetch( `/api/profile/${person.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const updated = await response.json();
+
+    updatedEvent = {...oldEvent, participants : oldEvent.participants.filter(part => (part!==person.id)), number_joined: oldEvent.number_joined-1}
+    console.log(updatedEvent);
+
+    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
+    }
+
+    await response2.json();
+
+    setPerson(updated);
+    };
 
   return (
 
@@ -155,12 +230,16 @@ export default function Hobby() {
         <ul className ={styles.eventGrid}>
         {events.filter(event => event.hobby === hobby).map(event =>(
             <Event key={event.id} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
+
+        // {collection.filter(event => event.hobby === hobby).map(event =>(
+        //     <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
+
         ))}</ul>
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </div>
       ):( <div className={styles.mainContainer}>
-        <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
+        <AddEvent complete = {addEvent} currHobby = {hobby} person = {person}/>
       </div>)}
 
     

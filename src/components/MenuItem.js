@@ -3,7 +3,9 @@ import styles from "../styles/MenuBar.module.css";
 import { useState } from "react";
 import Link from "next/link";
 
-export default function menuItem({title, items, icon}){
+import PropTypes from "prop-types"
+
+export default function MenuItem({title, items, icon}){
   const [extended, toggleDrop] = useState(false);
 
 
@@ -37,3 +39,10 @@ export default function menuItem({title, items, icon}){
   );
 
 }
+
+
+MenuItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.array,
+  icon: PropTypes.string.isRequired
+};

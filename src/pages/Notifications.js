@@ -17,9 +17,10 @@ export default function Notifications() {
   
   
   let newUser;
+  let updatedEvent;
 
   const joinEvent = async (newEvent)=>{
-    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent]}
+    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent.id]}
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(newUser),
@@ -31,14 +32,29 @@ export default function Notifications() {
 
     const updated = await response.json();
   
+    updatedEvent = {...newEvent, participants:[...newEvent.participants, person.id], number_joined:newEvent.number_joined+1}
+
+    const response2 = await fetch( `/api/events/${newEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
+    }
+
+    await response2.json();
+
     setPerson(updated);
     
     };
 
   const leaveEvent = async (oldEvent)=>{
-    console.log(oldEvent);
-    newUser = {...person, joinedEvents:[person.joinedEvents.filter(event => event ===oldEvent)]}
+    console.log(oldEvent.id);
+    newUser = {...person, joinedEvents:
+    (person.joinedEvents.filter(event => event !== oldEvent.id))}
     console.log(newUser);
+    
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(newUser),
@@ -49,10 +65,23 @@ export default function Notifications() {
     }
 
     const updated = await response.json();
-    
+
+    updatedEvent = {...oldEvent, participants:oldEvent.participants.filter(part => part!==person.id), number_joined:oldEvent.number_joined-1}
+    console.log(updatedEvent);
+
+    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
+    }
+
+    await response2.json();
+
     setPerson(updated);
-
-
     };
 
 

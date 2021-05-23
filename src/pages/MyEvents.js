@@ -14,18 +14,18 @@ import MenuBar from "../components/MenuBar";
 
 export default function myEvents() {
 
-  
   // const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
 
   
   const [session, setSession] = useSession(); //session
   console.log("session hello", session)
   const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
+
  
   // const [myUsersData] = useState(initialUser);
   const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
-
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+
 
   
   //getting user
@@ -47,6 +47,7 @@ export default function myEvents() {
 
       getPerson();
       },[session]);
+
 
 
   //calls all the events specific to the user 
@@ -73,32 +74,77 @@ export default function myEvents() {
       getData();
       },[person.joinedEvents]);
 
-    function joinEvent(joinedEvent) {
-      const joinedEventsCopy = [...myJoinedEvents, joinedEvent];
-      setMyJoinedEvents(joinedEventsCopy);
-      const listJoinedEvents = [...joinedEventsIDs, joinedEvent.id];
-      setJoinedEventIDs(listJoinedEvents);
+  let newUser;
+   let updatedEvent;
+
+  
+   const joinEvent = async (newEvent)=>{
+    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent.id]}
+    const response = await fetch( `/api/profile/${person.name}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
 
-    function leaveEvent(leftEvent) {
-      const joinedEventsCopy = [...myJoinedEvents];
+    const updated = await response.json();
+  
+    updatedEvent = {...newEvent, participants:[...newEvent.participants, person.id], number_joined:newEvent.number_joined+1}
 
-      for (let i = 0; i < joinedEventsCopy.length; i++) {
-        if (joinedEventsCopy[i].id === leftEvent.id) {
-          joinedEventsCopy.splice(i, 1);
-        }
-      }
-      setMyJoinedEvents(joinedEventsCopy);
-
-      //Take event ID out of joinedEventsIDs
-      const listJoinedEvents = [...joinedEventsIDs];
-      for (let i = 0; i < listJoinedEvents.length; i++) {
-        if (listJoinedEvents[i] === leftEvent.id) {
-          listJoinedEvents.splice(i, 1);
-        }
-      }
-      setJoinedEventIDs(listJoinedEvents);
+    const response2 = await fetch( `/api/events/${newEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
     }
+
+    await response2.json();
+
+    setPerson(updated);
+    
+    };
+
+  const leaveEvent = async (oldEvent)=>{
+    console.log(oldEvent.id);
+    newUser = {...person, joinedEvents:
+    (person.joinedEvents.filter(event => event !== oldEvent.id))}
+    console.log(newUser);
+    
+    const response = await fetch( `/api/profile/${person.name}`,{
+    method: "PUT",
+    body:  JSON.stringify(newUser),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const updated = await response.json();
+
+    updatedEvent = {...oldEvent, participants:oldEvent.participants.filter(part => part!==person.id), number_joined:oldEvent.number_joined-1}
+    console.log(updatedEvent);
+
+    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
+    method: "PUT",
+    body:  JSON.stringify(updatedEvent),
+    headers: new Headers({ "Content-type": "application/json" }),
+        });
+
+    if (!response2.ok) {
+      throw new Error(response2.statusText);
+    }
+
+    await response2.json();
+
+    setPerson(updated);
+    };
+  
+
+
 
     // allHobbies = {hobbies} 
     return (
@@ -106,9 +152,7 @@ export default function myEvents() {
       <MenuBar person={person}>
 
         <div className={styles.welcome}>
-
           <h1 className={styles.title}>My Events</h1>
-
            <MyEvents id="MyEvents" ourEvents={myJoinedEvents} myData={person} joinEvent={joinEvent} leaveEvent={leaveEvent} />
 
         </div>

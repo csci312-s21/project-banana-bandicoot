@@ -1,9 +1,10 @@
 import styles from "../styles/AddEvent.module.css";
 
+import PropTypes from "prop-types"
 
 import { useState } from "react";
 
-export default function AddEvent({complete, currHobby}){
+export default function AddEvent({complete, currHobby, person}){
 
 
   const [titleInput, setTitle] = useState("");
@@ -18,7 +19,7 @@ export default function AddEvent({complete, currHobby}){
 
   //setId(currId + 1);
 
-  const newEvent = {id: 7, hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
+  const newEvent = {id: 7, hobby: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, max_number: capacityInput, participants: [person.id]};
 
 
   return(
@@ -72,7 +73,7 @@ export default function AddEvent({complete, currHobby}){
 
       <br />
 
-      <input type = "button" id = "saveButton" name = "saveButton" disabled = {titleInput.length < 1} onClick = {() => complete(newEvent)} value = "Save"/>
+      <input type = "button" id = "saveButton" name = "saveButton" disabled = {titleInput.length < 1 || locationInput.length < 1 || timeInput.length <1 || dateInput.length < 1} onClick = {() => complete(newEvent)} value = "Save"/>
 
       <input type = "button" id = "cancelButton" name = "cancelButton" onClick = {() => complete()} value = "Cancel"/>
       
@@ -81,3 +82,12 @@ export default function AddEvent({complete, currHobby}){
       </div>
   );
 }
+
+
+AddEvent.propTypes = {
+  currHobby: PropTypes.string,
+  person: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  complete: PropTypes.func.isRequired
+};

@@ -4,6 +4,8 @@ import styles from "../styles/AddEvent.module.css";
 import collection from "../../data/hobbies.json";
  
 import { useState } from "react";
+
+import PropTypes from "prop-types"
  
 export default function AddHobby({addHobby}){
  
@@ -38,7 +40,7 @@ export default function AddHobby({addHobby}){
      <input type="text" id="newHobby" name="newHobby" placeholder = "New Hobby" value = {newHobbyInput} onChange = {(event) => setNewHobbyInput(event.target.value)} />
 
 
-     <input type = "button" disabled = {newHobby === null} onClick = {() => addHobby(newHobbyInput)} value = "Save"/>
+     <input type = "button" disabled = {newHobby === null} onClick = {() => addHobby(newHobbyInput.charAt(0).toUpperCase() + newHobbyInput.slice(1))} value = "Save"/>
 
   
  
@@ -50,3 +52,6 @@ export default function AddHobby({addHobby}){
  );
 }
  
+AddHobby.propTypes = {
+  addHobby: PropTypes.func.isRequired
+};
