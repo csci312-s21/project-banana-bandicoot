@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 import LoginPage from "../components/LoginPage.js";
 
 import MenuBar from "../components/MenuBar";
@@ -37,14 +36,8 @@ export default function Home() {
        throw new Error(response.statusText);
      }
 
-     const allHobbiesObject = await response.json(); ///Includes members, need to extract just hobbies
+     const allHobbiesObject = await response.json(); ///Includes members, need to extract just hobby names
      const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.name)
-    /*
-    console.log("allHobbiesObject");
-    console.log(allHobbiesObject);
-    console.log("allHobbies");
-    console.log(allHobbies);
-    */
     //If newHobby isn't in allHobbies, add it
     if(!allHobbies.includes(newHobby)){
       const addedHobby = {name: newHobby, members: []} //Add the specific user's id?
@@ -78,7 +71,7 @@ export default function Home() {
       setPerson(updated);
 
       //Add person to hobby's list
-      /*
+      
       const response2 = await fetch( `/api/groups/${newHobby}`,{
       method: "PUT",
       body:  JSON.stringify(person.id),
@@ -89,7 +82,7 @@ export default function Home() {
       }
 
       await response2.json();
-      */
+      
     }
    }
   

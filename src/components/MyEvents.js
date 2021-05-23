@@ -10,7 +10,7 @@ export default function MyEvent({ ourEvents, joinEvent, leaveEvent}) {
 return(
   <ul className = {styles.eventGrid}>
   {ourEvents.map(event => (
-      <Event key={event} event = {event} joined="true" joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
+      <Event key={event} event = {event} joined= {1===1} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
   ))}
   </ul>
 );

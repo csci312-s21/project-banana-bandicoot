@@ -16,6 +16,8 @@ import profileData from "../../data/profile.json";
 export default function myEvents() {
   
 
+  
+
   const user = profileData.find(curr => (curr.name === "Samantha Enriquez"));
 
   const [person, setPerson] = useState(user);

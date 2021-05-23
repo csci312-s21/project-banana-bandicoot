@@ -95,6 +95,6 @@ return (
 
 MenuBar.propTypes = {
   person: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
   })
 };

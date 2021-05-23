@@ -129,8 +129,8 @@ describe("AddHobby Component", ()=> {
    
 
     await waitFor(async () => {
-        await fetchMock.flush(true);
-       });
+          await fetchMock.flush(true);
+      });
  
     
       const groupButton = screen.queryByText("Groups");
