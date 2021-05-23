@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 
 import styles from "../styles/Home.module.css";
 
@@ -23,9 +23,40 @@ export default function Hobby() {
 
   const user = profileData.find(curr => (curr.name === "Samantha Enriquez"));
 
-  const [collection] = useState(data);
+  const [collection, setCollection] = useState(data);
   const [page, setPage] = useState();
   const [person, setPerson] = useState(user);
+
+
+  useEffect(() => {
+
+    const getEvents = async () => {
+      const results = await fetch(`/api/events`);
+
+      if (!results.ok) {
+        throw new Error(results.statusText);
+      }
+
+      const events = await results.json();
+
+      setCollection(events);
+      /*
+      if(currentArticle){
+        setCurrentSection(currentArticle.title[0]);
+        updateTitles(currentArticle.title[0]);
+      } else{
+        if(sections.includes(section)){
+          updateTitles(section);
+        } else{
+          setCurrentSection("");
+          updateTitles();
+        }
+      }
+      */
+    };
+    getEvents();
+  }, [person]);
+
 
 
 
@@ -45,38 +76,44 @@ export default function Hobby() {
 
    let newUser;
    let updatedEvent;
+   
    const addEvent = async (event)=>{
-    const response = await fetch( `/api/events`,{
-    method: "POST",
-    body:  JSON.stringify(event),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+     if(event){
+      const response = await fetch( `/api/events`,{
+      method: "POST",
+      body:  JSON.stringify(event),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
 
-    await response.json();
+      await response.json();
 
-    newUser = {...person, joinedEvents:[...person.joinedEvents, event.id]}
-    const response2 = await fetch( `/api/profile/${person.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(newUser),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
+      newUser = {...person, joinedEvents: [...person.joinedEvents, event.id]}
+      const response2 = await fetch( `/api/profile/${person.id}`,{
+      method: "PUT",
+      body:  JSON.stringify(newUser),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response2.ok) {
+        throw new Error(response2.statusText);
+      }
 
-    const newPerson = await response2.json();
-  
-    setPerson(newPerson);
+      const newPerson = await response2.json();
     
+      setPerson(newPerson);
+     }
+    
+    setPage();
 
     };
 
   
    const joinEvent = async (newEvent)=>{
-    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent.id]}
+    //console.log("before", person.joinedEvents);
+    newUser = {...person, joinedEvents: [...person.joinedEvents, newEvent.id]}
+    //console.log("added", newEvent.id);
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(newUser),
@@ -88,7 +125,7 @@ export default function Hobby() {
 
     const updated = await response.json();
   
-    updatedEvent = {...newEvent, participants:[...newEvent.participants, person.id], number_joined:newEvent.number_joined+1}
+    updatedEvent = {...newEvent, participants: [...newEvent.participants, person.id]}
 
     const response2 = await fetch( `/api/events/${newEvent.id}`,{
     method: "PUT",
@@ -106,11 +143,8 @@ export default function Hobby() {
     };
 
   const leaveEvent = async (oldEvent)=>{
-    console.log(oldEvent.id);
     newUser = {...person, joinedEvents:
     (person.joinedEvents.filter(event => event !== oldEvent.id))}
-    console.log(newUser);
-    
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(newUser),
@@ -122,7 +156,7 @@ export default function Hobby() {
 
     const updated = await response.json();
 
-    updatedEvent = {...oldEvent, participants:oldEvent.participants.filter(part => part!==person.id), number_joined:oldEvent.number_joined-1}
+    updatedEvent = {...oldEvent, participants : oldEvent.participants.filter(part => (part!==person.id)), number_joined: oldEvent.number_joined-1}
     console.log(updatedEvent);
 
     const response2 = await fetch( `/api/events/${oldEvent.id}`,{

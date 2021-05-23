@@ -5,6 +5,7 @@ import {
 
 import styles from "../styles/MenuBar.module.css";
 
+import PropTypes from "prop-types"
 
 import { useState, useEffect } from "react";
 
@@ -88,3 +89,12 @@ return (
   );
 
 }
+
+
+
+
+MenuBar.propTypes = {
+  person: PropTypes.shape({
+    id: PropTypes.number,
+  })
+};

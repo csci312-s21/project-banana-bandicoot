@@ -4,6 +4,8 @@ import styles from "../styles/AddEvent.module.css";
 import collection from "../../data/hobbies.json";
  
 import { useState } from "react";
+
+import PropTypes from "prop-types"
  
 export default function AddHobby({addHobby}){
  
@@ -50,3 +52,6 @@ export default function AddHobby({addHobby}){
  );
 }
  
+AddHobby.propTypes = {
+  addHobby: PropTypes.func.isRequired
+};
