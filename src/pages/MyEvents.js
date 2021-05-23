@@ -19,11 +19,11 @@ export default function myEvents() {
 
   
   const [session, setSession] = useSession(); //session
-  console.log("session", session)
-  const [person, setPerson] = useState(session.user.name);
+  console.log("session hello", session)
+  const [person, setPerson] = useState({"name":"kpease","email":"kpease@middlebury.edu","hometown":"Boston","birthday":"2000-02-12","major":"Computer Science and Psychology","year":"2022","hobby":["Basketball","Chess"],"bio":"hello!","username":"katelyn-pease","password":"thisismypassword!","joinedEvents":[1,2],"id":1});
  
   // const [myUsersData] = useState(initialUser);
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(person.joinedEvents);
+  const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
 
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
@@ -46,32 +46,55 @@ export default function myEvents() {
     }
 
       getPerson();
-      },[]);
+      },[session]);
 
 
   //calls all the events specific to the user 
   useEffect(() => {
     const getData = async () => {
-      //if(joinedEventsIDs) {
-      const response = await fetch(`/api/events`);
-      console.log("thisiswhereI fetch events")
+      const myEventsArray=[]
+      for (let i=0;i<((person.joinedEvents).length);i++){
+      const response = await fetch(`/api/events/${person.joinedEvents[i]}`);
+      console.log("thisiswhereI fetch each event")
+
        if (!response.ok) {
       throw new Error(response.statusText);
     }
+    // this returns a single event we have to push to an array
       const eventsData = await response.json();
-      
-      console.log(eventsData);
+      myEventsArray.push(eventsData)
+      console.log("this is a newly fetched event ",eventsData);
 
       // doing the filter here instead
-      const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
+      // Wouldn't have to filter anymore
+      // if (person !== undefined) {
+      // const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
+      // }
+      // console.log("this is once filter happens")
+    };
 
-      setMyJoinedEvents(myOwnEvents);
+      setMyJoinedEvents(myEventsArray);
+      setJoinedEventIDs(person.joinedEvents)
+    //   //if(joinedEventsIDs) {
+    //   const response = await fetch(`/api/events`);
+    //   console.log("thisiswhereI fetch events")
+    //    if (!response.ok) {
+    //   throw new Error(response.statusText);
+    // }
+    //   const eventsData = await response.json();
+      
+    //   console.log(eventsData);
+
+    //   // doing the filter here instead
+    //   const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
+
+    //   setMyJoinedEvents(myOwnEvents);
       //}
       
     };
 
       getData();
-      },[joinedEventsIDs]);
+      },[person.joinedEvents]);
 
     function joinEvent(joinedEvent) {
       const joinedEventsCopy = [...myJoinedEvents, joinedEvent];

@@ -21,10 +21,8 @@ import {useSession} from "next-auth/client"
 export default function Hobby() {
   const router = useRouter();
   const { hobby } = router.query;
-
   //const initialUser = profileData.find(user => (user.name === "Samantha Enriquez"));
   // const [collection, setCollection] = useState(data);
-
   const [events, setEvents] = useState([])
   const [page, setPage] = useState();
   //getting user info
@@ -32,7 +30,7 @@ export default function Hobby() {
   //initializing person 
   const [person, setPerson] = useState(session.user.name);
   //getting IDs of joinedEvents 
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(person.joinedEvents);
+  const [joinedEventsIDs, setJoinedEventIDs] = useState([]);
 
   // used for myEvents list
   // const [myJoinedEvents, setMyJoinedEvents] = useState(
@@ -66,7 +64,7 @@ export default function Hobby() {
 
 
 
-  //calls all the events specific to the user 
+  //calls all the events to replace collection
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/api/events`);
@@ -86,24 +84,28 @@ export default function Hobby() {
       getData();
       },[person, joinedEventsIDs]);
 
-  // Call all the events to substitue collectionn
+  // Call all the events specific to the user 
+  //calls all the events specific to the user 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(`/api/events`);
+      const myEventsArray=[]
+      for (let i=0;i<((person.joinedEvents).length);i++){
+      const response = await fetch(`/api/events/${person.joinedEvents[i]}`);
+      console.log("thisiswhereI fetch each event")
 
        if (!response.ok) {
       throw new Error(response.statusText);
     }
+    // this returns a single event we have to push to an array
       const eventsData = await response.json();
-
-      // doing the filter here instead
-      const myOwnEvents = eventsData.filter(event => (person.joinedEvents).includes(event.id))
-
-      setMyJoinedEvents(myOwnEvents);
+      myEventsArray.push(eventsData)
+      console.log("this is a newly fetched event ",eventsData);
+    };
+      setMyJoinedEvents(myEventsArray);
     };
 
       getData();
-      },[person, joinedEventsIDs]);
+      },[person.joinedEvents]);
 
   function addNewEvent (newEvent){
       if(newEvent != null){
