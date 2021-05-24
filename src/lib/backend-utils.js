@@ -114,7 +114,6 @@ export async function addGroup(hobby, firstMember) {
     userID: firstMember };
   const part = await knex("HobbyUser").insert(newHU);
  return hobby;
-
 }
 
 export async function addMember(hobbyID, member) {
@@ -160,8 +159,44 @@ export async function getUserHobbies(id){
 
 
 
+export async function addEvent(event, firstParticipant) {
+  [event.id] = await knex("Event").insert(event);
+  const newEU = { eventID: event.id, 
+    userID: firstParticipant };
+  const part = await knex("EventUser").insert(newEU);
+ return {...event, participants:[firstParticipant]};
+
+}
+
+export async function getMembers(id){
+  const mem = await knex.select("name")
+    .from("HobbyUser")
+    .join("users", "users.id", "HobbyUser.userID")
+    .where({"hobbyID":id});
+  const members = mem.map((m)=>{
+    return m.name
+  });
+  return members;
+}
+
+export async function getGroupEvents(id){
+  const gE = await knex.select("id")
+    .from("Event")
+    .where({"hobbyID":id});
+  const groupEvents = gE.map((e)=>{
+    return e.id
+  });
+  return groupEvents;
+}
 
 
-
-
+export async function getGroups() {
+  const groups = await knex("Hobby").select();
+  await Promise.all(
+  groups.map(async (group)=>{
+    group.members = await getMembers(group.id);
+    group.events = await getGroupEvents(group.id);
+  }));
+  return groups;
+}
 

@@ -13,8 +13,9 @@ res.status(200).json(event);
   const { id } = req.query;
   const newParticipant = req.body;
 
+
   const result = await addParticipant(+id, newParticipant);
- 
+
   res.status(200).json(result);
 
  

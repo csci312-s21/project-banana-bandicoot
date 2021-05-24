@@ -6,7 +6,8 @@ const handler = nc().get(async(req, res) => {
   const events = await getEvents();
   res.status(200).json(events);
 
-}).post(async(req, res)=>{
+}).post((req, res)=>{
+
   const newEvent = req.body;
   const eventObj = {
     hobbyID: newEvent.hobbyID,
@@ -23,8 +24,6 @@ const handler = nc().get(async(req, res) => {
   const result = await addEvent(eventObj, firstParticipant);
   
   res.status(200).json(result);
-
-
 
 });
 

@@ -49,6 +49,7 @@ exports.seed = async function (knex) {
   let eventMap = [];
   let hobbyMap = [];
 
+
    profiles.forEach((profile)=>{
     profile.joinedEvents.forEach((event)=>{
         eventMap.push({
@@ -66,11 +67,6 @@ exports.seed = async function (knex) {
        });
     });
   });
-
-
-
-
-     
 
 
 

@@ -1,6 +1,8 @@
 
 import events from "../../data/seed.json";
+
 import users from "../../data/test-profile.json";
+
 import hobbies from "../../data/hobbies.json";
 
 
@@ -27,6 +29,7 @@ describe("Tests of the database utility functions", () => {
     let sampleUser;
 
 
+
     beforeAll(async ()=>{
         sampleEvent = events[Math.floor(events.length/2)];
         sampleHobby= hobbies[Math.floor(hobbies.length/2)];
@@ -42,7 +45,11 @@ describe("Tests of the database utility functions", () => {
       await knex.seed.run();
     });
 
+
 describe("Events", () => {
+
+
+
     test("getParticipants fetches the correct participants for an event", async ()=>{
         const testParticipants = await getParticipants(sampleEvent.id);
 
@@ -62,6 +69,7 @@ describe("Events", () => {
          expect(event.creator).toBe(sampleEvent.creator);
          expect(event.id)
          expect(event.id).toBeGreaterThanOrEqual(0);
+
 
     });
 
@@ -89,6 +97,7 @@ describe("Events", () => {
         const properties = ["id", "title", "hobbyID", "date", "time", "location", "edited", "maxNum", "creator"];
         properties.forEach((prop)=>{expect(fetchedEvents[0]).toHaveProperty(prop)});
     });
+
 
     test("getEvents loads the correct participants", async()=>{
         const fetchedEvents = await getEvents();
@@ -141,6 +150,8 @@ describe("Events", () => {
 
     });
 
+    test("addParticipant adds participants to correct event", async ()=>{
+        const newEvent = { ...sampleEvent };
 
     test("removeParticipant removes correct participant from event", async ()=>{
         const newEvent = { ...sampleEvent };
@@ -164,6 +175,7 @@ describe("Events", () => {
 
 });
 describe("Groups", () => {
+
     test("getMembers fetches the correct members for a group/hobby", async ()=>{
         const testMembers = await getMembers(sampleHobby.id);
 
@@ -199,6 +211,7 @@ describe("Groups", () => {
 
     });
 
+
     test("getGroups loads the correct group events", async()=>{
         const fetchedGroups = await getGroups();
         const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
@@ -207,6 +220,7 @@ describe("Groups", () => {
         expect(testGroup.events).toEqual(expect.arrayContaining(sampleHobby.events));
 
     });
+
 
      test("getGroup fetches the correct hobby", async ()=>{
         const hobby = await getGroup(sampleHobby.id);
@@ -271,6 +285,7 @@ describe("Groups", () => {
         expect(updated).toBeTruthy();
         expect(updatedHobby.members.length).toBe(newMem.length);
         expect(updatedHobby.members).toEqual(expect.arrayContaining(newMem));
+
 
     });
 
