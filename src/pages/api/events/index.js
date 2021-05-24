@@ -21,7 +21,6 @@ const handler = nc().get(async(req, res) => {
   const firstParticipant = newEvent.participants[0];
 
   const result = await addEvent(eventObj, firstParticipant);
-
   
   res.status(200).json(result);
 

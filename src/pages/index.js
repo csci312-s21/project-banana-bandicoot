@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import LoginPage from "../components/LoginPage.js";
 
@@ -8,7 +8,6 @@ import ProfilePage from "../components/ProfilePage.js";
 
 import AddHobby from "../components/AddHobby.js";
 
-import profiles from "../../data/profile.json";
 
 import {
   useSession, signIn
@@ -17,11 +16,27 @@ import {
 
 export default function Home() {
   const [ session ] = useSession();
-  const user = profiles.find(profile => (profile.name === "senriquez"));
-  const [person, setPerson] = useState(user);
+  const [person, setPerson] = useState({});
   const [page, setPage] = useState("prof");
  
-  
+  useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.id}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+      const foundPerson = await response.json();
+
+      setPerson(foundPerson);
+      }
+
+    }
+
+      getPerson();
+
+      },[session]);
 
 
  let newUser; 
@@ -98,12 +113,10 @@ if(session){
   return(
   <div>
     {(page === "prof")?<MenuBar person = {person}>
- <ProfilePage person= {person} setPage = {setPage} /></MenuBar>:<AddHobby addHobby={setHobbies}/>}
+ <ProfilePage person= {person} setPage = {setPage} session = {session}/></MenuBar>:<AddHobby addHobby={setHobbies}/>}
 </div>
   );
 
-
-//   }
 }
   else{
    return (

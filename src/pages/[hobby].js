@@ -1,9 +1,8 @@
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import styles from "../styles/Home.module.css";
 
-import data from "../../data/seed.json";
 
 import Event from "../components/Event.js";
 
@@ -13,65 +12,85 @@ import MenuBar from "../components/MenuBar";
 
 import { useRouter } from "next/router";
 
-import profileData from "../../data/profile.json";
+import {useSession} from "next-auth/client";
+
 
 
 export default function Hobby() {
   const router = useRouter();
   const { hobby } = router.query;
+  const [hobbyName] = useState(hobby);
 
-
-  const user = profileData.find(curr => (curr.name === "senriquez"));
-
-  const [collection, setCollection] = useState(data);
+  const [session] = useSession();
+  const [hobbyObj, setHobbyObj] = useState({});
+  const [collection, setCollection] = useState([]);
   const [page, setPage] = useState();
-  const [person, setPerson] = useState(user);
+  const [person, setPerson] = useState({});
 
+  useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.id}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+      const foundPerson = await response.json();
+
+      setPerson(foundPerson);
+      }
+
+    }
+
+      getPerson();
+      }, [session]);
 
   useEffect(() => {
 
-    const getEvents = async () => {
-      const results = await fetch(`/api/events`);
+    const getHobby = async (useHobby) => {
+      const results = await fetch(`/api/groups/${useHobby}`);
 
       if (!results.ok) {
         throw new Error(results.statusText);
       }
 
-      const events = await results.json();
+      const hobby = await results.json();
 
-      setCollection(events);
-      /*
-      if(currentArticle){
-        setCurrentSection(currentArticle.title[0]);
-        updateTitles(currentArticle.title[0]);
-      } else{
-        if(sections.includes(section)){
-          updateTitles(section);
-        } else{
-          setCurrentSection("");
-          updateTitles();
-        }
-      }
-      */
+     
+      setHobbyObj(hobby);
+
     };
-    getEvents();
-  }, [person]);
+
+    getHobby(hobby);
+
+  }, [hobby, person]);
 
 
+  useEffect(() => {
+    const getEvents = async () => {
+      if(hobbyObj.events){
+      const hobbyEventsArray=[]
+      for (let i=0;i<((hobbyObj.events).length);i++){
+      const response = await fetch(`/api/events/${hobbyObj.events[i]}`);
 
-
-
-    const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
+       if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    else{
-    hobbies.push(event.hobby);
+    // this returns a single event we have to push to an array
+      const eventsData = await response.json();
+      hobbyEventsArray.push(eventsData)
     }
-    }
-    );
-    hobbies.sort(); 
+
+      setCollection(hobbyEventsArray);
+      }
+    };
+
+
+          getEvents();
+      }, [hobbyObj]);
+
+
+
 
 
    let newUser;
@@ -79,6 +98,7 @@ export default function Hobby() {
    
    const addEvent = async (event)=>{
      if(event){
+      console.log(event);
       const response = await fetch( `/api/events`,{
       method: "POST",
       body:  JSON.stringify(event),
@@ -88,21 +108,9 @@ export default function Hobby() {
         throw new Error(response.statusText);
       }
 
-      await response.json();
-
-      newUser = {...person, joinedEvents: [...person.joinedEvents, event.id]}
-      const response2 = await fetch( `/api/profile/${person.id}`,{
-      method: "PUT",
-      body:  JSON.stringify(newUser),
-      headers: new Headers({ "Content-type": "application/json" }),
-          });
-      if (!response2.ok) {
-        throw new Error(response2.statusText);
-      }
-
-      const newPerson = await response2.json();
+      const updated = await response.json();
     
-      setPerson(newPerson);
+      setPerson(updated);
      }
     
     setPage();
@@ -111,9 +119,9 @@ export default function Hobby() {
 
   
    const joinEvent = async (newEvent)=>{
-    //console.log("before", person.joinedEvents);
+
     newUser = {...person, joinedEvents: [...person.joinedEvents, newEvent.id]}
-    //console.log("added", newEvent.id);
+
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(newUser),
@@ -157,7 +165,6 @@ export default function Hobby() {
     const updated = await response.json();
 
     updatedEvent = {...oldEvent, participants : oldEvent.participants.filter(part => (part!==person.id)), number_joined: oldEvent.number_joined-1}
-    console.log(updatedEvent);
 
     const response2 = await fetch( `/api/events/${oldEvent.id}`,{
     method: "PUT",
@@ -184,14 +191,14 @@ export default function Hobby() {
 
         <h1 className={styles.title}>{hobby} Events</h1> 
         <ul className ={styles.eventGrid}>
-        {collection.filter(event => event.hobby === hobby).map(event =>(
+        {collection.filter(event => event.hobbyID === hobbyObj.id).map(event =>(
             <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
         ))}</ul>
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
       </div>
       ):( <div className={styles.mainContainer}>
-        <AddEvent complete = {addEvent} currHobby = {hobby} person = {person}/>
+        <AddEvent complete = {addEvent} currHobby = {hobbyObj.id} person = {person}/>
       </div>)}
 
     

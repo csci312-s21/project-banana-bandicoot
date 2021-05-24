@@ -1,29 +1,45 @@
 import styles from "../styles/Home.module.css";
 
-
 import { useState } from "react";
 
 import MenuBar from "../components/MenuBar";
 
 import Notify from "../components/notifications";
 
-import profileData from "../../data/profile.json";
+import {useSession} from "next-auth/client"
+
 
 export default function Notifications() {
 
-  const user = profileData.find(profile => (profile.name === "senriquez"));
-  const [person, setPerson] = useState(user);
+  const [person, setPerson] = useState({});
+  const [session] = useSession();
   
-  
+    useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.name}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+      const foundPerson = await response.json();
+
+      setPerson(foundPerson);
+
+      }
+
+    }
+
+      getPerson();
+      },[session]);
   
   let newUser;
   let updatedEvent;
 
   const joinEvent = async (newEvent)=>{
-    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent.id]}
-    const response = await fetch( `/api/profile/${person.id}`,{
+    const response = await fetch( `/api/profile/join/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(newEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -31,33 +47,16 @@ export default function Notifications() {
     }
 
     const updated = await response.json();
-  
-    updatedEvent = {...newEvent, participants:[...newEvent.participants, person.id], number_joined:newEvent.number_joined+1}
-
-    const response2 = await fetch( `/api/events/${newEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
 
     setPerson(updated);
     
     };
 
   const leaveEvent = async (oldEvent)=>{
-    console.log(oldEvent.id);
-    newUser = {...person, joinedEvents:
-    (person.joinedEvents.filter(event => event !== oldEvent.id))}
-    console.log(newUser);
     
     const response = await fetch( `/api/profile/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(oldEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -65,21 +64,6 @@ export default function Notifications() {
     }
 
     const updated = await response.json();
-
-    updatedEvent = {...oldEvent, participants:oldEvent.participants.filter(part => part!==person.id), number_joined:oldEvent.number_joined-1}
-    console.log(updatedEvent);
-
-    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
 
     setPerson(updated);
     };

@@ -43,7 +43,7 @@ export async function addParticipant(eventID, part) {
  const newEU = { eventID: eventID, 
     userID: part };
   const result = await knex("EventUser").insert(newEU);
-  return(result);
+  return await getUser(part);
 }
 
 export async function removeParticipant(eventID, part) {
@@ -51,15 +51,16 @@ export async function removeParticipant(eventID, part) {
   const result = await knex("EventUser")
     .where({"eventID": eventID, "userID": part}).del();
 
-  return(result);
+  return await getUser(part);
 }
 
 export async function addEvent(event, firstParticipant) {
   [event.id] = await knex("Event").insert(event);
+  console.log("HERE")
   const newEU = { eventID: event.id, 
     userID: firstParticipant };
   const part = await knex("EventUser").insert(newEU);
- return {...event, participants:[firstParticipant]};
+ return await getUser(firstParticipant);
 
 }
 
@@ -95,11 +96,11 @@ export async function getGroups() {
   return groups;
 }
 
-export async function getGroup(id) {
-  const [group] = await knex("Hobby").select().where({id:id});
+export async function getGroup(name) {
+  const [group] = await knex("Hobby").select().where({name:name});
   if(group){
-    group.members = await getMembers(id);
-    group.events = await getGroupEvents(id);
+    group.members = await getMembers(group.id);
+    group.events = await getGroupEvents(group.id);
     return group;
   }
   return null;

@@ -1,67 +1,70 @@
 import styles from "../styles/Home.module.css";
 
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MyEvents from "../components/MyEvents.js";
 
-import data from "../../data/seed.json";
-
 import MenuBar from "../components/MenuBar";
 
-import profileData from "../../data/profile.json";
+import {useSession} from "next-auth/client";
 
 
 
 export default function myEvents() {
-  
-
-  const user = profileData.find(curr => (curr.name === "senriquez"));
 
 
-
-  const [person, setPerson] = useState(user);
-  const [collection] = useState(data);
-
- 
+  const [session] = useSession();
+  const [person, setPerson] = useState({});
+  const [collection] = useState([]);
   // used for myEvents list
+  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
 
-  const [myJoinedEvents] = useState(
-    collection.filter(event => (person.joinedEvents).includes(event.id))
-  );
+  //getting user
+  useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.id}`);
 
-// useEffect(() => {
-//   const getData = async () => {
-//     const response = await fetch(`${data}/api/events`);
-  
-//     if (!response.ok) {
-//       throw new Error(response.statusText);
-//     }
-
-//     const eventsData = await response.json();
-
-//     setMyJoinedEvents(eventsData);
-//   };
-
-//   getData();
-//   },[]);
-
-const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
+       if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    else{
-    hobbies.push(event.hobby);
+      const foundPerson = await response.json();
+
+      setPerson(foundPerson);
+      }
+
     }
+
+      getPerson();
+      },[session]);
+
+
+
+  //calls all the events specific to the user 
+  useEffect(() => {
+    const getData = async () => {
+      if(person.joinedEvents){
+      const myEventsArray=[]
+      for (let i=0;i<((person.joinedEvents).length);i++){
+      const response = await fetch(`/api/events/${person.joinedEvents[i]}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    );
-    hobbies.sort(); 
+    // this returns a single event we have to push to an array
+      const eventsData = await response.json();
+      myEventsArray.push(eventsData)
+    }
+
+      setMyJoinedEvents(myEventsArray);
+      }
+    };
 
 
+          getData();
+      }, [person]);
 
-
-  let newUser;
+   let newUser;
    let updatedEvent;
 
   
