@@ -15,7 +15,7 @@ const options = {
   callbacks:{
     async session(session, user) {
     session.user.id = user.id;
-  return session
+    return session
 }
   }
 };

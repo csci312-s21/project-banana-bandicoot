@@ -2,17 +2,13 @@
 [
   {
     "name": "Basketball", 
-
     "members": [1, 4], 
-
     "events": [4, 5],
     "id": 67
   },
   {
     "name": "Chess", 
-
     "members": [2, 3], 
-
     "events": [1, 2, 3],
     "id": 32
   }

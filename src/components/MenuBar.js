@@ -6,7 +6,6 @@ import {
 
 import styles from "../styles/MenuBar.module.css";
 
-
 import Link from "next/link";
 
 import PropTypes from "prop-types"
@@ -26,7 +25,6 @@ export default function MenuBar({person, children}){
     <span onClick={() => {toggleMenu(!visible)}} className = {styles.menuHeaderI}>
     {"☰"}</span> 
   );
-
 
   useEffect(()=>{
   //updates groups when menu is rendered

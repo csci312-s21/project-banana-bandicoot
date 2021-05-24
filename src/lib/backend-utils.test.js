@@ -150,8 +150,6 @@ describe("Events", () => {
 
     });
 
-    test("addParticipant adds participants to correct event", async ()=>{
-        const newEvent = { ...sampleEvent };
 
     test("removeParticipant removes correct participant from event", async ()=>{
         const newEvent = { ...sampleEvent };
@@ -323,10 +321,6 @@ describe("Groups", () => {
 
         expect(user).toBeNull();
     });
-
-
-
-
 
 
  });
