@@ -17,7 +17,6 @@ export default function AddEvent({complete, currHobby, person}){
 
   const [capacityInput, setCapacity] = useState("");
 
-  //setId(currId + 1);
 
 
   const newEvent = {hobbyID: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, maxNum: capacityInput, participants: [person.id], edited: (new Date).toISOString(), creator: person.id};
@@ -85,9 +84,9 @@ export default function AddEvent({complete, currHobby, person}){
 
 
 AddEvent.propTypes = {
-  currHobby: PropTypes.string,
+  currHobby: PropTypes.number,
   person: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
   }),
   complete: PropTypes.func.isRequired
 };

@@ -13,6 +13,7 @@ export default function Notifications() {
 
   const [person, setPerson] = useState({});
   const [session] = useSession();
+  const [deleter, setDeleter] = useState();
   
     useEffect(() => {
     const getPerson = async () => {
@@ -30,7 +31,7 @@ export default function Notifications() {
     }
 
       getPerson();
-      },[session]);
+      },[session, deleter]);
   
 
   const joinEvent = async (newEvent)=>{
@@ -65,6 +66,23 @@ export default function Notifications() {
     setPerson(updated);
     };
 
+    const deleteEvent = async(event) => {
+    setDeleter(false);
+    if(event){
+      //delete event from list of events
+      const response = await fetch( `/api/events/${event.id}`,{
+      method: "DELETE",
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      await response.json();
+      
+      setDeleter(true);
+    }
+  }
+
 
   
   return (
@@ -76,7 +94,7 @@ export default function Notifications() {
 
 
        <h2 className={styles.title}>Newest Events:</h2> 
-      <Notify person = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
+      <Notify person = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}  deleteEvent = {deleteEvent}/> 
 
 
     </div>

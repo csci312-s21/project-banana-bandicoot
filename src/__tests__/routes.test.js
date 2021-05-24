@@ -29,7 +29,6 @@ describe.skip("Hobby Buddy API", () => {
 		return nextBuild(appDir,[], {stderr:true, stdout: true})
 			.then((results)=>{
 				if (results.stderr){
-					console.log(results.stderr);
 				}
 				const app = nextServer({
 					dir: appDir,
@@ -42,7 +41,6 @@ describe.skip("Hobby Buddy API", () => {
 				server = s;
 			})
 			.catch((rejection) =>{
-				console.log(rejection);
 			});
    }, 1000 * 100);
 

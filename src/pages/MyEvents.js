@@ -15,9 +15,8 @@ export default function myEvents() {
 
   const [session] = useSession();
   const [person, setPerson] = useState({});
-  const [collection] = useState([]);
-  // used for myEvents list
   const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+  const [deleter, setDeleter] = useState();
 
   //getting user
   useEffect(() => {
@@ -36,7 +35,7 @@ export default function myEvents() {
     }
 
       getPerson();
-      },[session]);
+      },[session, deleter]);
 
 
 
@@ -63,9 +62,6 @@ export default function myEvents() {
 
           getData();
       }, [person]);
-
-   let newUser;
-   let updatedEvent;
 
   
   const joinEvent = async (newEvent)=>{
@@ -99,6 +95,23 @@ export default function myEvents() {
 
     setPerson(updated);
     };
+
+    const deleteEvent = async(event) => {
+    setDeleter(false);
+    if(event){
+      //delete event from list of events
+      const response = await fetch( `/api/events/${event.id}`,{
+      method: "DELETE",
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      await response.json();
+      
+      setDeleter(true);
+    }
+  }
   
   return (
  <MenuBar person = {person}>
@@ -107,7 +120,7 @@ export default function myEvents() {
 
       <h1 className={styles.title}>My Events</h1> 
 
-      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
+      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent} deleteEvent = {deleteEvent} person = {person} /> 
 
     </div>
   </MenuBar>

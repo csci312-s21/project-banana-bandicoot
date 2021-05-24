@@ -8,7 +8,7 @@ import Event from "../components/Event";
 
 import PropTypes from "prop-types"
 
-export default function Notify({person, joinEvent, leaveEvent}){
+export default function Notify({person, joinEvent, leaveEvent, deleteEvent}){
   const [eventsList, setEventsList] = useState([]);
 
 
@@ -60,7 +60,7 @@ return(
 
   <ul className = {styles.eventGrid}>
   {newest_events.map((event) => (
-    <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
+    <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}  deleteEvent = {deleteEvent} owner = {(event.creator===person.id)}/>
   ))}
   </ul>
 );

@@ -10,7 +10,7 @@ import AddHobby from "../components/AddHobby.js";
 
 
 import {
-  useSession, signIn
+  useSession
 } from "next-auth/client"
 
 
@@ -65,7 +65,6 @@ export default function Home() {
 
     //If newHobby isn't in allHobbies, add it
     if(!all.includes(newHobby)){
-      console.log("here");
       const addedHobby = {name: newHobby, members: [person.id]} //Add the specific user's id
       const response = await fetch( `/api/groups`,{
       method: "POST",
@@ -84,24 +83,22 @@ export default function Home() {
 
       const hobbyID = await fetch(`/api/groups/${newHobby}`);
      if (!hobbyID.ok) {
-       throw new Error(response.statusText);
+       throw new Error(hobbyID.statusText);
      }
 
      const newHobbyObj = await hobbyID.json(); 
-     console.log(newHobbyObj);
     //Includes members, need to extract just hobby names
       //Add hobby to the user's list
       const response2 = await fetch( `/api/groups/${newHobbyObj.id}`,{
       method: "PUT",
-      body:  JSON.stringify(newHobbyObj),
+      body:  JSON.stringify(person.id),
       headers: new Headers({ "Content-type": "application/json" }),
           });
       if (!response2.ok) {
         throw new Error(response2.statusText);
       }
-
+      
       const updated = await response2.json();
-
       setPerson(updated);
 
       

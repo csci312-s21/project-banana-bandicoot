@@ -101,7 +101,7 @@ ButtonBar.propTypes = {
   joinEvent: PropTypes.func.isRequired,
   leaveEvent: PropTypes.func.isRequired,
   event: PropTypes.object.isRequired,
-  maxPeople: PropTypes.number.isRequired,
+  maxPeople: PropTypes.number,
   joined: PropTypes.bool.isRequired
 };
 

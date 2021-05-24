@@ -56,7 +56,6 @@ export async function removeParticipant(eventID, part) {
 
 export async function addEvent(event, firstParticipant) {
   [event.id] = await knex("Event").insert(event);
-  console.log("HERE")
   const newEU = { eventID: event.id, 
     userID: firstParticipant };
   const part = await knex("EventUser").insert(newEU);
@@ -103,7 +102,7 @@ export async function getGroups() {
 }
 
 export async function getGroup(name) {
-  const [group] = await knex("Hobby").select().where({name:name});
+  const [group] = await knex("Hobby").select().where({"name":name});
   if(group){
     group.members = await getMembers(group.id);
     group.events = await getGroupEvents(group.id);
@@ -126,13 +125,12 @@ export async function addMember(hobbyID, member) {
  const newHU = { hobbyID: hobbyID, 
     userID: member };
   const result = await knex("HobbyUser").insert(newHU);
-
   return await getUser(member);
 }
 
 
 export async function getUser(id){
-  const [user] = await knex("users").select().where({id:id});
+  const [user] = await knex("users").select().where({"id":id});
   if(user){
     user.hobby = await getUserHobbies(id);
     user.joinedEvents = await getUserEvents(id);

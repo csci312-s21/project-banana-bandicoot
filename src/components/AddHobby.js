@@ -14,7 +14,7 @@ export default function AddHobby({addHobby, allHobbies}){
   const hobbyList = allHobbies.map((hobby)=> { //list of sections
     return <option value = {hobby.name} key ={hobby.name}>{hobby.name}</option>;
    }); 
-   //initiate helper to perform callbacks on click
+
  
  return(
    <div className={styles.add}>

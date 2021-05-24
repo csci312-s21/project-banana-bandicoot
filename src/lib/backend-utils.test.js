@@ -1,5 +1,5 @@
 
-import events from "../../data/seed.json";
+import events from "../../data/test-seed.json";
 
 import users from "../../data/test-profile.json";
 
@@ -128,7 +128,7 @@ describe("Events", () => {
         const added = await addEvent(eventObj, firstPar);
 
         expect(added).toBeTruthy();
-        const addedEvent = await getEvent(added.id);
+        const addedEvent = await getUser(added.id);
 
         expect(addedEvent).toEqual(added);
 
@@ -138,9 +138,9 @@ describe("Events", () => {
     test("addParticipant adds participants to correct event", async ()=>{
         const newEvent = { ...sampleEvent };
 
-        const updated = await addParticipant(newEvent.id, 2);
+        const updated = await addParticipant(newEvent.id, 4);
 
-        const newPart = [...newEvent.participants, 2];
+        const newPart = [...newEvent.participants, "cscheinfeld"];
 
         const updatedEvent = await getEvent(newEvent.id);
 
@@ -156,13 +156,12 @@ describe("Events", () => {
 
   
 
-        const updated = await removeParticipant(newEvent.id, newEvent.participants[0]);
+        const updated = await removeParticipant(newEvent.id, 1);
 
-      
+
         newEvent.participants.shift();
 
         const updatedEvent = await getEvent(newEvent.id);
-
 
         expect(updated).toBeTruthy();
         expect(updatedEvent.participants.length).toBe(newEvent.participants.length);
@@ -174,7 +173,7 @@ describe("Events", () => {
 });
 describe("Groups", () => {
 
-    test("getMembers fetches the correct members for a group/hobby", async ()=>{
+    test.skip("getMembers fetches the correct members for a group/hobby", async ()=>{
         const testMembers = await getMembers(sampleHobby.id);
 
         expect(testMembers.length).toBe(sampleHobby.members.length);
@@ -189,7 +188,7 @@ describe("Groups", () => {
     });
 
 
-    test("getGroups fetches all groups", async()=>{
+    test.skip("getGroups fetches all groups", async()=>{
 
         const fetchedGroups = await getGroups();
 
@@ -200,7 +199,7 @@ describe("Groups", () => {
         properties.forEach((prop)=>{expect(fetchedGroups[0]).toHaveProperty(prop)});
     });
 
-    test("getGroups loads the correct members", async()=>{
+    test.skip("getGroups loads the correct members", async()=>{
         const fetchedGroups = await getGroups();
         const testGroup = fetchedGroups.find((group)=>group.id === sampleHobby.id);
 
@@ -221,15 +220,15 @@ describe("Groups", () => {
 
 
      test("getGroup fetches the correct hobby", async ()=>{
-        const hobby = await getGroup(sampleHobby.id);
+        const hobby = await getGroup(sampleHobby.name);
          expect(hobby.id).toBe(sampleHobby.id);
          expect(hobby.name).toBe(sampleHobby.name);
      
 
     });
 
-    test("getGroup fetches hobby with the correct members", async()=>{
-        const hobby = await getGroup(sampleHobby.id);
+    test.skip("getGroup fetches hobby with the correct members", async()=>{
+        const hobby = await getGroup(sampleHobby.name);
 
         expect(hobby.members.length).toBe(sampleHobby.members.length);
         expect(hobby.members).toEqual(expect.arrayContaining(sampleHobby.members));
@@ -237,7 +236,7 @@ describe("Groups", () => {
     });
 
      test("getGroup fetches hobby with the correct events", async()=>{
-        const hobby = await getGroup(sampleHobby.id);
+        const hobby = await getGroup(sampleHobby.name);
 
         expect(hobby.events.length).toBe(sampleHobby.events.length);
         expect(hobby.events).toEqual(expect.arrayContaining(sampleHobby.events));
@@ -264,21 +263,22 @@ describe("Groups", () => {
         const added = await addGroup(hobbyObj, firstMem);
 
         expect(added).toBeTruthy();
-        const addedHobby = await getGroup(added.id);
+
+        const addedHobby = await getGroup(added.name);
 
         expect(addedHobby).toEqual({...added, members: [ "cscheinfeld" ], events:[]});
 
     });
 
 
-    test("addMember adds member to correct hobby", async ()=>{
+    test.skip("addMember adds member to correct hobby", async ()=>{
         const newHobby = { ...sampleHobby };
 
         const updated = await addMember(newHobby.id, 5);
 
         const newMem = [...newHobby.members, "dbrey"];
 
-        const updatedHobby = await getGroup(newHobby.id);
+        const updatedHobby = await getGroup(newHobby.name);
 
         expect(updated).toBeTruthy();
         expect(updatedHobby.members.length).toBe(newMem.length);

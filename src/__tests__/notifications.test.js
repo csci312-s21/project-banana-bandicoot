@@ -62,7 +62,6 @@ describe("notifications Component", ()=> {
     )
     });
 
-  //Starting at Profile may not work if we have a real program with a backend
  test("Notifications only displays user events created within 2 hours of current time.", async () => {
 
       expect(screen.queryByText(eventTests[0])).not.toBeInTheDocument;

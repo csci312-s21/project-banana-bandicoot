@@ -83,7 +83,7 @@ return (
   <div className={styles.welcome}>
    {children}
    </div>
-   <footer className = {styles.footer}> A CS 312 Project </footer>
+   <footer className = {styles.footer}> </footer>
    </div>
 
   );

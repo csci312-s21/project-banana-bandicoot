@@ -9,11 +9,11 @@ res.status(200).json(group);
 
 
 }).put(async (req, res) => {
-  const { id } = req.query;
+  const { hobby } = req.query;
   const newMember = req.body;
 
-  const result = await addMember(+id, newMember);
- 
+  const result = await addMember(hobby, newMember);
+
   res.status(200).json(result);
 
  

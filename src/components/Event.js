@@ -23,8 +23,10 @@ export default function Event({ event, joinEvent, leaveEvent, joined, deleteEven
              
               </li>
             </ul>
+            <div>
                  {((event.participants.length === event.max_number)&&!joined)?<p className = {styles.full}>FULL</p>: 
                   <ButtonBar maxPeople = {event.max_number} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event} switchPages = {setPage} page = {page} deleteEvent = {deleteEvent} owner = {owner}/>}
+                  </div>
           </div>
   );
   } else{
@@ -35,8 +37,10 @@ export default function Event({ event, joinEvent, leaveEvent, joined, deleteEven
               {event.participants.join(", ")
             }
             </ul>
+            <div className = {styles.buttonBar}>
                  {((event.participants.length === event.maxNum)&&!joined)?<p className = {styles.full}>FULL</p>: 
                   <ButtonBar maxPeople = {event.maxNum} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event} switchPages = {setPage} page = {page} deleteEvent={deleteEvent} owner = {owner}/>}
+                  </div>
           </div>
     );
   }

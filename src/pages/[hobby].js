@@ -19,7 +19,6 @@ import {useSession} from "next-auth/client";
 export default function Hobby() {
   const router = useRouter();
   const { hobby } = router.query;
-  const [hobbyName] = useState(hobby);
 
   const [session] = useSession();
   const [hobbyObj, setHobbyObj] = useState({});
@@ -55,10 +54,10 @@ export default function Hobby() {
         throw new Error(results.statusText);
       }
 
-      const hobby = await results.json();
+      const hobbyFetch = await results.json();
 
      
-      setHobbyObj(hobby);
+      setHobbyObj(hobbyFetch);
 
     };
 
@@ -89,13 +88,6 @@ export default function Hobby() {
 
           getEvents();
       }, [hobbyObj]);
-
-
-
-
-
-   let newUser;
-   let updatedEvent;
 
 
    const deleteEvent = async(event) => {

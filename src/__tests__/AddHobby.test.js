@@ -13,10 +13,7 @@ import { useSession } from "next-auth/client";
 const newHobbyTest = {
 
   "name": "Skiing"
-  //"members": []
 }
-
-//const newHobbyTestPlusSkiing
 
 const oldHobbyTest = [
 
@@ -69,27 +66,11 @@ describe("AddHobby Component", ()=> {
 
           return alteredHobbies;
         }
-      );/*
-      fetchMock.put(
-        `/api/groups/Skiing`,
-        (id) => {
-          //console.log(id)
-          const updatedHobbies = localHobbies.map(hobby => {
-            if(hobby.name === "Skiing"){
-              const newHobbyMembers = [...hobby.members, id];
-              return {...hobby, members: newHobbyMembers}
-            } else{
-              return hobby
-            }
-          })
-          return updatedHobbies;
-        }
-      )*/
+      );
       fetchMock.put(
         `/api/profile/2`,
         (url, options) => {
           const id = getId(url);
-            console.log("hee");
 
           const modifiedProfile = JSON.parse(options.body);
        
@@ -100,7 +81,6 @@ describe("AddHobby Component", ()=> {
             return prof;
           }
         });
-        console.log(modifiedProfile);
         return modifiedProfile;
         
       }
@@ -108,8 +88,6 @@ describe("AddHobby Component", ()=> {
 
 
     });
-
-  //Skipping test because it does not work (integration with fetch mock is very complicated)
 
  test.skip("Adding hobby adds it to myHobbies", async () => {
      const addButton = screen.queryByRole("button", {name: "AddHobby"});
