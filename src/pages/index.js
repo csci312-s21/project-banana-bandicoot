@@ -20,8 +20,6 @@ export default function Home() {
   const [page, setPage] = useState("prof");
   const [allHobbies, setAllHobbies] = useState([]);
 
-  if(session){
- 
   useEffect(() => {
     const getPerson = async () => {
       if(session) {
@@ -112,6 +110,8 @@ export default function Home() {
   };
 
 
+  if(session){
+ 
   return(
   <div>
     {(page === "prof")?<MenuBar person = {person}>
