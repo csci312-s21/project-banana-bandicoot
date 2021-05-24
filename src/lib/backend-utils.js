@@ -55,7 +55,8 @@ export async function removeParticipant(eventID, part) {
 }
 
 export async function addEvent(event, firstParticipant) {
-  [event.id] = await knex("Event").insert(event, ["id"]);
+  const [result] = await knex("Event").insert(event, ["id"]);
+  event.id = (result.id)?(result.id):result;
   const newEU = { eventID: event.id, 
     userID: firstParticipant };
   await knex("EventUser").insert(newEU);
@@ -114,9 +115,12 @@ export async function getGroup(name) {
 
 
 export async function addGroup(hobby, firstMember) {
-  [hobby.id] = await knex("Hobby").insert(hobby, ["id"]);
+  const [result] = await knex("Hobby").insert(hobby, ["id"]);
+  hobby.id = (result.id)?(result.id):result;
   const newHU = { hobbyID: hobby.id, 
     userID: firstMember };
+  console.log(newHU);
+  console.log(hobby);
   await knex("HobbyUser").insert(newHU);
   return hobby;
 }
