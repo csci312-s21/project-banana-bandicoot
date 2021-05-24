@@ -1,0 +1,60 @@
+[
+  {
+
+    "id": 1,
+    "hobbyID": 32,
+    "title": "Chess Tournament!",
+    "date": "6/2",
+    "time": "10:45 AM",
+    "location": "DANA Auditorium",
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 12,
+    "participants":["kpease", "senriquez"],
+    "creator": 1
+  },
+  {
+    "id": 2,
+    "hobbyID": 32,
+    "title": "Chess Club Practice, bring friends",
+    "date": "6/8",
+    "time": "6:45 PM",
+    "location": "Wilson Cafe",
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 8,
+    "participants":["lmashadimanafi", "cscheinfeld"],
+    "creator": 5
+  },
+  {
+    "id": 3,
+    "hobbyID": 32,
+    "title": "Chess Opening Overview",
+    "date": "6/1",
+    "time": "7:45 AM",
+    "location": "Mccolough Lawn",
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 10,
+    "participants":["kpease", "lmashadimanafi"], "creator": 3
+  },
+  {
+    "id": 4,
+    "hobbyID": 67,
+    "title": "Knockout game",
+    "date": "6/3",
+    "time": "3:10 PM",
+    "location": "Ross Courts",
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 12,
+    "participants":["senriquez", "cscheinfeld"], "creator": 4
+  },
+  {
+    "id": 5,
+    "hobbyID": 67,
+    "title": "3v3 Tournament",
+    "date": "6/5",
+    "time": "2:45 PM",
+    "location": "Ross Courts",
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 6,
+    "participants":["kpease", "cscheinfeld", "dbrey"], "creator": 2
+  }
+]

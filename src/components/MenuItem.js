@@ -1,8 +1,11 @@
 import styles from "../styles/MenuBar.module.css";
 
 import { useState } from "react";
+import Link from "next/link";
 
-export default function menuItem({title, items, select, icon}){
+import PropTypes from "prop-types"
+
+export default function MenuItem({title, items, icon}){
   const [extended, toggleDrop] = useState(false);
 
 
@@ -10,28 +13,36 @@ export default function menuItem({title, items, select, icon}){
 
   const itemIcon = <i className={icon} />;
 
-  
-  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}><curr>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</curr></li>;
 
-  const menuItems = <li key = {title} data-testid = {title} onClick={() => select(title)}><curr>{itemIcon}&emsp;&emsp;{title}</curr></li>;
+  const menuItemsHeader = <li key = {title} data-testid = {title} onClick={() => toggleDrop(!extended)}className={styles.li}>{itemIcon}&emsp;&emsp;{title}&emsp;&emsp;{dropArrow}</li>;
+
+
+  const menuItems = <li key = {title} data-testid = {title} className={styles.li}>{itemIcon}&emsp;&emsp;<Link href={(title === "Profile")?("/"):`/${title}`}><a>{title}</a></Link></li>;
+
 
   let itemsList = <div />;
   if(items){
     itemsList = items.map((item)=> { //list of sections
-    return <li className = {styles.navitem} key = {item} data-testid = "item" onClick={() => select(item)}><g>{item}</g></li>;
+    return <li className = {styles.navitem} key = {item} data-testid = "item"><Link href={`/${item}`}><a>{item}</a></Link></li>;
    }); //initiate helper to perform callbacks on click
   }
 
   return (
     <div>
+    <span>{items? menuItemsHeader: menuItems}
     
-    <li className={styles.li}><span>{items? menuItemsHeader: menuItems}
-    
-    {extended?(<div className = {styles.navDropDown}> {itemsList}</div>): null}
-    </span></li>
+    {extended?(<ul className = {styles.navDropDown}> {itemsList}</ul>): null}
+    </span>
    
   </div>
 
   );
 
 }
+
+
+MenuItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.array,
+  icon: PropTypes.string.isRequired
+};

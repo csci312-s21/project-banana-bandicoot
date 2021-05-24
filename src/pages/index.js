@@ -1,166 +1,140 @@
+import { useState, useEffect } from "react";
 
-import { useState } from "react";
-
-import styles from "../styles/Home.module.css";
-
-import data from "../../data/seed.json";
-
-import Event from "../components/Event.js";
-
-import MyEvents from "../components/MyEvents.js";
-
-import AddEvent from "../components/AddEvent.js";
+import LoginPage from "../components/LoginPage.js";
 
 import MenuBar from "../components/MenuBar";
 
-import userData from "../../data/users.json";
+import ProfilePage from "../components/ProfilePage.js";
 
-import ProfilePage from "../components/ProfilePage.js"
+import AddHobby from "../components/AddHobby.js";
 
-import LoginPage from "../components/LoginPage.js"
+
+import {
+  useSession
+} from "next-auth/client"
 
 
 export default function Home() {
-  const sampleUsername = "ChrisRocks123";
+  const [ session ] = useSession();
+  const [person, setPerson] = useState({});
+  const [page, setPage] = useState("prof");
+  const [allHobbies, setAllHobbies] = useState([]);
+ 
+  useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.id}`);
 
-  const initialUser = userData.find(user => (user.username === sampleUsername));
+       if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+      const foundPerson = await response.json();
 
-  const [visible, toggleMenu] = useState(false);
-  const [collection, setCollection] = useState(data);
-  const [hobby, setHobby] = useState("");
-  //const [currId, setId] = useState(5)
-
-
-  const [myUsersData] = useState(initialUser);
-   
-   //used for join/leave buttons
-  const [joinedEventsIDs, setJoinedEventIDs] = useState(myUsersData.joinedEvents);
-
-  // used for myEvents list
-  const [myJoinedEvents, setMyJoinedEvents] = useState(
-    collection.filter(event => (myUsersData.joinedEvents).includes(event.id))
-  );
-  
-  const [currentPage, setPage] = useState("login");
-  const [person, setPerson] = useState(0);
-
-
-
-
-  const icon = (
-    <div className={styles.menuHeaderI} onClick={() => {toggleMenu(!visible)}}>
-    {visible ? null : "☰"}</div>
-    );
-
-  const hobbies = [];
-  collection.forEach((event)=> //determine sections
-  {if(hobbies.includes(event.hobby)){
-    return null;
-  }
-  else{
-    hobbies.push(event.hobby);
-  }
-  }
-  );
-  hobbies.sort(); 
-
-
-  function addNewEvent (newEvent){
-      if(newEvent != null){
-        const coll_copy = [...collection, newEvent];
-        setCollection(coll_copy);
+      setPerson(foundPerson);
       }
-    setPage("main");
-  }
 
-  if(currentPage === "login") {
+    }
+
+      getPerson();
+
+      },[session, page]);
+
+    
+
+
+ useEffect(() => {
+   const getAllHobbies = async () => {
+    const response = await fetch(`/api/groups`);
+     if (!response.ok) {
+       throw new Error(response.statusText);
+     }
+
+     const allHobbiesObject = await response.json(); 
+      setAllHobbies(allHobbiesObject);
+   }
+   getAllHobbies();
+
+ 
+ }, [page]);
+
+
+
+ const setHobbies = async (newHobby)=>{
+   if(newHobby){
+    const all = allHobbies.map(hobbyObject => hobbyObject.name)
+
+    //If newHobby isn't in allHobbies, add it
+    if(!all.includes(newHobby)){
+      const addedHobby = {name: newHobby, members: [person.id]} //Add the specific user's id
+      const response = await fetch( `/api/groups`,{
+      method: "POST",
+      body:  JSON.stringify(addedHobby),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      await response.json();
+    }
+   
+    //If the user doesn't already have this hobby, add it to their list
+    else{
+
+      const hobbyID = await fetch(`/api/groups/${newHobby}`);
+     if (!hobbyID.ok) {
+       throw new Error(hobbyID.statusText);
+     }
+
+     const newHobbyObj = await hobbyID.json(); 
+    //Includes members, need to extract just hobby names
+      //Add hobby to the user's list
+      const response2 = await fetch( `/api/groups/${newHobbyObj.id}`,{
+      method: "PUT",
+      body:  JSON.stringify(person.id),
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response2.ok) {
+        throw new Error(response2.statusText);
+      }
+      
+      const updated = await response2.json();
+      setPerson(updated);
+
+      
+    }
+   }
+  
+   setPage("prof");
+    
+  };
+   
+   
+
+
+if(session){
+
+  return(
+  <div>
+    {(page === "prof")?<MenuBar person = {person}>
+ <ProfilePage person= {person} setPage = {setPage} session = {session}/></MenuBar>:<AddHobby addHobby={setHobbies} allHobbies = {allHobbies}/>}
+</div>
+  );
+
+}
+  else{
    return (
       <div>
-      <LoginPage setPage = {setPage} getPerson = {setPerson} />
+      <LoginPage />
       </div>
     );
   }
   
-  function joinEvent(joinedEvent){
-    const joinedEventsCopy =  [...myJoinedEvents, joinedEvent];
-    setMyJoinedEvents(joinedEventsCopy);
-    const listJoinedEvents = [...joinedEventsIDs, joinedEvent.id];
-    setJoinedEventIDs(listJoinedEvents);
-  }
 
-  function leaveEvent(leftEvent){
-    const joinedEventsCopy = [...myJoinedEvents];
-    
-    for( let i = 0; i < joinedEventsCopy.length; i++){ 
-        if ( joinedEventsCopy[i].id === leftEvent.id) { 
-            joinedEventsCopy.splice(i, 1); 
-        }
-    }
-    setMyJoinedEvents(joinedEventsCopy);
-
-    //Take event ID out of joinedEventsIDs
-    const listJoinedEvents = [...joinedEventsIDs];
-    for( let i = 0; i < listJoinedEvents.length; i++){ 
-        if ( listJoinedEvents[i] === leftEvent.id) { 
-            listJoinedEvents.splice(i, 1); 
-        }
-    }
-    setJoinedEventIDs(listJoinedEvents);
-  }
-
-  return (
-    <div className={styles.mainContainer}>
-    <div>
-    <div className = {styles.sideBar}>
-    <MenuBar  visible toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage}/>
-
-    </div>
-    <div className = {styles.icon}>
-    {icon}
-
-    </div>
-
-    {visible ? <MenuBar visible = {visible} toggleMenu = {toggleMenu} select = {setHobby} allHobbies = {hobbies} setPage = {setPage} />: null }
-
-    </div>
-    {(currentPage === "Groups")?(
-
-
-       <div className={styles.welcome}>
-
-        <h1 className={styles.title}>{hobby} Events</h1> 
-        <ul className ={styles.eventGrid}>
-        {collection.filter(event => event.hobby === hobby).map(event =>(
-            <Event key={event} event = {event} joined = {joinedEventsIDs.includes(event.id)} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>
-        ))}</ul>
-        <br/>
-        <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>
-      </div>
-      ):((currentPage === "add")? (<div >
-        <AddEvent complete = {addNewEvent} currHobby = {hobby}/>
-      </div>):((currentPage === "Profile")? <ProfilePage person= {person} />:((currentPage === "Notifications")?<div className={styles.welcome}>
-
-        <h1 className={styles.title}>{hobby} Notifications</h1> </div>:(
-
-      <div className={styles.welcome}>
-      <h1 className={styles.title}>My Events</h1> 
-
-      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {myUsersData} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/>  
-      </div>))))}
-    
-      <footer className = {styles.footer}> A CS 312 Project </footer>
-    </div>
-  );
   } 
 
 
 
 
 
-
-
-/*
-For the use state for joined events (takes ids but puts them all together)
-
-users.filter(user => user.username === "ChrisRocks123").map(user => (user.joinedEvents))
-*/
+  

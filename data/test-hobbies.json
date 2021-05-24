@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Basketball", 
+    "members": ["kpease", "senriquez", "cscheinfeld", "dbrey"], 
+    "events": [4, 5],
+    "id": 67
+  },
+  {
+    "name": "Chess", 
+    "members": ["kpease", "senriquez", "lmashadimanafi", "cscheinfeld"], 
+    "events": [1, 2, 3],
+    "id": 32
+  }
+]

@@ -1,11 +1,11 @@
 import styles from "../styles/AddEvent.module.css";
 
+import PropTypes from "prop-types"
 
 import { useState } from "react";
 
-export default function AddEvent({complete, currHobby}){
+export default function AddEvent({complete, currHobby, person}){
 
-  const [hobbyInput, setHobby] = useState(currHobby);
 
   const [titleInput, setTitle] = useState("");
 
@@ -17,25 +17,17 @@ export default function AddEvent({complete, currHobby}){
 
   const [capacityInput, setCapacity] = useState("");
 
-  //setId(currId + 1);
 
-  const newEvent = {id: 7, hobby: hobbyInput, title: titleInput, date: dateInput, time: timeInput,location: locationInput, number_joined: 0, max_number: capacityInput};
+
+  const newEvent = {hobbyID: currHobby, title: titleInput, date: dateInput, time: timeInput,location: locationInput, maxNum: capacityInput, participants: [person.id], edited: (new Date).toISOString(), creator: person.id};
 
   return(
     <div className={styles.add}>
 
-    <div className={styles.text}>
+    <div>
     <form>
       <p className={styles.p}> Add Event </p>
       
-      <br />
-      <label>
-      <b>Event:     
-        </b>    
-      </label>
-      <br /> 
-
-      <input type="text" id="text_hobby" name="hobby" placeholder = "Hobby must be set" value = {hobbyInput} onChange = {(event) => setHobby(event.target.value)}/>
       <br />
       <label>
       <b>Title:     
@@ -80,7 +72,7 @@ export default function AddEvent({complete, currHobby}){
 
       <br />
 
-      <input type = "button" id = "saveButton" name = "saveButton" disabled = {titleInput.length < 1} onClick = {() => complete(newEvent)} value = "Save"/>
+      <input type = "button" id = "saveButton" name = "saveButton" disabled = {titleInput.length < 1 || locationInput.length < 1 || timeInput.length <1 || dateInput.length < 1} onClick = {() => complete(newEvent)} value = "Save"/>
 
       <input type = "button" id = "cancelButton" name = "cancelButton" onClick = {() => complete()} value = "Cancel"/>
       
@@ -89,3 +81,12 @@ export default function AddEvent({complete, currHobby}){
       </div>
   );
 }
+
+
+AddEvent.propTypes = {
+  currHobby: PropTypes.number,
+  person: PropTypes.shape({
+    id: PropTypes.number,
+  }),
+  complete: PropTypes.func.isRequired
+};

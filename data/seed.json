@@ -1,52 +1,61 @@
 [
   {
+
     "id": 1,
-    "hobby": "Chess",
+    "hobbyID": 32,
     "title": "Chess Tournament!",
-    "date": "5/2",
+    "date": "6/2",
     "time": "10:45 AM",
     "location": "DANA Auditorium",
-    "number_joined": 1,
-    "max_number": 12
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 12,
+    "participants":[1, 2],
+    "creator": 1
   },
   {
     "id": 2,
-    "hobby": "Chess",
+    "hobbyID": 32,
     "title": "Chess Club Practice, bring friends",
-    "date": "4/8",
+    "date": "6/8",
     "time": "6:45 PM",
     "location": "Wilson Cafe",
-    "number_joined": 3,
-    "max_number": 8
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 8,
+    "participants":[3, 4],
+    "creator": 5
   },
   {
     "id": 3,
-    "hobby": "Chess",
+    "hobbyID": 32,
     "title": "Chess Opening Overview",
-    "date": "5/1",
+    "date": "6/1",
     "time": "7:45 AM",
     "location": "Mccolough Lawn",
-    "number_joined": 5,
-    "max_number": 10
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 10,
+    "participants":[1, 3], "creator": 3
   },
   {
     "id": 4,
-    "hobby": "Basketball",
+    "hobbyID": 67,
     "title": "Knockout game",
-    "date": "5/3",
+    "date": "6/3",
     "time": "3:10 PM",
     "location": "Ross Courts",
-    "number_joined": 3,
-    "max_number": 12
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 12,
+    "participants":[2, 4], "creator": 4
   },
   {
     "id": 5,
-    "hobby": "Basketball",
+    "hobbyID": 67,
     "title": "3v3 Tournament",
-     "date": "5/5",
+    "date": "6/5",
     "time": "2:45 PM",
     "location": "Ross Courts",
-    "number_joined": 6,
-    "max_number": 6
+    "edited": "2021-05-21T01:20:33Z",
+    "maxNum": 6,
+    "participants":[1, 4, 5], "creator": 2
+
   }
 ]

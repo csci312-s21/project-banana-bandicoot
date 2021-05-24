@@ -1,30 +1,57 @@
 import { useState } from "react";
+
 import styles from "../styles/Event.module.css";
 
 import ButtonBar from "../components/ButtonBar.js";
 
-export default function Event({ event, joined , joinEvent, leaveEvent}) {
+import PropTypes from "prop-types"
 
-//let numPeople = numJoined;
-  
-      const [numPeople, setNumPeople ] = useState(event.number_joined);
+export default function Event({ event, joinEvent, leaveEvent, joined, deleteEvent, owner}) {
+  const [page, setPage] = useState();
 
 
-  return (
+  if(!page){
+    return (
           <div className = {styles.event}>
             <ul className = {styles.ul}>
               <li> 
 
                   <h4> {event.title} </h4>
                   <h5> {event.location} || {event.date} @ {event.time} </h5>
-                  <h5> Spots: {numPeople} / {event.max_number} </h5>
+                  <h5> Spots: {event.participants.length} / {event.maxNum} </h5>
 
              
               </li>
             </ul>
-                 {(numPeople === event.max_number)?<p className = {styles.full}>FULL</p>: 
-                  <ButtonBar numPeople = {numPeople} setNumPeople = {setNumPeople} maxPeople = {event.max_number} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event}/>}
+            <div>
+                 {((event.participants.length === event.max_number)&&!joined)?<p className = {styles.full}>FULL</p>: 
+                  <ButtonBar maxPeople = {event.max_number} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event} switchPages = {setPage} page = {page} deleteEvent = {deleteEvent} owner = {owner}/>}
+                  </div>
           </div>
   );
+  } else{
+    return(
+      <div className = {styles.event}>
+            <h2> Buddies </h2>
+            <ul className = {styles.ul}>
+              {event.participants.join(", ")
+            }
+            </ul>
+            <div className = {styles.buttonBar}>
+                 {((event.participants.length === event.maxNum)&&!joined)?<p className = {styles.full}>FULL</p>: 
+                  <ButtonBar maxPeople = {event.maxNum} joined = {joined} joinEvent = {joinEvent} leaveEvent = {leaveEvent} event = {event} switchPages = {setPage} page = {page} deleteEvent={deleteEvent} owner = {owner}/>}
+                  </div>
+          </div>
+    );
+  }
+  
 
 }
+
+
+Event.propTypes = {
+  joinEvent: PropTypes.func.isRequired,
+  leaveEvent: PropTypes.func.isRequired,
+  event: PropTypes.object.isRequired,
+  joined: PropTypes.bool.isRequired
+};
