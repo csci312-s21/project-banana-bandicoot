@@ -15,7 +15,6 @@ import {useSession} from "next-auth/client"
 
 export default function Home() {
   const [session] = useSession();
-  console.log("session in index", session);
   //const user = profiles.find(profile => (profile.name === "senriquez"));
   const [person, setPerson] = useState([]);
   const [page, setPage] = useState("prof");
@@ -34,7 +33,6 @@ export default function Home() {
       //const foundProfile = foundPeople.find(profile => //(profile.name === session.user.name))
       //console.log("PERSONfrom fetch",foundProfile)
       setPerson(foundPeople);
-      console.log("this person", person)
       }
 
     }
@@ -111,9 +109,6 @@ export default function Home() {
   };
    
    
-
-console.log(session);
-
 
 
 if (session) {
