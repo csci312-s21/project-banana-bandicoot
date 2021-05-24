@@ -2,7 +2,6 @@ import nc from "next-connect";
 import { getGroup, addMember } from "../../../lib/backend-utils";
 
 const handler = nc().get(async(req, res) => {
-console.log(req.query);
 const { hobby } = req.query;
 
 const group = await getGroup(hobby);

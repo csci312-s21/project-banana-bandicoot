@@ -121,7 +121,7 @@ export async function addMember(hobbyID, member) {
     userID: member };
   const result = await knex("HobbyUser").insert(newHU);
 
-  return(result);
+  return await getUser(member);
 }
 
 
