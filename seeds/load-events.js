@@ -12,7 +12,6 @@ exports.seed = async function (knex) {
   const hobbies = JSON.parse(hobbyContents);
   const useEvents = events.map((event)=>{
     return {
-    "id": event.id,
     "hobbyID": event.hobbyID,
     "title": event.title,
     "date": event.date,
