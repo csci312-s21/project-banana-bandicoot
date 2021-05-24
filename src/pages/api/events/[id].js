@@ -1,37 +1,30 @@
 import nc from "next-connect";
-import { readEvents } from "../../../lib/backend-utils";
-import { saveEvents } from "../../../lib/backend-utils";
+import { getEvent, addParticipant, deleteEvent } from "../../../lib/backend-utils";
 
-const handler = nc().get((req, res) => {
+const handler = nc().get(async(req, res) => {
   
 const { id } = req.query;
-const events = readEvents();
-const event = events.find((e)=> e["id"] === +id);
+const event = await getEvent(+id);
 
 res.status(200).json(event);
 
 
-}).put((req, res) => {
+}).put(async(req, res) => {
   const { id } = req.query;
-  const updatedEvent = req.body;
-  const origEvents = readEvents();
+  const newParticipant = req.body;
 
-  const alteredEvents = origEvents.map((e) => {
-      if (e.id === +id) {
-        return updatedEvent;
-        }
-        else{
-      return e;
-        }
-       });
 
-  
- 
-  res.status(200).json(updatedEvent);
+  const result = await addParticipant(+id, newParticipant);
 
-  saveEvents(alteredEvents);
+  res.status(200).json(result);
 
  
+}).delete(async(req,res) => {
+  const { id } = req.query;
+
+  await deleteEvent(id);
+
+  res.status(200).json(id);
 });
 
 export default handler;

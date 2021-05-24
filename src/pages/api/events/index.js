@@ -1,24 +1,29 @@
-import { readEvents, saveEvents } from "../../../lib/backend-utils";
+import { getEvents, addEvent } from "../../../lib/backend-utils";
 
 import nc from "next-connect";
 
-const handler = nc().get((req, res) => {
-  const events = readEvents();
+const handler = nc().get(async(req, res) => {
+  const events = await getEvents();
   res.status(200).json(events);
 
+}).post(async (req, res)=>{
 
-}).post((req, res)=>{
   const newEvent = req.body;
+  const eventObj = {
+    hobbyID: newEvent.hobbyID,
+    title: newEvent.title, 
+    date: newEvent.date, 
+    time: newEvent.time, 
+    location: newEvent.location, 
+    maxNum: newEvent.maxNum, 
+    edited: newEvent.edited, 
+    creator: newEvent.creator
+  };
+  const firstParticipant = newEvent.participants[0];
 
-  const origEvents = readEvents();
+  const result = await addEvent(eventObj, firstParticipant);
   
-  const alteredEvents = [...origEvents, newEvent];
-
-  
-  res.status(200).json(newEvent);
-
-  saveEvents(alteredEvents);
-
+  res.status(200).json(result);
 
 });
 

@@ -8,7 +8,7 @@ import Event from "../components/Event";
 
 import PropTypes from "prop-types"
 
-export default function Notify({person, joinEvent, leaveEvent}){
+export default function Notify({person, joinEvent, leaveEvent, deleteEvent}){
   const [eventsList, setEventsList] = useState([]);
 
 
@@ -42,12 +42,11 @@ useEffect(()=>{
 
   if(eventsList && person.hobby){
   eventsList.forEach(event => {
-    if(person.hobby.includes(event.hobby)){
+    if(person.joinedEvents.includes(event.id)){
 
     const possDate = new Date(event.edited);
 
     const diff = Math.round((currDate.getTime() - possDate.getTime())/hours);
-
     if(diff<2){
       newest_events.push(event);
     }
@@ -61,7 +60,7 @@ return(
 
   <ul className = {styles.eventGrid}>
   {newest_events.map((event) => (
-    <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
+    <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}  deleteEvent = {deleteEvent} owner = {(event.creator===person.id)}/>
   ))}
   </ul>
 );

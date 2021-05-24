@@ -12,6 +12,11 @@
   
 }
 
+.buttonBar{
+  bottom: 3px;
+  position: absolute;
+}
+
 .welcome{
   text-align:center;
   display: fixed;
@@ -81,8 +86,8 @@
 }
 
 
-/* position: static;
-  display: inline-grid;
-  grid-template-columns: auto auto auto;
- */
-
+@media only screen and (min-width: 1000px){
+  .welcome{
+    margin-left: 260px;
+  }
+}

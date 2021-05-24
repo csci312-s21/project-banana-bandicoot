@@ -4,6 +4,10 @@
   color: black;
 }
 
+.buttonBar{
+  margin-top: 45px;
+}
+
 .event{
   position: static;
   margin: 10px;

@@ -6,7 +6,10 @@
 
 .center {
   background-color: white;
+  display:flex-block;
+  flex-direction: column-reverse;
   width: 50%;
+  min-width: 300px;
   height: 70%;
   border: 3px solid #9e4993;
   padding: 10px;

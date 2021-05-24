@@ -1,23 +1,20 @@
-
 import styles from "../styles/AddEvent.module.css";
 
-import collection from "../../data/hobbies.json";
- 
 import { useState } from "react";
 
 import PropTypes from "prop-types"
  
-export default function AddHobby({addHobby}){
+export default function AddHobby({addHobby, allHobbies}){
  
   const [hobbyInput, setHobbyInput] = useState("");
   const [newHobbyInput, setNewHobbyInput] = useState("");
   const newHobby = {name: hobbyInput};
 
   
-  const hobbyList = collection.map((hobby)=> { //list of sections
+  const hobbyList = allHobbies.map((hobby)=> { //list of sections
     return <option value = {hobby.name} key ={hobby.name}>{hobby.name}</option>;
    }); 
-   //initiate helper to perform callbacks on click
+
  
  return(
    <div className={styles.add}>

@@ -1,75 +1,73 @@
 import styles from "../styles/Home.module.css";
 
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MyEvents from "../components/MyEvents.js";
 
-import data from "../../data/seed.json";
-
 import MenuBar from "../components/MenuBar";
 
-import profileData from "../../data/profile.json";
+import {useSession} from "next-auth/client";
 
 
 
 export default function myEvents() {
-  
 
-  
 
-  const user = profileData.find(curr => (curr.name === "Samantha Enriquez"));
+  const [session] = useSession();
+  const [person, setPerson] = useState({});
+  const [myJoinedEvents, setMyJoinedEvents] = useState([]);
+  const [deleter, setDeleter] = useState();
 
-  const [person, setPerson] = useState(user);
-  const [collection] = useState(data);
+  //getting user
+  useEffect(() => {
+    const getPerson = async () => {
+      if(session) {
+      const response = await fetch(`/api/profile/${session.user.id}`);
 
- 
-  // used for myEvents list
-
-  const [myJoinedEvents] = useState(
-    collection.filter(event => (person.joinedEvents).includes(event.id))
-  );
-
-// useEffect(() => {
-//   const getData = async () => {
-//     const response = await fetch(`${data}/api/events`);
-  
-//     if (!response.ok) {
-//       throw new Error(response.statusText);
-//     }
-
-//     const eventsData = await response.json();
-
-//     setMyJoinedEvents(eventsData);
-//   };
-
-//   getData();
-//   },[]);
-
-const hobbies = [];
-    collection.forEach((event)=> //determine sections
-    {if(hobbies.includes(event.hobby)){
-    return null;
+       if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    else{
-    hobbies.push(event.hobby);
+      const foundPerson = await response.json();
+
+      setPerson(foundPerson);
+      }
+
     }
+
+      getPerson();
+      },[session, deleter]);
+
+
+
+  //calls all the events specific to the user 
+  useEffect(() => {
+    const getData = async () => {
+      if(person.joinedEvents){
+      const myEventsArray=[]
+      for (let i=0;i<((person.joinedEvents).length);i++){
+      const response = await fetch(`/api/events/${person.joinedEvents[i]}`);
+
+       if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    );
-    hobbies.sort(); 
+    // this returns a single event we have to push to an array
+      const eventsData = await response.json();
+      myEventsArray.push(eventsData)
+    }
+
+      setMyJoinedEvents(myEventsArray);
+      }
+    };
 
 
-
-
-  let newUser;
-   let updatedEvent;
+          getData();
+      }, [person]);
 
   
-   const joinEvent = async (newEvent)=>{
-    newUser = {...person, joinedEvents:[...person.joinedEvents, newEvent.id]}
-    const response = await fetch( `/api/profile/${person.id}`,{
+  const joinEvent = async (newEvent)=>{
+    const response = await fetch( `/api/profile/join/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(newEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -77,33 +75,16 @@ const hobbies = [];
     }
 
     const updated = await response.json();
-  
-    updatedEvent = {...newEvent, participants:[...newEvent.participants, person.id], number_joined:newEvent.number_joined+1}
-
-    const response2 = await fetch( `/api/events/${newEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
 
     setPerson(updated);
     
     };
 
   const leaveEvent = async (oldEvent)=>{
-    console.log(oldEvent.id);
-    newUser = {...person, joinedEvents:
-    (person.joinedEvents.filter(event => event !== oldEvent.id))}
-    console.log(newUser);
     
-    const response = await fetch( `/api/profile/${person.id}`,{
+    const response = await fetch( `/api/profile/leave/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(oldEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -112,23 +93,25 @@ const hobbies = [];
 
     const updated = await response.json();
 
-    updatedEvent = {...oldEvent, participants:oldEvent.participants.filter(part => part!==person.id), number_joined:oldEvent.number_joined-1}
-    console.log(updatedEvent);
-
-    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
-
     setPerson(updated);
     };
+
+    const deleteEvent = async(event) => {
+    setDeleter(false);
+    if(event){
+      //delete event from list of events
+      const response = await fetch( `/api/events/${event.id}`,{
+      method: "DELETE",
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      await response.json();
+      
+      setDeleter(true);
+    }
+  }
   
   return (
  <MenuBar person = {person}>
@@ -137,7 +120,7 @@ const hobbies = [];
 
       <h1 className={styles.title}>My Events</h1> 
 
-      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent}/> 
+      <MyEvents id = "MyEvents" ourEvents = {myJoinedEvents} myData = {person} joinEvent = {joinEvent} leaveEvent = {leaveEvent} deleteEvent = {deleteEvent} person = {person} /> 
 
     </div>
   </MenuBar>

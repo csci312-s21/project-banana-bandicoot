@@ -1,29 +1,23 @@
-import { readHobbies, saveHobbies } from "../../../lib/backend-utils";
+import { getGroups, addGroup } from "../../../lib/backend-utils";
 
 import nc from "next-connect";
 
-const handler = nc().get((req, res) => {
-  const groups = readHobbies();
-  /*const hobbies =  groups.map((h) => {
-      return h.name;
-       });*/
-  res.status(200).json(groups);
 
+const handler = nc().get(async (req, res) => {
+  const hobbies =  await getGroups();
+  res.status(200).json(hobbies);
 
-}).post((req, res)=>{
+}).post(async(req, res)=>{
   const newHobby = req.body;
-  const origHobbies = readHobbies();
-  const alteredHobbies = [...origHobbies, newHobby];
+  const hobbyObj = {
+    name: newHobby.name,
+  };
+  const firstMem = newHobby.members[0];
 
-  
-  res.status(200).json(newHobby);
-
-  saveHobbies(alteredHobbies);
+  const added = await addGroup(hobbyObj, firstMem);
+  res.status(200).json(added);
 
 
-})/*.put((req, res) => {
-  const allNewHobbies = req.body;
-  
-});*/
 
+});
 export default handler;
