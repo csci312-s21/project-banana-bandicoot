@@ -30,10 +30,11 @@ exports.seed = async function (knex) {
     }
   });
   // Deletes ALL existing entries
-  await knex("Event").del();
-  await knex.batchInsert("Event", useEvents, 100);
   await knex("Hobby").del();
   await knex.batchInsert("Hobby", useHobbies, 100);
+  await knex("Event").del();
+  await knex.batchInsert("Event", useEvents, 100);
+  
 
   let eventMap = [];
   let hobbyMap = [];
