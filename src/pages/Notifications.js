@@ -54,7 +54,7 @@ export default function Notifications() {
 
   const leaveEvent = async (oldEvent)=>{
     
-    const response = await fetch( `/api/profile/${person.id}`,{
+    const response = await fetch( `/api/profile/leave/${person.id}`,{
     method: "PUT",
     body:  JSON.stringify(oldEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),

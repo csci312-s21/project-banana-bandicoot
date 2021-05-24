@@ -18,6 +18,7 @@ export default function Home() {
   const [ session ] = useSession();
   const [person, setPerson] = useState({});
   const [page, setPage] = useState("prof");
+  const [allHobbies, setAllHobbies] = useState([]);
  
   useEffect(() => {
     const getPerson = async () => {
@@ -38,8 +39,27 @@ export default function Home() {
 
       },[session]);
 
+    
+
 
  let newUser; 
+
+ useEffect(() => {
+   const getAllHobbies = async () => {
+    const response = await fetch(`/api/groups`);
+     if (!response.ok) {
+       throw new Error(response.statusText);
+     }
+
+     const allHobbiesObject = await response.json(); ///Includes members, need to extract just hobby names
+     const allHobbies = allHobbiesObject.map(hobbyObject => hobbyObject.name)
+      setAllHobbies(allHobbies);
+   }
+   getAllHobbies();
+
+ 
+ }, [person]);
+
 
 
  const setHobbies = async (newHobby)=>{

@@ -118,13 +118,10 @@ export default function Hobby() {
     };
 
   
-   const joinEvent = async (newEvent)=>{
-
-    newUser = {...person, joinedEvents: [...person.joinedEvents, newEvent.id]}
-
-    const response = await fetch( `/api/profile/${person.id}`,{
+  const joinEvent = async (newEvent)=>{
+    const response = await fetch( `/api/profile/join/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(newEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -132,30 +129,16 @@ export default function Hobby() {
     }
 
     const updated = await response.json();
-  
-    updatedEvent = {...newEvent, participants: [...newEvent.participants, person.id]}
-
-    const response2 = await fetch( `/api/events/${newEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
 
     setPerson(updated);
     
     };
 
   const leaveEvent = async (oldEvent)=>{
-    newUser = {...person, joinedEvents:
-    (person.joinedEvents.filter(event => event !== oldEvent.id))}
-    const response = await fetch( `/api/profile/${person.id}`,{
+    
+    const response = await fetch( `/api/profile/leave/${person.id}`,{
     method: "PUT",
-    body:  JSON.stringify(newUser),
+    body:  JSON.stringify(oldEvent.id),
     headers: new Headers({ "Content-type": "application/json" }),
         });
     if (!response.ok) {
@@ -163,20 +146,6 @@ export default function Hobby() {
     }
 
     const updated = await response.json();
-
-    updatedEvent = {...oldEvent, participants : oldEvent.participants.filter(part => (part!==person.id)), number_joined: oldEvent.number_joined-1}
-
-    const response2 = await fetch( `/api/events/${oldEvent.id}`,{
-    method: "PUT",
-    body:  JSON.stringify(updatedEvent),
-    headers: new Headers({ "Content-type": "application/json" }),
-        });
-
-    if (!response2.ok) {
-      throw new Error(response2.statusText);
-    }
-
-    await response2.json();
 
     setPerson(updated);
     };

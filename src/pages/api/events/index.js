@@ -6,7 +6,7 @@ const handler = nc().get(async(req, res) => {
   const events = await getEvents();
   res.status(200).json(events);
 
-}).post((req, res)=>{
+}).post(async (req, res)=>{
 
   const newEvent = req.body;
   const eventObj = {

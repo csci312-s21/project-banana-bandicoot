@@ -15,7 +15,7 @@ export default function Event({ event, joinEvent, leaveEvent, joined}) {
 
                   <h4> {event.title} </h4>
                   <h5> {event.location} || {event.date} @ {event.time} </h5>
-                  <h5> Spots: {event.participants.length} / {event.max_number} </h5>
+                  <h5> Spots: {event.participants.length} / {event.maxNum} </h5>
 
              
               </li>
