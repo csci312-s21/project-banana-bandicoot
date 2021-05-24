@@ -19,6 +19,8 @@ export default function Home() {
   const [person, setPerson] = useState({});
   const [page, setPage] = useState("prof");
   const [allHobbies, setAllHobbies] = useState([]);
+
+  if(session){
  
   useEffect(() => {
     const getPerson = async () => {
@@ -108,11 +110,7 @@ export default function Home() {
    setPage("prof");
     
   };
-   
-   
 
-
-if(session){
 
   return(
   <div>
