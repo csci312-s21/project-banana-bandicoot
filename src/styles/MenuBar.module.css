@@ -148,6 +148,10 @@
   border-radius: 5px;
 }
 
+.navitem{
+  list-style-type: none;
+}
+
 
 .navitem:hover{
   font-weight: bold;
