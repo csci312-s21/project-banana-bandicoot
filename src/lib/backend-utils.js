@@ -119,8 +119,6 @@ export async function addGroup(hobby, firstMember) {
   hobby.id = (result.id)?(result.id):result;
   const newHU = { hobbyID: hobby.id, 
     userID: firstMember };
-  console.log(newHU);
-  console.log(hobby);
   await knex("HobbyUser").insert(newHU);
   return hobby;
 }
