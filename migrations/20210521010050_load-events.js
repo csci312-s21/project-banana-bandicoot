@@ -1,22 +1,6 @@
 
 exports.up = function(knex) {
-  return knex.schema.createTable("Hobby", table =>{
-    table.increments("id").primary();
-    table.string("name").unique().notNullable();
-  }).createTable("Event", (table) => {
-    table.increments("id").primary();
-    table.integer("hobbyID").notNullable();
-    table.foreign("hobbyID").references("Hobby.id").onDelete("CASCADE");
-    table.string("title").notNullable();
-    table.string("date");
-    table.string("time");
-    table.string("location");
-    table.string("edited").notNullable();
-    table.integer("maxNum");
-    table.integer("creator").notNullable();
-    table.foreign("creator").references("users.id").onDelete("CASCADE");
-  })
-  .createTable("accounts", table=>{
+  return knex.schema.createTable("accounts", table=>{
       table.increments("id").primary();
       table.string("compound_id", 255).notNullable();
       table.integer("user_id").notNullable();
@@ -28,7 +12,6 @@ exports.up = function(knex) {
       table.timestamp("access_token_expires");
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updated_at").notNullable().defaultTo(knex.fn.now());
-  
       table.unique("compound_id");
       table.index("provider_account_id");
       table.index("provider_id");
@@ -60,7 +43,22 @@ exports.up = function(knex) {
       table.string("identifier", 255).notNullable();
       table.string("token", 255).notNullable();
       table.timestamp("expires").notNullable();
-    })
+    }).createTable("Hobby", table =>{
+    table.increments("id").primary();
+    table.string("name").unique().notNullable();
+  }).createTable("Event", (table) => {
+    table.increments("id").primary();
+    table.integer("hobbyID").notNullable();
+    table.foreign("hobbyID").references("Hobby.id").onDelete("CASCADE");
+    table.string("title").notNullable();
+    table.string("date");
+    table.string("time");
+    table.string("location");
+    table.string("edited").notNullable();
+    table.integer("maxNum");
+    table.integer("creator").notNullable();
+    table.foreign("creator").references("users.id").onDelete("CASCADE");
+  })
   .createTable("EventUser", table =>{
     table.integer("eventID");
     table.integer("userID");
