@@ -42,12 +42,11 @@ useEffect(()=>{
 
   if(eventsList && person.hobby){
   eventsList.forEach(event => {
-    if(person.hobby.includes(event.hobby)){
+    if(person.joinedEvents.includes(event.id)){
 
     const possDate = new Date(event.edited);
 
     const diff = Math.round((currDate.getTime() - possDate.getTime())/hours);
-
     if(diff<2){
       newest_events.push(event);
     }

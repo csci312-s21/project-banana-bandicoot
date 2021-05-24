@@ -16,7 +16,7 @@ import { readEvents, resetEvents, readHobbies, resetHobbies } from "../lib/backe
 
 jest.setTimeout(1000 * 80);
 
-describe("Hobby Buddy API", () => {
+describe.skip("Hobby Buddy API", () => {
   let server;
   let events;
   let sampleEvent;

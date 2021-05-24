@@ -25,7 +25,8 @@ export default function Hobby() {
   const [hobbyObj, setHobbyObj] = useState({});
   const [collection, setCollection] = useState([]);
   const [page, setPage] = useState();
-  const [person, setPerson] = useState({});
+  const [person, setPerson] = useState({joinedEvents: {}});
+  const [deleter, setDeleter] = useState();
 
   useEffect(() => {
     const getPerson = async () => {
@@ -63,7 +64,7 @@ export default function Hobby() {
 
     getHobby(hobby);
 
-  }, [hobby, person]);
+  }, [hobby, person, deleter]);
 
 
   useEffect(() => {
@@ -95,10 +96,27 @@ export default function Hobby() {
 
    let newUser;
    let updatedEvent;
+
+
+   const deleteEvent = async(event) => {
+    setDeleter(false);
+    if(event){
+      //delete event from list of events
+      const response = await fetch( `/api/events/${event.id}`,{
+      method: "DELETE",
+      headers: new Headers({ "Content-type": "application/json" }),
+          });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      await response.json();
+      
+      setDeleter(true);
+    }
+  }
    
    const addEvent = async (event)=>{
      if(event){
-      console.log(event);
       const response = await fetch( `/api/events`,{
       method: "POST",
       body:  JSON.stringify(event),
@@ -161,7 +179,7 @@ export default function Hobby() {
         <h1 className={styles.title}>{hobby} Events</h1> 
         <ul className ={styles.eventGrid}>
         {collection.filter(event => event.hobbyID === hobbyObj.id).map(event =>(
-            <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)}/>
+            <Event key={event} event = {event} joinEvent = {joinEvent} leaveEvent = {leaveEvent} joined = {person.joinedEvents.includes(event.id)} deleteEvent = {deleteEvent} owner = {(event.creator===person.id)}/>
         ))}</ul>
         <br/>
         <input className={styles.addButton} type = "button" name = "addEvent" id = "addEvent" value = "Add Event" onClick = {() => setPage("add")}/>

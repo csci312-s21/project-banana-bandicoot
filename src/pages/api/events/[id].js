@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { getEvent, addParticipant } from "../../../lib/backend-utils";
+import { getEvent, addParticipant, deleteEvent } from "../../../lib/backend-utils";
 
 const handler = nc().get(async(req, res) => {
   
@@ -19,6 +19,12 @@ res.status(200).json(event);
   res.status(200).json(result);
 
  
+}).delete(async(req,res) => {
+  const { id } = req.query;
+
+  await deleteEvent(id);
+
+  res.status(200).json(id);
 });
 
 export default handler;

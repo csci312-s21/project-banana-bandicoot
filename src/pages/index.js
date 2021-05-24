@@ -37,12 +37,10 @@ export default function Home() {
 
       getPerson();
 
-      },[session]);
+      },[session, page]);
 
     
 
-
- let newUser; 
 
  useEffect(() => {
    const getAllHobbies = async () => {
@@ -57,24 +55,17 @@ export default function Home() {
    getAllHobbies();
 
  
- }, [person]);
+ }, [page]);
 
 
 
  const setHobbies = async (newHobby)=>{
    if(newHobby){
-     const hobbyID = await fetch(`/api/groups/${newHobby}`);
-     if (!hobbyID.ok) {
-       throw new Error(response.statusText);
-     }
-
-     const newHobbyObj = await hobbyID.json(); 
-
-    //Includes members, need to extract just hobby names
-    const allHobbies = allHobbies.map(hobbyObject => hobbyObject.name)
+    const all = allHobbies.map(hobbyObject => hobbyObject.name)
 
     //If newHobby isn't in allHobbies, add it
-    if(!allHobbies.includes(newHobby)){
+    if(!all.includes(newHobby)){
+      console.log("here");
       const addedHobby = {name: newHobby, members: [person.id]} //Add the specific user's id
       const response = await fetch( `/api/groups`,{
       method: "POST",
@@ -82,7 +73,7 @@ export default function Home() {
       headers: new Headers({ "Content-type": "application/json" }),
           });
       if (!response.ok) {
-        throw new Error(response2.statusText);
+        throw new Error(response.statusText);
       }
 
       await response.json();
@@ -90,13 +81,22 @@ export default function Home() {
    
     //If the user doesn't already have this hobby, add it to their list
     else{
+
+      const hobbyID = await fetch(`/api/groups/${newHobby}`);
+     if (!hobbyID.ok) {
+       throw new Error(response.statusText);
+     }
+
+     const newHobbyObj = await hobbyID.json(); 
+     console.log(newHobbyObj);
+    //Includes members, need to extract just hobby names
       //Add hobby to the user's list
       const response2 = await fetch( `/api/groups/${newHobbyObj.id}`,{
       method: "PUT",
       body:  JSON.stringify(newHobbyObj),
       headers: new Headers({ "Content-type": "application/json" }),
           });
-      if (!response3.ok) {
+      if (!response2.ok) {
         throw new Error(response2.statusText);
       }
 

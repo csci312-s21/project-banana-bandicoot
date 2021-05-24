@@ -4,7 +4,9 @@ import styles from "../styles/ProfilePage.module.css";
 import PropTypes from "prop-types"
 
 export default function ProfilePage({session, person, setPage}){
+  if(person.hobby){
   return (
+
     <div>
       <div className={styles.left} />
          <div className={styles.center}>
@@ -14,14 +16,17 @@ export default function ProfilePage({session, person, setPage}){
            </div>
            <div className={styles.info}>
            <p><b>Email:</b> {person.email}</p>
-           <p><b>Favorite Hobbies:</b> {person.hobby}</p>
+           <p><b>Favorite Hobbies:</b> {person.hobby.join(", ")}</p>
            <input className={styles.button} type = "button" id = "AddHobby" value = "AddHobby" onClick = {() => setPage("add")}/>
           
          </div>
       </div>
    </div> 
      );
-
+}
+else{
+  return null;
+}
 }
 
 

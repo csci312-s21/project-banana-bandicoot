@@ -17,13 +17,12 @@ export default function Notifications() {
     useEffect(() => {
     const getPerson = async () => {
       if(session) {
-      const response = await fetch(`/api/profile/${session.user.name}`);
+      const response = await fetch(`/api/profile/${session.user.id}`);
 
        if (!response.ok) {
       throw new Error(response.statusText);
     }
       const foundPerson = await response.json();
-
       setPerson(foundPerson);
 
       }
@@ -33,8 +32,6 @@ export default function Notifications() {
       getPerson();
       },[session]);
   
-  let newUser;
-  let updatedEvent;
 
   const joinEvent = async (newEvent)=>{
     const response = await fetch( `/api/profile/join/${person.id}`,{

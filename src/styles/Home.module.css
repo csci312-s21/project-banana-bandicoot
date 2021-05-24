@@ -12,6 +12,11 @@
   
 }
 
+.buttonBar{
+  bottom: 3px;
+  position: absolute;
+}
+
 .welcome{
   text-align:center;
   display: fixed;

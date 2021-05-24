@@ -19,12 +19,12 @@ export async function getEvents() {
 }
 
 export async function getParticipants(id){
-  const part = await knex.select("id")
+  const part = await knex.select("name")
     .from("EventUser")
     .join("users", "users.id", "EventUser.userID")
     .where({"eventID":id});
   const participants = part.map((p)=>{
-    return p.id
+    return p.name
   });
   return participants;
 }
@@ -62,6 +62,12 @@ export async function addEvent(event, firstParticipant) {
   const part = await knex("EventUser").insert(newEU);
  return await getUser(firstParticipant);
 
+}
+
+export async function deleteEvent(eventID){
+  const result = await knex("Event").where({"id":eventID}).del();
+  await knex("EventUser").del().where({"eventID":eventID});
+  return result;
 }
 
 export async function getMembers(id){
