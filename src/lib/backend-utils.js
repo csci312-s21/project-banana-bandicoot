@@ -55,7 +55,8 @@ export async function removeParticipant(eventID, part) {
 }
 
 export async function addEvent(event, firstParticipant) {
-  [event.id] = await knex("Event").insert(event, ["id"]);
+  const [result] = await knex("Event").insert(event, ["id"]);
+  event.id = (result.id)?(result.id):result;
   const newEU = { eventID: event.id, 
     userID: firstParticipant };
   await knex("EventUser").insert(newEU);
