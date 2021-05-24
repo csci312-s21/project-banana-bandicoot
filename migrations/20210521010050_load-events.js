@@ -1,6 +1,9 @@
 
 exports.up = function(knex) {
-  return knex.schema.createTable("Event", (table) => {
+  return knex.schema.createTable("Hobby", table =>{
+    table.increments("id").primary();
+    table.string("name").unique().notNullable();
+  }).createTable("Event", (table) => {
     table.increments("id").primary();
     table.integer("hobbyID").notNullable();
     table.foreign("hobbyID").references("Hobby.id").onDelete("CASCADE");
@@ -12,10 +15,6 @@ exports.up = function(knex) {
     table.integer("maxNum");
     table.integer("creator").notNullable();
     table.foreign("creator").references("users.id").onDelete("CASCADE");
-  })
-  .createTable("Hobby", table =>{
-    table.increments("id").primary();
-    table.string("name").unique().notNullable();
   })
   .createTable("accounts", table=>{
       table.increments("id").primary();
