@@ -2,26 +2,12 @@
 
 module.exports = {
    development: {
-    client: "pg",
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      directory: "./migrations"
+    client: "sqlite3",
+    connection: {
+      filename: "./hobbybuddy.sqlite3",
     },
-    seeds: {
-      directory: "./seeds"
-    },
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
+    useNullAsDefault: true,
   },
-  // development: {
-  //   client: "sqlite3",
-  //   connection: {
-  //     filename: "./hobbybuddy.sqlite3",
-  //   },
-  //   useNullAsDefault: true,
-  // },
 
   test: {
     client: "sqlite3",
